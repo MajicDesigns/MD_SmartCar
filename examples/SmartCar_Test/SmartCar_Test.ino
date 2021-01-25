@@ -1,4 +1,4 @@
-// Test MD_DCMotor with DC Motors
+// Test MD_SmartCar with DC Motors/Encoders
 //
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
@@ -8,144 +8,71 @@
 #endif
 
 // Global Variables
-MD_DCMotor ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
-MD_MotorEncoder EL(EN_L_PIN);                         // Left motor encoder
-MD_DCMotor MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
-MD_MotorEncoder ER(EN_R_PIN);                         // Right motor encoder
+#if CONTROLLER_L298 || CONTROLLER_L293
+SC_DCMotor_L298 ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
+SC_DCMotor_L298 MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
+#endif
+#if CONTROLLER_M1508 || CONTROLLER_DRV8833
+SC_DCMotor_M1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
+SC_DCMotor_M1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
+#endif
+
+SC_MotorEncoder EL(EN_L_PIN);                         // Left motor encoder
+SC_MotorEncoder ER(EN_R_PIN);                         // Right motor encoder
+
 MD_SmartCar Car(&ML, &EL, &MR, &ER);                  // SmartCar object
 
 // handler function prototypes
 void handlerHelp(char* param);
 
-bool char2dir(MD_SmartCar::dirType_t &d, char c)
+void handlerV(char* param)
 {
-  bool b = true;
+  int16_t v = 0;
 
-  switch (toupper(c))
-  {
-  case 'S': d = MD_SmartCar::STOP; Serial.print(F("STP ")); break;
-  case 'F': d = MD_SmartCar::FWD;  Serial.print(F("FWD ")); break;
-  case 'R': d = MD_SmartCar::REV;  Serial.print(F("REV ")); break;
-  default: b = false; break;
-  }
+  Serial.print(F("\n> Velocity "));
+  v = strtoul(param, nullptr, 10);
+  if (v < -100) v = -100;
+  if (v > 100) v = 100;
+  Serial.print(v);
 
-  return(b);
+  Car.setVelocity(v);
 }
 
-bool char2side(MD_SmartCar::sideType_t& s, char c)
+void handlerD(char* param)
 {
-  bool b = true;
+  int v;
+  int a;
 
-  switch (toupper(c))
-  {
-  case 'C': s = MD_SmartCar::CENTER; Serial.print(F("CNTR "));  break;
-  case 'L': s = MD_SmartCar::LEFT;   Serial.print(F("LEFT ")); break;
-  case 'R': s = MD_SmartCar::RIGHT;  Serial.print(F("RIGHT ")); break;
-  default: b = false; break;
-  }
+  Serial.print(F("\n> Drive "));
+  sscanf(param, "%d %d", &v, &a);
+  if (v < -100) v = -100;
+  if (v > 100) v = 100;
+  if (a < -180) a = -180;
+  if (a > 180) a = 180;
+  Serial.print(v);
+  Serial.print(' ');
+  Serial.print(a);
 
-  return(b);
+  Car.drive((int8_t)v, (int8_t)a);
 }
 
-bool char2path(MD_SmartCar::pathType_t& p, char c)
+void handlerM(char* param)
 {
-  bool b = true;
+  int vl, vr;
+  int al, ar;
 
-  switch (toupper(c))
-  {
-  case 'L': p = MD_SmartCar::LINEAR; Serial.print(F("LIN ")); break;
-  case 'V': p = MD_SmartCar::VEER;   Serial.print(F("VEER "));   break;
-  case 'T': p = MD_SmartCar::TURN;   Serial.print(F("TURN "));   break;
-  case 'A': p = MD_SmartCar::ATURN;  Serial.print(F("ATRN "));  break;
-  default: b = false; break;
-  }
+  Serial.print(F("\n> Move "));
+  sscanf(param, "%d %d %d %d", &vl, &al, &vr, &ar);
+  if (vl < -100) vl = -100;
+  if (vl > 100) vl = 100;
+  if (vr < -100) vr = -100;
+  if (vr > 100) vr = 100;
+  Serial.print(vl); Serial.print(' ');
+  Serial.print(al); Serial.print(' ');
+  Serial.print(vr); Serial.print(' ');
+  Serial.print(ar); Serial.print(' ');
 
-  return(b);
-}
-
-void handlerS(char* param)
-{
-  uint16_t s = 0;
-
-  Serial.print(F("\n> Speed "));
-  s = strtoul(param, nullptr, 10);
-  if (s > 255) s = 255;
-  Serial.print(s);
-
-  Car.setSpeed(s);
-}
-
-void handlerR(char* param)
-{
-  MD_SmartCar::dirType_t d;
-  MD_SmartCar::sideType_t s;
-  MD_SmartCar::pathType_t p;
-  uint16_t spd = 0;
-
-  Serial.print(F("\n> Run "));
-  if (!char2dir(d, param[0]))
-  {
-    Serial.print(F("unknown '"));
-    Serial.print((char)toupper(param[0]));
-    Serial.print(F("'"));
-    return;
-  }
-
-  if (!char2side(s, param[1]))
-  {
-    Serial.print(F(" unknown '"));
-    Serial.print((char)toupper(param[1]));
-    Serial.print(F("'"));
-    return;
-  }
-
-  if (!char2path(p, param[2]))
-  {
-    Serial.print(F(" unknown '"));
-    Serial.print((char)toupper(param[2]));
-    Serial.print(F("'"));
-    return;
-  }
-
-  spd = strtoul(&param[3], nullptr, 10);
-  if (spd > 255) spd = 255;
-  Serial.print(spd);
-
-  Car.run(p, s, d, spd);
-}
-
-void handlerC(char* param)
-{
-  MD_SmartCar::dirType_t d;
-  MD_SmartCar::sideType_t s;
-  MD_SmartCar::pathType_t p;
-
-  Serial.print(F("\n> Creep "));
-  if (!char2dir(d, param[0]))
-  {
-    Serial.print(F("unknown '"));
-    Serial.print((char)toupper(param[0]));
-    Serial.print(F("'"));
-    return;
-  }
-
-  if (!char2side(s, param[1]))
-  {
-    Serial.print(F(" unknown '"));
-    Serial.print((char)toupper(param[1]));
-    Serial.print(F("'"));
-    return;
-  }
-
-  if (!char2path(p, param[2]))
-  {
-    Serial.print(F(" unknown '"));
-    Serial.print((char)toupper(param[2]));
-    Serial.print(F("'"));
-    return;
-  }
-
-  Car.creep(p, s, d);
+  Car.move((int8_t)vl, (uint16_t)al, (int8_t)vr, (uint16_t)ar);
 }
 
 void handlerX(char* param)
@@ -154,7 +81,19 @@ void handlerX(char* param)
   Car.stop();
 }
 
-void handlerP(char* param)
+void handlerRS(char* param)
+{
+  Serial.print(F("\n\n----"));
+  Serial.print(F("\nPWM Speeds: "));
+  Serial.print(Car.getMinMotorSP());
+  Serial.print(F(", "));
+  Serial.print(Car.getMaxMotorSP());
+  Serial.print(F("\nCreep: "));
+  Serial.print(Car.getCreepSP());
+  Serial.print(F("\n----\n"));
+}
+
+void handlerTK(char* param)
 {
   uint16_t ip, ii, id;
   float fp, fi, fd;
@@ -171,20 +110,35 @@ void handlerP(char* param)
   Car.setPIDTuning(fp, fi, fd);
 }
 
+void handlerTP(char* param)
+{
+  uint16_t l, h;
+
+  sscanf(param, "%d %d", &l, &h);
+  Serial.print(F("\n> PWM "));
+  Serial.print(l); Serial.print(", ");
+  Serial.print(h);
+
+  Car.setMinMotorSP(l);
+  Car.setMaxMotorSP(h);
+}
+
 void handlerCS(char* param) { Car.saveConfig(); }
 void handlerCL(char* param) { Car.loadConfig(); }
 
 const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
 {
-  { "?",  handlerHelp, "",    "Help", 0 },
-  { "h",  handlerHelp, "",    "Help", 0 },
-  { "s",  handlerS,  "n",     "Left speed setting to n [0..255]", 1 },
-  { "r",  handlerR,  "dsp v", "Run d [S,F,R] s [C,L,R] p [Ln,Vr,Tn,Atn] v", 1 },
-  { "c",  handlerC,  "dsp",   "Creep d [S,F,R] s [C,L,R] p [Ln,Vr,Tn,Atn]", 1 },
-  { "x",  handlerX,  "",      "Stop", 1 },
-  { "p",  handlerP,  "p i d", "PID Tunings (value * 100)", 2 },
-  { "cs", handlerCS, "",      "Configuration Save", 3 },
-  { "cl", handlerCL, "",      "Configuration Load", 3 },
+  { "?",  handlerHelp, "",      "Help", 0 },
+  { "h",  handlerHelp, "",      "Help", 0 },
+  { "v",  handlerV,  "n",       "Master velocity setting n [0..999]", 1 },
+  { "rs", handlerRS,  "",       "Report configured speeds", 1 },
+  { "d",  handlerD,  "v a",     "Drive vel v [-100,100] angle [-180,180]", 2 },
+  { "m",  handlerM,  "l a r b", "Move speed l,r [-100,100] subtended angle a,b", 2 },
+  { "x",  handlerX,  "",        "Stop", 2 },
+  { "tk", handlerTK, "p i d",   "PID Tunings [p,i,d = (float value * 100)]", 3 },
+  { "tp", handlerTP, "l h",     "PWM tunings [l, h = 0..255]", 3},
+  { "cs", handlerCS, "",        "Configuration Save", 4 },
+  { "cl", handlerCL, "",        "Configuration Load", 4 },
 };
 
 MD_cmdProcessor CP(Serial, cmdTable, ARRAY_SIZE(cmdTable));
@@ -203,7 +157,7 @@ void setup(void)
     Serial.print(F("\n\n!! Unable to start car"));
 
   // start command processor
-  Serial.print(F("\nMD_SmartCar Tester\n------------------"));
+  Serial.print(F("\n\nMD_SmartCar Tester\n------------------"));
   Serial.print(F("\nEnter command. Ensure line ending set to newline.\n"));
   CP.begin();
   CP.help();
@@ -211,6 +165,6 @@ void setup(void)
 
 void loop(void)
 {
-  Car.move();
+  Car.run();
   CP.run();
 }

@@ -1,8 +1,8 @@
 <map id="src/MD_DCMotor.h" name="src/MD_DCMotor.h">
 <area shape="rect" id="node1" title="Header file for the MD_DCMotor class." alt="" coords="127,5,260,32"/>
-<area shape="rect" id="node3" href="$_m_d___d_c_motor_8cpp.html" title="Class definition for the MD_DCMotor class." alt="" coords="37,80,184,107"/>
+<area shape="rect" id="node3" href="$_m_d___d_c_motor_8cpp.html" title="Class definition for the MD_DCMotor_L298 class." alt="" coords="37,80,184,107"/>
 <area shape="rect" id="node5" href="$_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,80,345,107"/>
 <area shape="rect" id="node7" href="$_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,155,155,181"/>
-<area shape="rect" id="node9" href="$_m_d___smart_car___config_8cpp.html" title="Code file for SmartCar library class &#45; configuration data methods." alt="" coords="180,155,375,181"/>
+<area shape="rect" id="node9" href="$_m_d___smart_car___config_8cpp.html" title="Code file for MD_SmartCar library class &#45; configuration data methods." alt="" coords="180,155,375,181"/>
 <area shape="rect" id="node11" href="$_m_d___smart_car___paths_8cpp.html" title="Code file for SmartCar library class &#45; path management data and methods." alt="" coords="399,155,591,181"/>
 </map>

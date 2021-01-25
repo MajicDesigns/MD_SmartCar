@@ -1,9 +1,31 @@
 #pragma once
 /**
  * \file
- * \brief Header file for the MD_MotorEncoder class.
+ * \brief Header file for the SC_MotorEncoder class.
  */
 
+/**
+\page pageMotorEncoder Motor Encoder
+
+## Photo Interruptor Encoder
+
+The motor encoder can be any device that will provide a known number of pulses 
+per revolution.
+
+The simplest encoder for this application is a photo interruptor. This is a 
+device that has a LED shining through a rotating slotted wheel with a detector 
+on the other side. The slotted wheel turns with the driven wheel and the encoder
+is attached to the vehicle body. A module with this device is shown below.
+
+![Motor Encoder] (Encoder.jpg "Motor Encoder")
+
+As encoders can be salvaged from a variety of inoperable electronic equipment (printers,
+mice for example), the circuit above can be used to build a near-zero cost DIY version.
+Note that the output of this circuit is pulled-up when there is no signal from the 
+detector.
+
+The output of the circuit needs to be connected to a pin that supports interrupts.
+*/
 #include <Arduino.h>
 
 #ifndef NO_PIN
@@ -13,10 +35,10 @@
 #define MAX_ISR 8      ///< Allow up to 8 encoders
 
 /**
- * Core object for the MD_MotorEncoder class
+ * Core object for the SC_MotorEncoder class
  * This class is a simple abstraction for DC motor encoder feedback.
  */
-class MD_MotorEncoder
+class SC_MotorEncoder
 {
 public:
   //--------------------------------------------------------------
@@ -28,19 +50,19 @@ public:
    *
    * Instantiate a new instance of the class.
    * 
-   * The main function for the core object is to initialize the internal
+   * The main function for the core object is to reset the internal
    * shared variables and timers to default values.
    *
    * \param pinInt The interrupt pin for the encoder. This is digital pin that support interrupts.
    */
-  MD_MotorEncoder(uint8_t pinInt);
+  SC_MotorEncoder(uint8_t pinInt);
 
   /**
    * Class Destructor.
    *
    * Release any allocated memory and clean up anything else.
    */
-  ~MD_MotorEncoder(void);
+  ~SC_MotorEncoder(void);
   /** @} */
 
   //--------------------------------------------------------------
@@ -50,7 +72,7 @@ public:
   /**
    * Initialize the object.
    *
-   * Initialize the object data. This needs to be called during setup() to initialize new
+   * Initialize the object data. This needs to be called during setup() to reset new
    * data for the class that cannot be done during the object creation.
    *
    * \return false if the pin specified is not an interrupt pin.
@@ -68,24 +90,51 @@ public:
    * Read encoder values.
    *
    * Returns the encoder accumulated count and the time period over which it was
-   * accumulated, and resets the two registers.
+   * accumulated and resets the registers if required.
    * 
    * \param interval variable for the time interval.
    * \param count    variable for the accumulator count.
-   * \param bReset   if true (f=default) rset the counters, otherwise leave them as they are.
+   * \param bReset   if true (f=default) reset the counters, otherwise leave them as they are.
    */
   void read(uint32_t& interval, uint16_t& count, bool bReset = true);
+
+  /**
+   * Set the pulses per encoder revolution
+   *
+   * Sets the number of pulses per encoder revolution. This depends on the hardware 
+   * for the encoder and could vary between different vehicle configurations.
+   * number of pulses to revolutions and then distance.
+   *
+   * \sa getPulsePerRev()
+   * 
+   * \param ppr the number of encoder pulses per wheel revolution.
+   */
+  inline void setPulsePerRev(uint8_t ppr) { if (ppr != 0) _ppr = ppr; }
+  
+  /**
+   * Read pulses per encoder revolution
+   *
+   * Returns the number of pulses per encoder revolution. This is needed to change from 
+   * number of pulses to revolutions and then distance.
+   *
+   * \sa setPulsePerRev()
+   *
+   * \return The number of pulses per revolution.
+   */
+  inline uint8_t getPulsePerRev(void) { return(_ppr); }
+
   /** @} */
 
 private:
   // Define the class variables
   uint8_t _pinInt;            ///< The interrupt pin in use
+  uint8_t _ppr;               ///< The configured pulses per revolution
   uint32_t _timeLast;         ///< Keep track of when the counter was reset
   uint8_t _myISRId;           ///< This is my instance ISR Id for myInstance[x] and encoderISRx
   volatile uint16_t _counter; ///< Encoder interrupt counter
 
   static uint8_t _ISRAlloc;              ///< Keep track of which ISRs are used (global bit field)
-  static MD_MotorEncoder* _myInstance[]; ///< callback instance for the ISR to reach handleISR()
+  static SC_MotorEncoder* _myInstance[]; ///< callback instance for the ISR to reach handleISR()
 
   void handleISR(void);       ///< Instance ISR handler called from static ISR encoderISRx
 

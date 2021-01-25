@@ -5,12 +5,16 @@
 This library is for the implementation of a Smart Car Autonomous Robot.
 
 See Also
+- \subpage pageMotorController
+- \subpage pageMotorEncoder
+- \subpage pagePID
 - \subpage pageRevisionHistory
 - \subpage pageDonation
 - \subpage pageCopyright
 
 \page pageDonation Support the Library
-If you like and use this library please consider making a small donation using [PayPal](https://paypal.me/MajicDesigns/4USD)
+If you like and use this library please consider making a small donation 
+using [PayPal](https://paypal.me/MajicDesigns/4USD)
 
 \page pageCopyright Copyright
 Copyright (C) 2021 Marco Colli. All rights reserved.
@@ -35,11 +39,10 @@ Jan 2020 version 1.0.0
  */
 
 #include <Arduino.h>
-#include <EEPROM.h>
-#include "MD_SmartCarHW.h"
-#include "MD_DCMotor.h"
-#include "MD_MotorEncoder.h"
-#include <PID_v1.h>
+#include <SC_HardwareDefs.h>
+#include <SC_DCMotor.h>
+#include <SC_MotorEncoder.h>
+#include <SC_PID.h>
 
  /**
  * \file
@@ -49,9 +52,9 @@ Jan 2020 version 1.0.0
 #define SCDEBUG     1
 
 #if SCDEBUG
-#define PRINT(s,v)   do { Serial.print(F(s)); Serial.print(v); } while (false);
-#define PRINTX(s,v)  do { Serial.print(F(s)); Serial.print(F("0x")); Serial.print(v, HEX); } while (false);
-#define PRINTS(s)    do { Serial.print(F(s)); } while (false);
+#define PRINT(s,v)   do { Serial.print(F(s)); Serial.print(v); } while (false)
+#define PRINTX(s,v)  do { Serial.print(F(s)); Serial.print(F("0x")); Serial.print(v, HEX); } while (false)
+#define PRINTS(s)    do { Serial.print(F(s)); } while (false)
 #else
 #define PRINT(s,v)
 #define PRINTX(s,v)
@@ -79,73 +82,6 @@ public:
     */
     static const uint8_t MAX_MOTOR = 2;
 
-    /**
-     * Movement path type
-     *
-     * Define possible 'canned' paths for the smart car.
-     */
-    enum pathType_t
-    {
-      LINEAR,  ///< Straight path
-      VEER,    ///< Veer left 90 degrees (arc)
-      TURN,    ///< On-the-spot turn (90 degrees)
-      ATURN,   ///< On-the-spot 'about' turn (180 degrees)
-    };
-
-  /**
-   * Movement direction type
-   * 
-   * Define the possible directions SmartCar can travel
-   */
-    enum dirType_t
-    {
-      STOP,  ///< No motion
-      FWD,   ///< Forward direction
-      REV,   ///< Reverse direction
-    };
-
-  /**
-   * Movement side direction type
-   *
-   * Define the possible sides SmartCar can travel
-   */
-    enum sideType_t
-    {
-      CENTER, ///< Not applicable
-      LEFT,   ///< Left direction
-      RIGHT,  ///< Right direction
-    };
-
-  /** 
-   * Running mode type
-   *
-   * Define how the motors will be controlled.
-   * All motors will be controlled in the same during a specific path.
-   */
-  enum runType_t 
-  { 
-    CREEP,    ///< Creep - use the encoder to count pulses for motion. Should be more precise.
-    RUN,      ///< Run - run motor with PID to control speed.
-  };
-
-  /**
-   * Path specifcation record
-   *
-   * Define the possible directions SmartCar can travel
-   */
-  struct pathDef_t
-  {
-    pathType_t path;    ///< the path to follow
-    sideType_t side;    ///< the side to move
-    dirType_t dir;      ///< the direction of travel
-    runType_t run;      ///< how the motors are controlled for this path
-    struct 
-    {
-      MD_DCMotor::runCmd_t dir;   ///< the direction to drive this motor
-      uint16_t count;             ///< count of pulses for CREEP
-    } mspec[MAX_MOTOR];           ///< Motor settings specification  
-  };
-
    /** @} */
 
   //--------------------------------------------------------------
@@ -158,7 +94,7 @@ public:
    * Instantiate a new instance of the class.
    * This variant is for motor controllers that have a PWM input for speed control.
    * 
-   * The main function for the core object is to initialize the internal
+   * The main function for the core object is to reset the internal
    * shared variables and timers to default values.
    * 
    * \param ml The object for controlling the left side motor.
@@ -166,7 +102,7 @@ public:
    * \param mr The object for controlling the right side motor.
    * \param er The object to use as the right side encoder input.
    */
-  MD_SmartCar(MD_DCMotor *ml, MD_MotorEncoder *el, MD_DCMotor *mr, MD_MotorEncoder *er);
+  MD_SmartCar(SC_DCMotor *ml, SC_MotorEncoder *el, SC_DCMotor *mr, SC_MotorEncoder *er);
 
   /**
    * Class Destructor.
@@ -183,10 +119,10 @@ public:
   /**
    * Initialize the object.
    *
-   * Initialize the object data. This needs to be called during setup() to initialize new
+   * Initialize the object data. This needs to be called during setup() to reset new
    * items that cannot be done during object creation.
    * 
-   * \return false if either encoder did not initialize, true otherwise.
+   * \return false if either encoder did not reset, true otherwise.
    */
   bool begin(void);
 
@@ -196,95 +132,22 @@ public:
    * This is called every iteration through loop() to run all the required
    * Smart Car Management functions.
    */
-  void move(void);
+  void run(void);
 
-  /**
-   * Set the current master speed setting.
-   *
-   * Speed is expressed as frequency of the encoder input (ie, clicks per second).
-   * The Master speed is used to regulate all the speed functions for the motors.
-   * When this method is called all the motors will be set to this speed as their
-   * set point, overriding any path defined speed differentials.
-   *
-   * \sa getSpeed()
-   * 
-   * \param speed the new speed setting.
-   */
-  void setSpeed(uint16_t speed);
-
-  /**
-   * Get the current master speed setting.
-   *
-   * Speed is expressed as frequency of the encoder input (ie, clicks per second).
-   * The Master speed is used to regulate all the speed functions for the motors.
-   *
-   * \sa setSpeed()
-   *
-   * \return the current master speed setting.
-   */
-  inline uint16_t getSpeed(void) { return(_speed); }
-
-  /**
-   * Free run the smart car at current speed.
-   *
-   * Free running moves the motors under PID control. 
-   * 
-   * Free running moves are defined in a path_t type definition stored in the 
-   * library, keyed by the tuple made up of the (path, side, dir) parameters passed 
-   * to this method (a unique combination). This form of the method maintains the 
-   * current speed setting.
-   *
-   * \sa setSpeed(), setPIDTuning(), 
-   *
-   * \param path the pathType_t path name for this movement.
-   * \param side the sideType_t definition for the side the move will be executed.
-   * \param dir  the dirType_t direction of to travel when executing this move.
-   */
-  void run(pathType_t path, sideType_t side, dirType_t dir) { run(path, side, dir, getSpeed()); }
-
-  /**
-   * Free run the smart car at specified speed.
-   *
-   * Free running moves the motors under PID control.
-   *
-   * Free running moves are defined in a path_t type definition stored in the
-   * library, keyed by the tuple made up of the (path, side, dir) parameters passed
-   * to this method (a unique combination). The speed specified is passed to setSpeed()
-   * and must be suitable for that method.
-   *
-   * \sa setSpeed(), setPIDTuning(),
-   *
-   * \param path  the pathType_t path name for this movement.
-   * \param side  the sideType_t definition for the side the move will be executed.
-   * \param dir   the dirType_t direction of to travel when executing this move.
-   * \param speed the new speed setting for this movement.
-   */
-  void run(pathType_t path, sideType_t side, dirType_t dir, uint16_t speed);
-  
-  /**
-   * Creep move the smart car.
-   *
-   * Creeping controls the movement by counting the encoder pulses.
-   *
-   * Creeping moves should be more precise and controlled, useful for specific 
-   * movements run at slower speed.
-   * 
-   * All creeping moves are defined in a path_t type definition stored in the 
-   * library, keyed by the tuple made up of the (path, side, dir) parameters passed 
-   * to this method (a unique combination).
-   * 
-   * \sa run()
-   * 
-   * \param path the pathType_t path name for this movement.
-   * \param side the sideType_t definition for the side the move will be executed.
-   * \param dir  the dirType_t direction of to travel when executing this move.
-   */
-  void creep(pathType_t path, sideType_t side, dirType_t dir);
+ /**
+  * Check if motors are running
+  * 
+  * Check if motors are commanded to run. This method is useful to check when
+  * drive() or move() have completed their motions.
+  *
+  * \return true if any of the motors are not idle
+  */ 
+  bool isRunning(void);
 
   /**
    * Stop the smart car.
    *
-   * This method will set the speed to 0 and disable all the morot functions to 
+   * This method will set the speed to 0 and disable all the motor functions to
    * bring the smart car to a complete stop.
    *
    * \sa setSpeed()
@@ -292,6 +155,129 @@ public:
   void stop(void);
   /** @} */
 
+  //--------------------------------------------------------------
+  /** \name Methods for free running the vehicle.
+   * @{
+   */
+  /**
+   * Drive the vehicle along specified path (degrees).
+   *
+   * Run the vehicle along a path with the specified velocity and angular orientation.
+   * Moves the motors under PID control.
+   *
+   * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
+   * Positive velocity move the vehicle forward, negative moves it in reverse.
+   *
+   * Angular velocity is specified in degrees per second [-180..180]. Positive angle
+   * is clockwise rotation.
+   *
+   * \sa setVelocity(), setPIDTuning(), move()
+   *
+   * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
+   * \param vAngularD the angular velocity in degrees per second [-180..180].
+   */
+  void drive(int8_t vLinear, int8_t vAngularD) { drive(vLinear, deg2rad(vAngularD)); }
+
+  /**
+   * Drive the vehicle along specified path (radians).
+   *
+   * Run the vehicle along a path with the specified velocity and angular orientation.
+   * Moves the motors under PID control.
+   *
+   * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
+   * Positive velocity move the vehicle forward, negative moves it in reverse.
+   *
+   * Angular velocity direction is specified in radians per second [-pi..pi]. Positive
+   * angle is clockwise rotation.
+   *
+   * \sa setVelocity(), setPIDTuning(), move()
+   *
+   * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
+   * \param vAngularR the angular velocity in radians per second [-pi..pi].
+   */
+  void drive(int8_t vLinear, float vAngularR);
+
+  /**
+   * Set the current master linear velocity.
+   *
+   * Linear velocity is expressed as a percentage of the maximum velocity [0..100].
+   * 
+   * When this method is called all the motors will be set to the appropriate velocity 
+   * differentials, taking into account the currently set angular velocity.
+   *
+   * \sa getVelocity(), drive()
+   * 
+   * \param vel the new linear velocity setting.
+   */
+  void setVelocity(int8_t vel);
+
+  /**
+   * Get the current master linear velocity.
+   *
+   * Linear velocity is expressed as a percentage of the maximum velocity [0..100].
+   * The Master velocity is used to regulate all the speed functions for the motors.
+   *
+   * \sa setVelocity()
+   *
+   * \return the current master speed setting.
+   */
+  inline int8_t getVelocity(void) { return(_vLinear); }
+
+  /** @} */
+
+  //--------------------------------------------------------------
+  /** \name Methods for precision movements of the vehicle.
+   * @{
+   */
+   /**
+   * Precisely move the vehicle (radians).
+   *
+   * Move controls the movement by counting the encoder pulses rather that PID,
+   * which should make it more precise and controlled. This is useful for specific 
+   * movements run at slow speed.
+   * 
+   * The call to move() specifies the precise motion of the motors, independently.
+   * This method is design to allow close movements such as spin-in-place or 
+   * other short precise motions.
+   * 
+   * The motion for each wheel is specified as speed as percentage of maximum speed 
+   * [-100..100] and the total angle subtended by the turned by the wheel in radians.
+   * Negative speed is a wheel rotation in reverse
+   * 
+   * \sa drive()
+   * 
+   * \param vL   left motor speed as a percentage of full speed [-100..100].
+   * \param angL left wheel angle subtended by the motion.
+   * \param vR   right motor speed as a percentage of full speed [-100..100].
+   * \param angR right wheel angle subtended by the motion.
+   */
+  void move(int8_t vL, float angL, int8_t vR, float angR);
+
+  /**
+  * Precisely move the vehicle (degrees).
+  *
+  * Move controls the movement by counting the encoder pulses rather that PID,
+  * which should make it more precise and controlled. This is useful for specific
+  * movements run at slow speed.
+  *
+  * The call to move() specifies the precise motion of the motors, independently.
+  * This method is design to allow close movements such as spin-in-place or
+  * other short precise motions.
+  *
+  * The motion for each wheel is specified as speed as percentage of maximum speed
+  * [-100..100] and the total angle subtended by the turned by the wheel in degrees.
+  * Negative speed is a wheel rotation in reverse
+  *
+  * \sa drive()
+  *
+  * \param vL   left motor speed as a percentage of full speed [-100..100].
+  * \param angL left wheel angle subtended by the motion.
+  * \param vR   right motor speed as a percentage of full speed [-100..100].
+  * \param angR right wheel angle subtended by the motion.
+  */
+  void move(int8_t vL, uint16_t angL, int8_t vR, uint16_t angR) { move(vL, deg2rad(angL), vR, deg2rad(angR)); }
+
+  /** @} */
   //--------------------------------------------------------------
   /** \name Methods for EEPROM and Configuration Management.
    * @{
@@ -310,7 +296,7 @@ public:
   /**
    * Save settings to EEPROM.
    *
-   * Save the current settings to EEPROM. These will overwrite any previouly 
+   * Save the current settings to EEPROM. These will overwrite any previously 
    * saved settings.
    *
    * \sa loadConfig()
@@ -322,14 +308,25 @@ public:
    *
    * Set the creep speed units for the motors. These units will be passed
    * on directly to DCMotorControl and are meaningful to that class.
-   * saved settings.
    *
    * \sa getCreepSP(), saveConfig()
    * 
    * \param units speed units to be used with the motor controller.
    * \return true if the value was set, false if it fails sanity checks.
    */
-  bool setCreepSP(uint16_t units);
+  bool setCreepSP(uint8_t units);
+
+  /**
+   * Get the creep speed.
+   *
+   * Get the creep speed units for the motors. These units will be passed
+   * on directly to DCMotorControl and are meaningful to that class.
+   *
+   * \sa getCreepSP(), saveConfig()
+   *
+   * \return the previously configured speed.
+   */
+  uint8_t getCreepSP(void) { return(_config.creepPWM); }
 
   /**
    * Set the minimum motor setpoint.
@@ -342,7 +339,7 @@ public:
    *
    * \param units speed units to be used with the motor controller.
    */
-  void setMinMotorSP(uint16_t units) { _config.minPWM = units; setPIDOutputLimits(); }
+  void setMinMotorSP(uint8_t units) { if (units < _config.maxPWM) _config.minPWM = units; setPIDOutputLimits(); }
 
   /**
    * Set the maximum motor setpoint.
@@ -356,19 +353,7 @@ public:
    * 
    * \param units speed units to be used with the motor controller.
    */
-  void setMaxMotorSP(uint16_t units) { _config.maxPWM = units; setPIDOutputLimits(); }
-
-  /**
-   * Get the creep speed.
-   *
-   * Get the currently configured creep speed. The units are
-   * meaningful to the motor controller (eg, PWM setting).
-   *
-   * \sa setCreepSP(), saveConfig()
-   *
-   * \return speed units currently configured.
-   */
-  uint16_t getCreepSP(void) { return(_config.creepSP); }
+  void setMaxMotorSP(uint8_t units) { if (units > _config.minPWM) _config.maxPWM = units; setPIDOutputLimits(); }
 
   /**
    * Get the minimum motor setpoint.
@@ -380,7 +365,7 @@ public:
    *
    * \return speed units currently configured.
    */
-  uint16_t getMinMotorSP(void) { return(_config.minPWM); }
+  uint8_t getMinMotorSP(void) { return(_config.minPWM); }
 
   /**
    * Get the maximum motor setpoint.
@@ -392,7 +377,7 @@ public:
    *
    * \return speed units currently configured.
    */
-  uint16_t getMaxMotorSP(void) { return(_config.maxPWM); }
+  uint8_t getMaxMotorSP(void) { return(_config.maxPWM); }
 
   /**
    * Change PID tuning parameters.
@@ -405,7 +390,7 @@ public:
    * \param Ki the integral PID parameter.
    * \param Kd the derivative PID parameter.
    */
-  void setPIDTuning(double Kp, double Ki, double Kd);
+  void setPIDTuning(float Kp, float Ki, float Kd);
   /** @} */
 
 private:
@@ -413,46 +398,50 @@ private:
   const uint8_t MLEFT = 0;      ///< Array index for the Left motor
   const uint8_t MRIGHT = 1;     ///< Array index for the right motor
 
-  enum runState_t { S_IDLE, S_RUN_INIT, S_RUN, S_CREEP_INIT, S_CREEP, S_CREEP_END };
+  enum runState_t { S_IDLE, S_DRIVE_INIT, S_DRIVE, S_MOVE_INIT, S_MOVE };
 
-  uint16_t _speed;         ///< master speed setting
+  float _vMaxLinear;      ///< Maximum linear speed in mm/s 
+  int16_t _vLinear;       ///< Master velocity setting as percentage full scale (_vMaxLinear)
+  float _vAngular;        ///< angular velocity in in radians per second
 
   // Define the control objects
-  MD_DCMotor* _M[MAX_MOTOR];      ///< Motor controllers
-  MD_MotorEncoder* _E[MAX_MOTOR]; ///< Motor encoders for feedback
+  SC_DCMotor* _M[MAX_MOTOR];      ///< Motor controllers
+  SC_MotorEncoder* _E[MAX_MOTOR]; ///< Motor encoders for feedback
 
   // Configuration data that is saved to EEPROM
   struct
   {
-    uint8_t sig[2];       ///< config signature bytes
-    uint16_t creepSP;     ///< the creep set point
-    uint16_t minPWM;      ///< the min PWM setting for DC motors
-    uint16_t maxPWM;      ///< the max PWM setting for DC motors
-    double Kp;            ///< PID parameter
-    double Ki;            ///< PID parameter
-    double Kd;            ///< PID parameter
+    uint8_t sig[2];   ///< config signature bytes
+    uint8_t minPWM;   ///< the min PWM setting for DC motors
+    uint8_t maxPWM;   ///< the max PWM setting for DC motors
+    uint8_t creepPWM; ///< the creep PWM setting for DC motors
+    float Kp;         ///< PID parameter
+    float Ki;         ///< PID parameter
+    float Kd;         ///< PID parameter
   } _config;
 
   // Motor state data used to manage each motor
   struct motorData_t
   {
+    SC_DCMotor::runCmd_t direction;   ///< turning direction
+
     // PID variables
-    double sp;          ///< PID required outcome (set point)
-    double cv;          ///< PID calcs input (current value)
-    double co;          ///< PID calcs output (control output)
-    PID* pid;           ///< PID object
+    int16_t sp;     ///< drive() PID set point value / move() PWM setting
+    int16_t cv;     ///< drive() PID current value / move() target number of encoder pulses
+    int16_t co;     ///< PID control output
+    SC_PID* pid;    ///< PID object for control
 
     // Run state variables
-    runState_t state;   ///< control state for this motor
+    runState_t state;      ///< control state for this motor
+    uint32_t   lastPIDRun; ///< time PID was last run (ms)
   };
   
   motorData_t _mData[MAX_MOTOR];  ///< keeping track of each motor's parameters
 
-  pathDef_t _path;                      ///< the current path being followed
-  static const pathDef_t PROGMEM pathTable[7];  ///< table of built-in path definitions
+  // Methods
+  void printConfig(void);             ///< debug only
+  void setPIDOutputLimits(void);      ///< set the PID limits for all motors
 
-  // methods
-  void setPIDOutputLimits(void);    ///< set the PID limits for all motors
-  void updateSetpoint(void);        ///< update the current set point, propagating as necessary
-  bool findPath(pathDef_t *rpath, pathType_t fpath, sideType_t fside, dirType_t fdir, runType_t frun, const pathDef_t * table, uint16_t count);
+  void calcVMax(void);         ///< calculate _vMaxLinear from the physical constants
+  float deg2rad(int16_t deg);  ///< convert degrees to radians
 };

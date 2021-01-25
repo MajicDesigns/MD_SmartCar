@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['count_127',['count',['../struct_m_d___smart_car_1_1path_def__t.html#ac7af79621d0d480e65014e8e22e321e0',1,'MD_SmartCar::pathDef_t']]],
-  ['creepsp_128',['creepSP',['../class_m_d___smart_car.html#af253de027dd30125f6de2b98fc548daf',1,'MD_SmartCar']]]
+  ['_5fmode_177',['_mode',['../class_s_c___d_c_motor.html#a72d4807b1c12ac62ac77e35a6e208380',1,'SC_DCMotor']]],
+  ['_5fspeed_178',['_speed',['../class_s_c___d_c_motor.html#a325d2f5cb6bbb9a1ae9f959fefdaa774',1,'SC_DCMotor']]]
 ];

@@ -1,13 +1,32 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
+MD_SmartCar	KEYWORD1
+pathDef_t	KEYWORD1
 MD_DCMotor	KEYWORD1
+MD_MotorEncoder	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+begin	KEYWORD2
+reset	KEYWORD2
+read	KEYWORD2
 run	KEYWORD2
+move	KEYWORD2
 setSpeed	KEYWORD2
+getSpeed	KEYWORD2
+creep	KEYWORD2
+stop	KEYWORD2
+loadConfig	KEYWORD2
+saveConfig	KEYWORD2
+setCreepSP	KEYWORD2
+setMinMotorSP	KEYWORD2
+setMaxMotorSP	KEYWORD2
+getCreepSP	KEYWORD2
+getMinMotorSP	KEYWORD2
+getMaxMotorSP	KEYWORD2
+setPIDTuning	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
@@ -16,3 +35,15 @@ DIR_FWD	LITERAL1
 DIR_REV	LITERAL1
 DIR_BRK	LITERAL1
 DIR_REL	LITERAL1
+LINEAR	LITERAL1
+VEER	LITERAL1
+TURN	LITERAL1
+ATURN	LITERAL1
+STOP	LITERAL1
+FWD	LITERAL1
+REV	LITERAL1
+CENTER	LITERAL1
+LEFT	LITERAL1
+RIGHT	LITERAL1
+CREEP	LITERAL1
+RUN	LITERAL1

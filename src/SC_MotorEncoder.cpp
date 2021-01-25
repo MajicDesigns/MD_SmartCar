@@ -1,23 +1,25 @@
 /**
  * \file
- * \brief Class definition file for the MD_MotorEncoder class.
+ * \brief Class definition file for the SC_MotorEncoder class.
  */
 
-#include "MD_MotorEncoder.h"
+#include "SC_MotorEncoder.h"
+#include "SC_HardwareDefs.h"
 
-MD_MotorEncoder::MD_MotorEncoder(uint8_t pinInt) :
+SC_MotorEncoder::SC_MotorEncoder(uint8_t pinInt) :
   _pinInt(pinInt) 
 {
+  setPulsePerRev(EN_PPR_DEF);
 }
 
-MD_MotorEncoder::~MD_MotorEncoder(void)
+SC_MotorEncoder::~SC_MotorEncoder(void)
 {
   if (_pinInt != NO_PIN)
     detachInterrupt(digitalPinToInterrupt(_pinInt));
   _ISRAlloc &= ~_BV(_myISRId);   // free up the ISR slot for someone else
 }
 
-bool MD_MotorEncoder::begin(void)
+bool SC_MotorEncoder::begin(void)
 {
   int8_t irq = digitalPinToInterrupt(_pinInt);
 
@@ -65,7 +67,7 @@ bool MD_MotorEncoder::begin(void)
   return(_pinInt != NO_PIN);
 }
 
-void MD_MotorEncoder::reset(void)
+void SC_MotorEncoder::reset(void)
 {
   if (_pinInt != NO_PIN)
   {
@@ -74,7 +76,7 @@ void MD_MotorEncoder::reset(void)
   }
 }
 
-void MD_MotorEncoder::read(uint32_t& interval, uint16_t& count, bool bReset)
+void SC_MotorEncoder::read(uint32_t& interval, uint16_t& count, bool bReset)
 {
   if (_pinInt != NO_PIN)
   {
@@ -85,18 +87,18 @@ void MD_MotorEncoder::read(uint32_t& interval, uint16_t& count, bool bReset)
   }
 }
 
-void MD_MotorEncoder::handleISR(void) { _counter++; }  ///< Instance ISR handler called from static ISR encoderISRx
+void SC_MotorEncoder::handleISR(void) { _counter++; }  ///< Instance ISR handler called from static ISR encoderISRx
 
 // Interrupt handling declarations required outside the class
-uint8_t MD_MotorEncoder::_ISRAlloc = 0;     ///< allocation table for the encoderISRx()
-MD_MotorEncoder* MD_MotorEncoder::_myInstance[MAX_ISR]; ///< callback instance for the ISR
+uint8_t SC_MotorEncoder::_ISRAlloc = 0;     ///< allocation table for the encoderISRx()
+SC_MotorEncoder* SC_MotorEncoder::_myInstance[MAX_ISR]; ///< callback instance for the ISR
 
 // ISR for each myISRId
-void MD_MotorEncoder::encoderISR0(void) { MD_MotorEncoder::_myInstance[0]->handleISR(); }
-void MD_MotorEncoder::encoderISR1(void) { MD_MotorEncoder::_myInstance[1]->handleISR(); }
-void MD_MotorEncoder::encoderISR2(void) { MD_MotorEncoder::_myInstance[2]->handleISR(); }
-void MD_MotorEncoder::encoderISR3(void) { MD_MotorEncoder::_myInstance[3]->handleISR(); }
-void MD_MotorEncoder::encoderISR4(void) { MD_MotorEncoder::_myInstance[4]->handleISR(); }
-void MD_MotorEncoder::encoderISR5(void) { MD_MotorEncoder::_myInstance[5]->handleISR(); }
-void MD_MotorEncoder::encoderISR6(void) { MD_MotorEncoder::_myInstance[6]->handleISR(); }
-void MD_MotorEncoder::encoderISR7(void) { MD_MotorEncoder::_myInstance[7]->handleISR(); }
+void SC_MotorEncoder::encoderISR0(void) { SC_MotorEncoder::_myInstance[0]->handleISR(); }
+void SC_MotorEncoder::encoderISR1(void) { SC_MotorEncoder::_myInstance[1]->handleISR(); }
+void SC_MotorEncoder::encoderISR2(void) { SC_MotorEncoder::_myInstance[2]->handleISR(); }
+void SC_MotorEncoder::encoderISR3(void) { SC_MotorEncoder::_myInstance[3]->handleISR(); }
+void SC_MotorEncoder::encoderISR4(void) { SC_MotorEncoder::_myInstance[4]->handleISR(); }
+void SC_MotorEncoder::encoderISR5(void) { SC_MotorEncoder::_myInstance[5]->handleISR(); }
+void SC_MotorEncoder::encoderISR6(void) { SC_MotorEncoder::_myInstance[6]->handleISR(); }
+void SC_MotorEncoder::encoderISR7(void) { SC_MotorEncoder::_myInstance[7]->handleISR(); }

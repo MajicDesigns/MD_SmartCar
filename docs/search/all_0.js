@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['aturn_0',['ATURN',['../class_m_d___smart_car.html#a6739640d84701e00e263fec6833f7478afb79276e5716487cd26b73e5f430f7d3',1,'MD_SmartCar']]]
+  ['_5fmode_0',['_mode',['../class_s_c___d_c_motor.html#a72d4807b1c12ac62ac77e35a6e208380',1,'SC_DCMotor']]],
+  ['_5fspeed_1',['_speed',['../class_s_c___d_c_motor.html#a325d2f5cb6bbb9a1ae9f959fefdaa774',1,'SC_DCMotor']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['wheel_5fcircum_159',['WHEEL_CIRCUM',['../_m_d___smart_car_h_w_8h.html#a9bebc3bf2d3661de7391abd91f05368a',1,'MD_SmartCarHW.h']]]
+  ['wheel_5fbase_209',['WHEEL_BASE',['../_s_c___hardware_defs_8h.html#aa69dad587e1dc5cb820bbdae4e9b73c9',1,'SC_HardwareDefs.h']]],
+  ['wheel_5fdiam_210',['WHEEL_DIAM',['../_s_c___hardware_defs_8h.html#aa6c7b5a524f31d15f58f9d99d9dbc88c',1,'SC_HardwareDefs.h']]]
 ];

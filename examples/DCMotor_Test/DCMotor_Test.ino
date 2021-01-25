@@ -1,4 +1,4 @@
-// Test MD_DCMotor with DC Motors
+// Test SC_DCMotor with DC Motors
 //
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
@@ -8,10 +8,16 @@
 #endif
 
 // Global Variables
-MD_DCMotor ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
-MD_MotorEncoder EL(EN_L_PIN);                         // Left motor encoder
-MD_DCMotor MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
-MD_MotorEncoder ER(EN_R_PIN);                         // Right motor encoder
+#if CONTROLLER_L298 || CONTROLLER_L293
+SC_DCMotor_L298 ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
+SC_DCMotor_L298 MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
+#endif
+#if CONTROLLER_M1508 || CONTROLLER_DRV8833
+SC_DCMotor_M1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
+SC_DCMotor_M1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
+#endif
+SC_MotorEncoder EL(EN_L_PIN);             // Left motor encoder
+SC_MotorEncoder ER(EN_R_PIN);             // Right motor encoder
 
 const uint32_t REPORT_TIME = 1000;        // reporting period in ms
 bool bEncoderEnabled = false;             // global flag for reporting
@@ -20,7 +26,7 @@ uint32_t timeLastReport = 0;              // report every REPORT_TIME period
 // handler function prototypes
 void handlerHelp(char* param);
 
-void motorSpeed(MD_DCMotor &M, char m, char* param)
+void motorSpeed(SC_DCMotor &M, char m, char* param)
 {
   uint16_t s = 0;
 
@@ -28,24 +34,22 @@ void motorSpeed(MD_DCMotor &M, char m, char* param)
   Serial.print(m);
   Serial.print(F(" "));
   s = strtoul(param, nullptr, 10);
-  if (s > 255) s = 255;
-  Serial.print(s);
   M.setSpeed(s);
+  Serial.print(M.getSpeed());
 }
 
-void motorMode(MD_DCMotor& M, char m, char* param)
+void motorMode(SC_DCMotor& M, char m, char* param)
 {
-  MD_DCMotor::runCmd_t cmd;
+  SC_DCMotor::runCmd_t cmd;
 
   Serial.print(F("\n> Run "));
   Serial.print(m);
   Serial.print(F(" "));
   switch (toupper(*param))
   {
-  case 'S': cmd = MD_DCMotor::DIR_REL; Serial.print(F("REL")); break;
-  case 'F': cmd = MD_DCMotor::DIR_FWD; Serial.print(F("FWD")); break;
-  case 'R': cmd = MD_DCMotor::DIR_REV; Serial.print(F("REV")); break;
-  case 'B': cmd = MD_DCMotor::DIR_BRK; Serial.print(F("BRK")); break;
+  case 'F': cmd = SC_DCMotor::DIR_FWD; Serial.print(F("FWD")); break;
+  case 'R': cmd = SC_DCMotor::DIR_REV; Serial.print(F("REV")); break;
+  case 'S': cmd = SC_DCMotor::DIR_STOP; Serial.print(F("STOP")); break;
   default:
     Serial.print(F("unknown '"));
     Serial.print(toupper(*param));
@@ -53,7 +57,7 @@ void motorMode(MD_DCMotor& M, char m, char* param)
     return;
   }
 
-  M.run(cmd);
+  M.run(cmd, M.getSpeed());
 }
 
 void handlerSL(char* param) { motorSpeed(ML, 'L', param); }
@@ -77,8 +81,8 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
   { "h",  handlerHelp, "",  "Help", 0 },
   { "sl", handlerSL,  "n", "Left speed setting to n [0..255]", 1 },
   { "sr", handlerSR,  "n", "Right speed setting to n [0..255]", 1 },
-  { "rl", handlerRL,  "m", "Run Left in mode m [f=fwd, r=rev, s=rel, b=brk]", 1 },
-  { "rr", handlerRR,  "m", "Run Right in mode m [f=fwd, r=rev, s=rel, b=brk]", 1 },
+  { "rl", handlerRL,  "m", "Run Left in mode m [f=fwd, r=rev, s=stop]", 1 },
+  { "rr", handlerRR,  "m", "Run Right in mode m [f=fwd, r=rev, s=stop]", 1 },
   { "e", handlerE,    "",  "Toggle encoder reporting on/off", 2 },
 };
 
@@ -93,7 +97,7 @@ void handlerHelp(char* param)
 void setup(void)
 {
   Serial.begin(57600);
-  Serial.print(F("\nMD_SmartCar Motor/Encoder Tester\n------------------"));
+  Serial.print(F("\nMD_SmartCar - DC Motor/Encoder Tester\n-----------------------"));
   Serial.print(F("\nEnter command. Ensure line ending set to newline.\n"));
 
   ML.begin();

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['_7emd_5fdcmotor_87',['~MD_DCMotor',['../class_m_d___d_c_motor.html#ae5e8c1e0e0499232d6b1c25894beb17a',1,'MD_DCMotor']]],
-  ['_7emd_5fmotorencoder_88',['~MD_MotorEncoder',['../class_m_d___motor_encoder.html#a832425628cca3b0663e9b28c99a082ea',1,'MD_MotorEncoder']]],
-  ['_7emd_5fsmartcar_89',['~MD_SmartCar',['../class_m_d___smart_car.html#a4716b9b6fb5944b5ab9dee9f42a68936',1,'MD_SmartCar']]]
+  ['wheel_5fbase_108',['WHEEL_BASE',['../_s_c___hardware_defs_8h.html#aa69dad587e1dc5cb820bbdae4e9b73c9',1,'SC_HardwareDefs.h']]],
+  ['wheel_5fdiam_109',['WHEEL_DIAM',['../_s_c___hardware_defs_8h.html#aa6c7b5a524f31d15f58f9d99d9dbc88c',1,'SC_HardwareDefs.h']]]
 ];
