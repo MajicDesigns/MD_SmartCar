@@ -1,4 +1,4 @@
-// Test SC_DCMotor with DC Motors
+// Test SC_DCMotor class with DC Motors
 //
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
@@ -8,13 +8,13 @@
 #endif
 
 // Global Variables
-#if CONTROLLER_L298 || CONTROLLER_L293
-SC_DCMotor_L298 ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
-SC_DCMotor_L298 MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
+#if CONTROLLER_L29x
+SC_DCMotor_L29x ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
+SC_DCMotor_L29x MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
 #endif
-#if CONTROLLER_M1508 || CONTROLLER_DRV8833
-SC_DCMotor_M1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
-SC_DCMotor_M1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
+#if CONTROLLER_MX1508
+SC_DCMotor_MX1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
+SC_DCMotor_MX1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
 #endif
 SC_MotorEncoder EL(EN_L_PIN);             // Left motor encoder
 SC_MotorEncoder ER(EN_R_PIN);             // Right motor encoder
@@ -49,7 +49,6 @@ void motorMode(SC_DCMotor& M, char m, char* param)
   {
   case 'F': cmd = SC_DCMotor::DIR_FWD; Serial.print(F("FWD")); break;
   case 'R': cmd = SC_DCMotor::DIR_REV; Serial.print(F("REV")); break;
-  case 'S': cmd = SC_DCMotor::DIR_STOP; Serial.print(F("STOP")); break;
   default:
     Serial.print(F("unknown '"));
     Serial.print(toupper(*param));
@@ -81,8 +80,8 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
   { "h",  handlerHelp, "",  "Help", 0 },
   { "sl", handlerSL,  "n", "Left speed setting to n [0..255]", 1 },
   { "sr", handlerSR,  "n", "Right speed setting to n [0..255]", 1 },
-  { "rl", handlerRL,  "m", "Run Left in mode m [f=fwd, r=rev, s=stop]", 1 },
-  { "rr", handlerRR,  "m", "Run Right in mode m [f=fwd, r=rev, s=stop]", 1 },
+  { "rl", handlerRL,  "m", "Run Left in mode m [f=fwd, r=rev]", 1 },
+  { "rr", handlerRR,  "m", "Run Right in mode m [f=fwd, r=rev]", 1 },
   { "e", handlerE,    "",  "Toggle encoder reporting on/off", 2 },
 };
 
@@ -128,9 +127,9 @@ void loop(void)
 
     Serial.print(F("\n"));
     Serial.print(timeCount);
-    Serial.print(F("\t"));
+    Serial.print(F("\tL"));
     Serial.print(countL);
-    Serial.print(F("\t"));
+    Serial.print(F("\tR"));
     Serial.print(countR);
   }
 }

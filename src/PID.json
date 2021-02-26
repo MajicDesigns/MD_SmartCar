@@ -1,0 +1,78 @@
+{
+    "t": "PID Values",
+    "g": [
+        {
+            "t": "ML",
+            "d": [
+                {
+                    "t": "SP_L",
+                    "v": "%1",
+                    "u": "pulse",
+                    "g": true,
+                    "w": "line",
+                    "min": 0,
+                    "max": 40
+                },
+                {
+                    "t": "CV_L",
+                    "v": "%2",
+                    "u": "pulse",
+                    "g": true,
+                    "w": "line",
+                    "min": 0,
+                    "max": 40
+                },
+                {
+                    "t": "CO_L",
+                    "v": "%3",
+                    "u": "pwm",
+                    "g": true,
+                    "w": "line",
+                    "min": 0,
+                    "max": 255
+                }
+            ]
+        },
+        {
+            "t": "MR",
+            "d": [
+                {
+                    "t": "SP_R",
+                    "v": "%4",
+                    "u": "pulse",
+                    "g": true,
+                    "w": "line",
+                    "min": 0,
+                    "max": 40
+                },
+                {
+                    "t": "CV_R",
+                    "v": "%5",
+                    "u": "pulse",
+                    "g": true,
+                    "w": "line",
+                    "min": 0,
+                    "max": 40
+                },
+                {
+                    "t": "CO_R",
+                    "v": "%6",
+                    "u": "pwm",
+                    "g": true,
+                    "w": "line",
+                    "min": 0,
+                    "max": 255
+                }
+            ]
+        },
+        {
+            "t": "Time",
+            "d": [
+                {
+                    "t": "millis",
+                    "v": "%7"
+                }
+            ]
+        }
+   ]
+}

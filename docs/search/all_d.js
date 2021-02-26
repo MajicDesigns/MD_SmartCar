@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['pid_20controller_68',['PID Controller',['../page_p_i_d.html',1,'index']]],
-  ['pid_5ffreq_69',['PID_FREQ',['../_s_c___hardware_defs_8h.html#a1cf5cdb29dac0090f9970b924ee8752d',1,'SC_HardwareDefs.h']]],
-  ['pid_5fperiod_70',['PID_PERIOD',['../_s_c___hardware_defs_8h.html#a968cd940b36537e97bceb4f8fa2084e1',1,'SC_HardwareDefs.h']]]
+  ['off_68',['OFF',['../class_s_c___p_i_d.html#ada768158001147b6abaecf918bd17d63a8eb26608ad392f95a7082f7b4a397ee5',1,'SC_PID']]]
 ];

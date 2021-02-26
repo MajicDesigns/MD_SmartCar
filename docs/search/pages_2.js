@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['pid_20controller_231',['PID Controller',['../page_p_i_d.html',1,'index']]]
+  ['motor_20controllers_232',['Motor Controllers',['../page_motor_controller.html',1,'index']]],
+  ['motor_20encoder_233',['Motor Encoder',['../page_motor_encoder.html',1,'index']]]
 ];

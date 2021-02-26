@@ -99,11 +99,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_s_c___hardware_defs_8h__dep__incl.png" border="0" usemap="#asrc_2_s_c___hardware_defs_8hdep" alt=""/></div>
 <map name="asrc_2_s_c___hardware_defs_8hdep" id="asrc_2_s_c___hardware_defs_8hdep">
-<area shape="rect" title="Header file for SmartCar library hardware related definitions." alt="" coords="188,5,348,32"/>
-<area shape="rect" href="_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="110,80,247,107"/>
-<area shape="rect" href="_s_c___motor_encoder_8cpp.html" title="Class definition file for the SC_MotorEncoder class." alt="" coords="271,80,445,107"/>
+<area shape="rect" title="Header file for SmartCar library hardware related definitions." alt="" coords="287,5,447,32"/>
+<area shape="rect" href="_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,80,345,107"/>
+<area shape="rect" href="_s_c___motor_encoder_8cpp.html" title="Class definition file for the SC_MotorEncoder class." alt="" coords="370,80,544,107"/>
 <area shape="rect" href="_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,155,155,181"/>
 <area shape="rect" href="_m_d___smart_car___config_8cpp.html" title="Code file for MD_SmartCar library class &#45; configuration data methods." alt="" coords="180,155,375,181"/>
+<area shape="rect" href="_m_d___smart_car___misc_8cpp.html" title="Code file for SmartCar miscellaneous methods." alt="" coords="399,155,585,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -113,22 +114,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a4af4244f8a09607e0d6a5d0ee80f1de8">NO_PIN</a>&#160;&#160;&#160;255</td></tr>
 <tr class="memdesc:a4af4244f8a09607e0d6a5d0ee80f1de8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin number when pin is not defined. <br /></td></tr>
 <tr class="separator:a4af4244f8a09607e0d6a5d0ee80f1de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab50a0869be3547f3855500fa681dbf1f"><td class="memItemLeft" align="right" valign="top"><a id="ab50a0869be3547f3855500fa681dbf1f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#ab50a0869be3547f3855500fa681dbf1f">CONTROLLER_L298</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:ab50a0869be3547f3855500fa681dbf1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure L298N as the motor controller. <br /></td></tr>
-<tr class="separator:ab50a0869be3547f3855500fa681dbf1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a97c16592197c12fa3ab4b8ac38b61a"><td class="memItemLeft" align="right" valign="top"><a id="a6a97c16592197c12fa3ab4b8ac38b61a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a6a97c16592197c12fa3ab4b8ac38b61a">CONTROLLER_L293</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:a6a97c16592197c12fa3ab4b8ac38b61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure L293 as the motor controller. <br /></td></tr>
-<tr class="separator:a6a97c16592197c12fa3ab4b8ac38b61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac680c8c70e704b57259d8a490542436f"><td class="memItemLeft" align="right" valign="top"><a id="ac680c8c70e704b57259d8a490542436f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#ac680c8c70e704b57259d8a490542436f">CONTROLLER_M1508</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ac680c8c70e704b57259d8a490542436f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure M1508 as the motor controller. <br /></td></tr>
-<tr class="separator:ac680c8c70e704b57259d8a490542436f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a8bb88a8aacc0ad4225fad5c3499299"><td class="memItemLeft" align="right" valign="top"><a id="a8a8bb88a8aacc0ad4225fad5c3499299"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a8a8bb88a8aacc0ad4225fad5c3499299">CONTROLLER_DRV8833</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:a8a8bb88a8aacc0ad4225fad5c3499299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure DRV8833 as the motor controller. <br /></td></tr>
-<tr class="separator:a8a8bb88a8aacc0ad4225fad5c3499299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d486a62e57761c4f60755ecaceba47"><td class="memItemLeft" align="right" valign="top"><a id="a41d486a62e57761c4f60755ecaceba47"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a41d486a62e57761c4f60755ecaceba47">CONTROLLER_L29x</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a41d486a62e57761c4f60755ecaceba47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure L298, L293 as the motor controller. <br /></td></tr>
+<tr class="separator:a41d486a62e57761c4f60755ecaceba47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2906d6bb79abb0cdef429ad8b3c588aa"><td class="memItemLeft" align="right" valign="top"><a id="a2906d6bb79abb0cdef429ad8b3c588aa"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a2906d6bb79abb0cdef429ad8b3c588aa">CONTROLLER_MX1508</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a2906d6bb79abb0cdef429ad8b3c588aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure MX1508, DRV8833 as the motor controller. <br /></td></tr>
+<tr class="separator:a2906d6bb79abb0cdef429ad8b3c588aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -148,6 +141,21 @@ const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#ac5dbe05c51a474f593c3139b1a4cebb3">MAX_PULSE_PER_SEC</a> = 130</td></tr>
 <tr class="memdesc:ac5dbe05c51a474f593c3139b1a4cebb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum encoder pulses per second. <br /></td></tr>
 <tr class="separator:ac5dbe05c51a474f593c3139b1a4cebb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b84ee7a87a59ebdc9f0769f267893c"><td class="memItemLeft" align="right" valign="top"><a id="a31b84ee7a87a59ebdc9f0769f267893c"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>SC_BT_RX</b> = A2</td></tr>
+<tr class="separator:a31b84ee7a87a59ebdc9f0769f267893c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d38fd1f8092aca502b2b287c3a69a76"><td class="memItemLeft" align="right" valign="top"><a id="a4d38fd1f8092aca502b2b287c3a69a76"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>SC_BT_TX</b> = A3</td></tr>
+<tr class="separator:a4d38fd1f8092aca502b2b287c3a69a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a212eba0e06f7437d675c21e525e11474"><td class="memItemLeft" align="right" valign="top"><a id="a212eba0e06f7437d675c21e525e11474"></a>
+const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>SC_BT_BAUDRATE</b> = 9600</td></tr>
+<tr class="separator:a212eba0e06f7437d675c21e525e11474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbca72cfee33f37016f94f8503aa861f"><td class="memItemLeft" align="right" valign="top"><a id="acbca72cfee33f37016f94f8503aa861f"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>SC_LCD_ROWS</b> = 2</td></tr>
+<tr class="separator:acbca72cfee33f37016f94f8503aa861f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e8cd2283be12da6b01db7ebd2a445bc"><td class="memItemLeft" align="right" valign="top"><a id="a6e8cd2283be12da6b01db7ebd2a445bc"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>SC_LCD_COLS</b> = 16</td></tr>
+<tr class="separator:a6e8cd2283be12da6b01db7ebd2a445bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa90839f10f0c49c1705d4cfd44876c82"><td class="memItemLeft" align="right" valign="top"><a id="aa90839f10f0c49c1705d4cfd44876c82"></a>
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#aa90839f10f0c49c1705d4cfd44876c82">MC_INA1_PIN</a> = 8</td></tr>
 <tr class="memdesc:aa90839f10f0c49c1705d4cfd44876c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor A Mode pin 1 - simple digital pin. <br /></td></tr>
@@ -237,7 +245,7 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_s_c___hardware_defs_8h.html">SC_HardwareDefs.h</a></li>
-    <li class="footer">Generated on Tue Jan 26 2021 08:25:12 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 5 2021 16:07:02 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

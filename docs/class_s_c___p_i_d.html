@@ -116,6 +116,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Methods for core object control.</div></td></tr>
 <tr class="memitem:aa20f09f829697266cbc40d84ed60c99f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_c___p_i_d.html#aa20f09f829697266cbc40d84ed60c99f">compute</a> (void)</td></tr>
 <tr class="separator:aa20f09f829697266cbc40d84ed60c99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1f09dda9f2a81959df2c5584c80a36e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_c___p_i_d.html#ac1f09dda9f2a81959df2c5584c80a36e">reset</a> (void)</td></tr>
+<tr class="separator:ac1f09dda9f2a81959df2c5584c80a36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56ea600297f8316a85c75faa90021ae3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_c___p_i_d.html#a56ea600297f8316a85c75faa90021ae3">setPIDPeriod</a> (uint32_t newPeriod)</td></tr>
 <tr class="separator:a56ea600297f8316a85c75faa90021ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac26c3f2642a4d024f8e97ef22e69662f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_c___p_i_d.html#ac26c3f2642a4d024f8e97ef22e69662f">setMode</a> (<a class="el" href="class_s_c___p_i_d.html#ada768158001147b6abaecf918bd17d63">mode_t</a> newMode)</td></tr>
@@ -460,6 +462,27 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac1f09dda9f2a81959df2c5584c80a36e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1f09dda9f2a81959df2c5584c80a36e">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SC_PID::reset </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reset the PID calculation.</p>
+<p>Reset the PID calculation. The library will ensure a bumpless transition between current and reset state.</p>
+<p>Not generally required but available. </p>
+
+</div>
+</div>
 <a id="a4794be2d3c590ae0dfc7aeda645a36da"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4794be2d3c590ae0dfc7aeda645a36da">&#9670;&nbsp;</a></span>setControlType()</h2>
 
@@ -569,12 +592,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set the calculation period.</p>
-<p>Set the calculation time in milliseconds between iterations of the PID calculation. This value must be set for both USER and AUTO modes. Default is 100 ms.</p>
+<p>Reset the PID calculation period.</p>
+<p>Reset the PID calculation period. Really only applies in AUTO mode.</p>
+<p>Not generally required but available.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_c___p_i_d.html#ac26c3f2642a4d024f8e97ef22e69662f">setMode()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newPeriod</td><td>the new PID calculation period in milliseconds. </td></tr>
+    <tr><td class="paramname">newPeriod</td><td>the new calculation interval in milliseconds. </td></tr>
   </table>
   </dd>
 </dl>
@@ -689,7 +713,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_s_c___p_i_d.html">SC_PID</a></li>
-    <li class="footer">Generated on Tue Jan 26 2021 08:25:12 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 5 2021 16:07:03 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

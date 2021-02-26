@@ -101,8 +101,7 @@ public:
   enum runCmd_t
   {
     DIR_FWD,    ///< Rotate in forward direction.
-    DIR_REV,    ///< Rotate in reverse direction (opposite of DIR_FWD).
-    DIR_STOP,   ///< Stop the motor. This should brake if possible.
+    DIR_REV    ///< Rotate in reverse direction (opposite of DIR_FWD).
   };
   /** @} */
 
@@ -165,7 +164,7 @@ protected:
  * This motor controller uses 2 standard digital pins for direction
  * control and one PWM capable pin for speed control.
  */
-class SC_DCMotor_L298 : public SC_DCMotor
+class SC_DCMotor_L29x : public SC_DCMotor
 {
 public:
   //--------------------------------------------------------------
@@ -185,16 +184,19 @@ public:
     * \param pinIn2 The In2 pin number for command output to the controller. This is a simple digital pin.
     * \param pinEn  The En pin number for PWM output to the controller. This is a PWM enabled pin.
     */
-  SC_DCMotor_L298(uint8_t pinIn1, uint8_t pinIn2, uint8_t pinEn) :
+  SC_DCMotor_L29x(uint8_t pinIn1, uint8_t pinIn2, uint8_t pinEn) :
     _pinIn1(pinIn1), _pinIn2(pinIn2), _pinEn(pinEn)
-  { }
+  {
+    _mode = DIR_FWD;
+    _speed = 0;
+  }
 
   /**
    * Class Destructor.
    *
    * Release any allocated memory and clean up anything else.
    */
-  ~SC_DCMotor_L298(void) { setMode(DIR_STOP); }
+  ~SC_DCMotor_L29x(void) { setSpeed(0); }
   /** @} */
 
   //--------------------------------------------------------------
@@ -222,7 +224,7 @@ public:
    * \param cmd   the run/stop mode.
    * \param speed the speed to run at.
    */
-  void run(runCmd_t cmd, uint8_t speed) { setMode(cmd); setSpeed(speed); }
+  void run(runCmd_t cmd, uint8_t speed) { setSpeed(speed); setMode(cmd); }
 
   /**
    * Set the speed for the motor.
@@ -251,7 +253,7 @@ private:
  * This motor controller uses 2 PWM capable pins for direction and 
  * PWM speed control.
  */
-class SC_DCMotor_M1508 : public SC_DCMotor
+class SC_DCMotor_MX1508 : public SC_DCMotor
 {
 public:
   //--------------------------------------------------------------
@@ -270,15 +272,20 @@ public:
     * \param pinIn1 The In1 pin number for command output to the controller. This is a PWM enabled pin.
     * \param pinIn2 The In2 pin number for command output to the controller. This is a PWM enabled pin.
     */
-  SC_DCMotor_M1508(uint8_t pinIn1, uint8_t pinIn2)
-  { _pinIn[0] = pinIn1; _pinIn[1] = pinIn2; }
+  SC_DCMotor_MX1508(uint8_t pinIn1, uint8_t pinIn2)
+  { 
+    _pinIn[0] = pinIn1;
+    _pinIn[1] = pinIn2;
+    _mode = DIR_FWD; 
+    _speed = 0;
+  }
 
   /**
    * Class Destructor.
    *
    * Release any allocated memory and clean up anything else.
    */
-  ~SC_DCMotor_M1508(void) { setMode(DIR_STOP); }
+  ~SC_DCMotor_MX1508(void) { setSpeed(0); }
   /** @} */
 
   //--------------------------------------------------------------
@@ -306,7 +313,7 @@ public:
    * \param cmd   the run/stop mode.
    * \param speed the speed to run at.
    */
-  void run(runCmd_t cmd, uint8_t speed) { setMode(cmd); setSpeed(speed); }
+  void run(runCmd_t cmd, uint8_t speed) { setSpeed(0);  setMode(cmd); setSpeed(speed); }
 
   /**
    * Set the speed for the motor

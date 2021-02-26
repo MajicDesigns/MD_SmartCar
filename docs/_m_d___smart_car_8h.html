@@ -117,9 +117,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_m_d___smart_car_8h__dep__incl.png" border="0" usemap="#asrc_2_m_d___smart_car_8hdep" alt=""/></div>
 <map name="asrc_2_m_d___smart_car_8hdep" id="asrc_2_m_d___smart_car_8hdep">
-<area shape="rect" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="110,5,247,32"/>
+<area shape="rect" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,5,345,32"/>
 <area shape="rect" href="_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,80,155,107"/>
 <area shape="rect" href="_m_d___smart_car___config_8cpp.html" title="Code file for MD_SmartCar library class &#45; configuration data methods." alt="" coords="180,80,375,107"/>
+<area shape="rect" href="_m_d___smart_car___misc_8cpp.html" title="Code file for SmartCar miscellaneous methods." alt="" coords="399,80,585,107"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -131,17 +132,17 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a516ea70350646db58405ab943a17c85c"><td class="memItemLeft" align="right" valign="top"><a id="a516ea70350646db58405ab943a17c85c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCDEBUG</b>&#160;&#160;&#160;1</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCDEBUG</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a516ea70350646db58405ab943a17c85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1696fc35fb931f8c876786fbc1078ac4"><td class="memItemLeft" align="right" valign="top"><a id="a1696fc35fb931f8c876786fbc1078ac4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PRINT</b>(s,  v)&#160;&#160;&#160;do { Serial.print(F(s)); Serial.print(v); } while (false)</td></tr>
-<tr class="separator:a1696fc35fb931f8c876786fbc1078ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf55b44e8497cbc3addccdeb294138cc"><td class="memItemLeft" align="right" valign="top"><a id="abf55b44e8497cbc3addccdeb294138cc"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PRINTX</b>(s,  v)&#160;&#160;&#160;do { Serial.print(F(s)); Serial.print(F(&quot;0x&quot;)); Serial.print(v, HEX); } while (false)</td></tr>
-<tr class="separator:abf55b44e8497cbc3addccdeb294138cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad68f35c3cfe67be8d09d1cea8e788e13"><td class="memItemLeft" align="right" valign="top"><a id="ad68f35c3cfe67be8d09d1cea8e788e13"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PRINTS</b>(s)&#160;&#160;&#160;do { Serial.print(F(s)); } while (false)</td></tr>
-<tr class="separator:ad68f35c3cfe67be8d09d1cea8e788e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28f26b3078f54eacf7bbd243ea117f4d"><td class="memItemLeft" align="right" valign="top"><a id="a28f26b3078f54eacf7bbd243ea117f4d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPRINT</b>(s,  v)</td></tr>
+<tr class="separator:a28f26b3078f54eacf7bbd243ea117f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dfbe421e7ad65e0a30b5cfdfa0bb9d1"><td class="memItemLeft" align="right" valign="top"><a id="a2dfbe421e7ad65e0a30b5cfdfa0bb9d1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPRINTX</b>(s,  v)</td></tr>
+<tr class="separator:a2dfbe421e7ad65e0a30b5cfdfa0bb9d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08be8c70356c84812261483f94ad3f83"><td class="memItemLeft" align="right" valign="top"><a id="a08be8c70356c84812261483f94ad3f83"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPRINTS</b>(s)</td></tr>
+<tr class="separator:a08be8c70356c84812261483f94ad3f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25f003de16c08a4888b69f619d70f427"><td class="memItemLeft" align="right" valign="top"><a id="a25f003de16c08a4888b69f619d70f427"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ARRAY_SIZE</b>(a)&#160;&#160;&#160;(sizeof(a)/sizeof((a)[0]))</td></tr>
 <tr class="separator:a25f003de16c08a4888b69f619d70f427"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,7 +155,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_m_d___smart_car_8h.html">MD_SmartCar.h</a></li>
-    <li class="footer">Generated on Tue Jan 26 2021 08:25:11 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 5 2021 16:07:02 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

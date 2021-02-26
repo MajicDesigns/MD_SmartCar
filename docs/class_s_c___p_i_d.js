@@ -19,6 +19,7 @@ var class_s_c___p_i_d =
     [ "getKp", "class_s_c___p_i_d.html#ab31cdb29eb5aeba19c35617aa3ac8e0d", null ],
     [ "getMode", "class_s_c___p_i_d.html#a0b44fa071ac90736f03907b9c0e04c0b", null ],
     [ "getPIDPeriod", "class_s_c___p_i_d.html#a53ef8f0e4c9226c786fe5d253e9efc67", null ],
+    [ "reset", "class_s_c___p_i_d.html#ac1f09dda9f2a81959df2c5584c80a36e", null ],
     [ "setControlType", "class_s_c___p_i_d.html#a4794be2d3c590ae0dfc7aeda645a36da", null ],
     [ "setMode", "class_s_c___p_i_d.html#ac26c3f2642a4d024f8e97ef22e69662f", null ],
     [ "setOutputLimits", "class_s_c___p_i_d.html#a0160a82ab24a8297e6df09c0b37b4b51", null ],

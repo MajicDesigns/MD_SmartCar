@@ -8,22 +8,71 @@
 #define NO_PIN 255          ///< Pin number when pin is not defined
 #endif
 
-// ------------------------------------
-// SmartCar Physical Constants
+/**
+* \page pageHardwareMap Hardware Allocation Map 
+* Hardware Functional Allocation for Arduino Nano
+* 
+* | Pin | Description
+* |-----|---------------
+* | D0* | Hardware Serial Tx
+* | D1* | Hardware Serial Rx
+* | D2  | R Motor Encoder Pulse Interrupt
+* | D3  | L Motor Encoder Pulse Interrupt
+* | D4  | R Motor Controller PWM (L29x type controller)
+* | D5  | R Motor Controller InB1
+* | D6  | R Motor Controller InB2
+* | D7  | L Motor Controller PWM (L29x type controller)/R Sonar Sensor
+* | D8  | L Motor Controller InA1
+* | D9  | L Motor Controller InA2
+* | D10 | -
+* | D11*| Hardware SPI MOSI
+* | D12*| Hardware SPI MISO
+* | D13*| Hardware SPI SCK
+* | A0  | Software Serial Rx
+* | A1  | Software Serial Tx
+* | A2  | L Sonar Sensor
+* | A3  | Mid Sonar Sensor
+* | A4* | Hardware I2C SDA
+* | A5* | Hardware I2C SCL
+* | A6  | -
+* | A7  | -
+* 
+* (*) denotes shared or communications bus pins 
+*/
+
+ // ------------------------------------
+ // SmartCar Physical Constants
 const uint8_t WHEEL_DIAM = 65;      ///< Wheel diameter in mm
 const uint8_t WHEEL_BASE = 110;     ///< Wheel base in mm (= distance between wheel centers)
 const float DIST_PER_REV = (PI * WHEEL_DIAM);  ///< Distance traveled per rev in mm (= wheel circumference)
 const uint8_t MAX_PULSE_PER_SEC = 130;   ///< Maximum encoder pulses per second
 
 // ------------------------------------
+// Bluetooth connections using Softwareserial
+const uint8_t SC_BT_RX = A0;  // connect to to BT TX pin
+const uint8_t SC_BT_TX = A1;  // connect to to BT RX pin
+
+const uint16_t SC_BT_BAUDRATE = 9600;
+
+// ------------------------------------
+// LCD module connections using I2C hardware connection
+const uint8_t SC_LCD_ROWS = 2;
+const uint8_t SC_LCD_COLS = 16;
+
+//const uint8_t SC_LCD_SCL = A5;
+//const uint8_t SC_LCD_SDA = A4;
+
+// ------------------------------------
 // Motor Controller - Select hardware being used
 // 
-#define CONTROLLER_L298    1    ///< Configure L298N as the motor controller
-#define CONTROLLER_L293    0    ///< Configure L293 as the motor controller
-#define CONTROLLER_M1508   0    ///< Configure M1508 as the motor controller
-#define CONTROLLER_DRV8833 0    ///< Configure DRV8833 as the motor controller
+#ifndef CONTROLLER_L29x
+#define CONTROLLER_L29x    0    ///< Configure L298, L293 as the motor controller
+#endif
+#ifndef CONTROLLER_MX1508
+#define CONTROLLER_MX1508  1    ///< Configure MX1508, DRV8833 as the motor controller
+#endif
 
-#if CONTROLLER_L298 || CONTROLLER_L293
+#if CONTROLLER_L29x
 // Left Motor
 const uint8_t MC_INA1_PIN = 8;    ///< Motor A Mode pin 1 - simple digital pin
 const uint8_t MC_INA2_PIN = 7;    ///< Motor A Mode pin 2 - simple digital pin
@@ -34,7 +83,7 @@ const uint8_t MC_INB2_PIN = 4;    ///< Motor B Mode pin 2 - simple digital pin
 const uint8_t MC_ENB_PIN = 6;     ///< Motor B output enable - PWM capable pin
 #endif
 
-#if CONTROLLER_M1508 || CONTROLLER_DRV8833
+#if CONTROLLER_MX1508
 // Left Motor
 const uint8_t MC_INA1_PIN = 9;    ///< Motor A Mode pin 1 - PWM capable pin
 const uint8_t MC_INA2_PIN = 10;   ///< Motor A Mode pin 2 - PWM capable pin
@@ -44,9 +93,11 @@ const uint8_t MC_INB2_PIN = 6;    ///< Motor B Mode pin 2 - PWM capable pin
 #endif
 
 // Default PWM values for speeds
-const uint8_t MC_PWM_MIN = 40;    ///< Minimum PWM that will turn the motor
+const uint8_t MC_PWM_MIN = 30;    ///< Minimum PWM that will turn the motor
 const uint8_t MC_PWM_MAX = 255;   ///< Maximum PWM
-const uint8_t MC_PWM_CREEP = 80;  ///< slow movement speed PWM default value
+const uint8_t MC_PWM_MOVE = 80;   ///< Slow move() speed PWM default value
+const uint8_t MC_PWM_KICKER = 90; ///< Kicker for drive() to overcome static friction from standing start
+const uint8_t MC_KICKER_ACTIVE = 150; ///< Kicker active time in milliseconds
 
 // -----------------------------------
 // Motor Encoder
@@ -58,8 +109,8 @@ const uint8_t EN_PPR_DEF = 40; ///< Encoder pulses per revolution default value
 // -----------------------------------
 // PID Control
 //
-const float DefKp = 0.9;    ///< PID proportional weighting default
-const float DefKi = 0.9;    ///< PID integral weighting default
+const float DefKp = 1.0;    ///< PID proportional weighting default
+const float DefKi = 0.0;    ///< PID integral weighting default
 const float DefKd = 0.1;    ///< PID derivative weighting default
 
 const uint32_t PID_PERIOD = 250;  ///< PID calculation period in ms

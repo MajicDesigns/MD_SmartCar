@@ -1,7 +1,8 @@
 <map id="src/SC_HardwareDefs.h" name="src/SC_HardwareDefs.h">
-<area shape="rect" id="node1" title="Header file for SmartCar library hardware related definitions." alt="" coords="188,5,348,32"/>
-<area shape="rect" id="node3" href="$_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="110,80,247,107"/>
-<area shape="rect" id="node9" href="$_s_c___motor_encoder_8cpp.html" title="Class definition file for the SC_MotorEncoder class." alt="" coords="271,80,445,107"/>
+<area shape="rect" id="node1" title="Header file for SmartCar library hardware related definitions." alt="" coords="287,5,447,32"/>
+<area shape="rect" id="node3" href="$_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,80,345,107"/>
+<area shape="rect" id="node11" href="$_s_c___motor_encoder_8cpp.html" title="Class definition file for the SC_MotorEncoder class." alt="" coords="370,80,544,107"/>
 <area shape="rect" id="node5" href="$_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,155,155,181"/>
 <area shape="rect" id="node7" href="$_m_d___smart_car___config_8cpp.html" title="Code file for MD_SmartCar library class &#45; configuration data methods." alt="" coords="180,155,375,181"/>
+<area shape="rect" id="node9" href="$_m_d___smart_car___misc_8cpp.html" title="Code file for SmartCar miscellaneous methods." alt="" coords="399,155,585,181"/>
 </map>

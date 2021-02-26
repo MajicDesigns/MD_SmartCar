@@ -1,26 +1,4 @@
 var searchData=
 [
-  ['max_5fisr_43',['MAX_ISR',['../_s_c___motor_encoder_8h.html#abca71eb59360d561beea09ea3886839a',1,'SC_MotorEncoder.h']]],
-  ['max_5fmotor_44',['MAX_MOTOR',['../class_m_d___smart_car.html#aee2d92ac44e71b3ce78cacd77a24553f',1,'MD_SmartCar']]],
-  ['max_5fpulse_5fper_5fsec_45',['MAX_PULSE_PER_SEC',['../_s_c___hardware_defs_8h.html#ac5dbe05c51a474f593c3139b1a4cebb3',1,'SC_HardwareDefs.h']]],
-  ['maxpwm_46',['maxPWM',['../class_m_d___smart_car.html#ade2258b594c7c50469154988c6d49d92',1,'MD_SmartCar']]],
-  ['mc_5fena_5fpin_47',['MC_ENA_PIN',['../_s_c___hardware_defs_8h.html#ac33a37e65dd8f2136b42a17661fa7d40',1,'SC_HardwareDefs.h']]],
-  ['mc_5fenb_5fpin_48',['MC_ENB_PIN',['../_s_c___hardware_defs_8h.html#af68cc103b6995fbb83bb2be6c45cfb97',1,'SC_HardwareDefs.h']]],
-  ['mc_5fina1_5fpin_49',['MC_INA1_PIN',['../_s_c___hardware_defs_8h.html#aa90839f10f0c49c1705d4cfd44876c82',1,'SC_HardwareDefs.h']]],
-  ['mc_5fina2_5fpin_50',['MC_INA2_PIN',['../_s_c___hardware_defs_8h.html#a41b944c330acb32d08d2df1d1362c00f',1,'SC_HardwareDefs.h']]],
-  ['mc_5finb1_5fpin_51',['MC_INB1_PIN',['../_s_c___hardware_defs_8h.html#a1d21e811759dfcf94cb09f349f84df3b',1,'SC_HardwareDefs.h']]],
-  ['mc_5finb2_5fpin_52',['MC_INB2_PIN',['../_s_c___hardware_defs_8h.html#a986b091ff4c70e30447525b65690d89c',1,'SC_HardwareDefs.h']]],
-  ['mc_5fpwm_5fcreep_53',['MC_PWM_CREEP',['../_s_c___hardware_defs_8h.html#a2c258f8734b50d3ca8be1a6d6fde04e8',1,'SC_HardwareDefs.h']]],
-  ['mc_5fpwm_5fmax_54',['MC_PWM_MAX',['../_s_c___hardware_defs_8h.html#ad8a71ea151f52a19deb7a7eab997c4a9',1,'SC_HardwareDefs.h']]],
-  ['mc_5fpwm_5fmin_55',['MC_PWM_MIN',['../_s_c___hardware_defs_8h.html#a20da37053d419dd2b190c3e9c913a5e0',1,'SC_HardwareDefs.h']]],
-  ['md_5fsmartcar_56',['MD_SmartCar',['../class_m_d___smart_car.html',1,'MD_SmartCar'],['../class_m_d___smart_car.html#a126cd8f8ec4bf0fb5a48e87be2d9dd77',1,'MD_SmartCar::MD_SmartCar()']]],
-  ['md_5fsmartcar_2ecpp_57',['MD_SmartCar.cpp',['../_m_d___smart_car_8cpp.html',1,'']]],
-  ['md_5fsmartcar_2eh_58',['MD_SmartCar.h',['../_m_d___smart_car_8h.html',1,'']]],
-  ['md_5fsmartcar_5fconfig_2ecpp_59',['MD_SmartCar_Config.cpp',['../_m_d___smart_car___config_8cpp.html',1,'']]],
-  ['minpwm_60',['minPWM',['../class_m_d___smart_car.html#a6332a4be9387e4e0ab81db07199d7469',1,'MD_SmartCar']]],
-  ['mode_5ft_61',['mode_t',['../class_s_c___p_i_d.html#ada768158001147b6abaecf918bd17d63',1,'SC_PID']]],
-  ['motor_20controllers_62',['Motor Controllers',['../page_motor_controller.html',1,'index']]],
-  ['motor_20encoder_63',['Motor Encoder',['../page_motor_encoder.html',1,'index']]],
-  ['move_64',['move',['../class_m_d___smart_car.html#a498b82ad4e3dfa3f5f297ecfea341f34',1,'MD_SmartCar::move(int8_t vL, float angL, int8_t vR, float angR)'],['../class_m_d___smart_car.html#a9e3642db9b056154e2743f3337ca0846',1,'MD_SmartCar::move(int8_t vL, uint16_t angL, int8_t vR, uint16_t angR)']]],
-  ['ms_5fper_5fsec_65',['MS_PER_SEC',['../_s_c___hardware_defs_8h.html#a884d56fa286d6e5585fefd06da7774b3',1,'SC_HardwareDefs.h']]]
+  ['loadconfig_42',['loadConfig',['../class_m_d___smart_car.html#a0f5b2aa6e8628072aedb43779fd7837e',1,'MD_SmartCar']]]
 ];

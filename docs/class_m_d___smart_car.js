@@ -8,6 +8,7 @@ var class_m_d___smart_car =
     [ "getCreepSP", "class_m_d___smart_car.html#af59df303dd78923f9a3040b010795b33", null ],
     [ "getMaxMotorSP", "class_m_d___smart_car.html#a6e3dd8c1c77ff5e560bd22bf6a91e50d", null ],
     [ "getMinMotorSP", "class_m_d___smart_car.html#adbd568c47674d03da8e455363808778b", null ],
+    [ "getPIDTuning", "class_m_d___smart_car.html#a2aa645962dd384c2f0d925395b7345ab", null ],
     [ "getVelocity", "class_m_d___smart_car.html#a3483e8e44231f318d02573cf881b5b90", null ],
     [ "isRunning", "class_m_d___smart_car.html#ae36a6340bd9ace4c1774aee8a26dbf8d", null ],
     [ "loadConfig", "class_m_d___smart_car.html#a0f5b2aa6e8628072aedb43779fd7837e", null ],

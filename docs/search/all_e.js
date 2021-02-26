@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['read_71',['read',['../class_s_c___motor_encoder.html#a541aac33c2254db6996ec40e4f9f1c0f',1,'SC_MotorEncoder']]],
-  ['reset_72',['reset',['../class_s_c___motor_encoder.html#af2b0912eafec3ba9011a77e069a5e963',1,'SC_MotorEncoder']]],
-  ['reverse_73',['REVERSE',['../class_s_c___p_i_d.html#ada5a53ec5bc72d5d4f5d344e63f977e5acdfdf14708001fd4affa410762c33cf6',1,'SC_PID']]],
-  ['revision_20history_74',['Revision History',['../page_revision_history.html',1,'index']]],
-  ['run_75',['run',['../class_m_d___smart_car.html#a2be18d71b7cfc70e22bed0cf27aa62c9',1,'MD_SmartCar::run()'],['../class_s_c___d_c_motor.html#a91b4061efbd67e958202aa2c14a38952',1,'SC_DCMotor::run()'],['../class_s_c___d_c_motor___l298.html#af2d3fad57290bfa219296960b09f2ef7',1,'SC_DCMotor_L298::run()'],['../class_s_c___d_c_motor___m1508.html#a047a616270c346b5a44f8932c12cf1c6',1,'SC_DCMotor_M1508::run()']]],
-  ['runcmd_5ft_76',['runCmd_t',['../class_s_c___d_c_motor.html#a8ec03dd86bd269e70a9b82fd623f3398',1,'SC_DCMotor']]]
+  ['pid_20controller_69',['PID Controller',['../page_p_i_d.html',1,'index']]],
+  ['pid_5ffreq_70',['PID_FREQ',['../_s_c___hardware_defs_8h.html#a1cf5cdb29dac0090f9970b924ee8752d',1,'SC_HardwareDefs.h']]],
+  ['pid_5fperiod_71',['PID_PERIOD',['../_s_c___hardware_defs_8h.html#a968cd940b36537e97bceb4f8fa2084e1',1,'SC_HardwareDefs.h']]]
 ];

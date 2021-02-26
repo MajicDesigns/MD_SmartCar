@@ -92,38 +92,49 @@ public:
    * @{
    */
 
-   /**
-    * Perform PID calculation.
-    *
-    * Perform the next step in the PID calculation. How this occurs will depend on
-    * the current controller mode (AUTO, USER, OFF) and the time period set.
-    *
-    * In AUTO mode the method should be called frequently (ideally every time through loop())
-    * and the return value will inform the application when the calculation actually happened.
-    *
-    * In USER mode, the method will run when it is invoked under the assumption that the
-    * time elapsed between steps is the currently set PID calculation period.
-    *
-    * In OFF mode (default) the calculation is never executed.
-    *
-    * The current value, setpoint and new control output used are located by the pointers
-    * passed to the constructor.
-    *
-    * \sa setMode(), setPIDPeriod(), setOutputLimits()
-    *
-    * \return true if the calculation was completed, false otherwise.
-    */
+  /**
+   * Perform PID calculation.
+   *
+   * Perform the next step in the PID calculation. How this occurs will depend on
+   * the current controller mode (AUTO, USER, OFF) and the time period set.
+   *
+   * In AUTO mode the method should be called frequently (ideally every time through loop())
+   * and the return value will inform the application when the calculation actually happened.
+   *
+   * In USER mode, the method will run when it is invoked under the assumption that the
+   * time elapsed between steps is the currently set PID calculation period.
+   *
+   * In OFF mode (default) the calculation is never executed.
+   *
+   * The current value, setpoint and new control output used are located by the pointers
+   * passed to the constructor.
+   *
+   * \sa setMode(), setPIDPeriod(), setOutputLimits()
+   *
+   * \return true if the calculation was completed, false otherwise.
+   */
   bool compute(void);
 
   /**
-   * Set the calculation period.
+   * Reset the PID calculation.
    *
-   * Set the calculation time in milliseconds between iterations of the PID calculation.
-   * This value must be set for both USER and AUTO modes. Default is 100 ms.
+   * Reset the PID calculation. The library will ensure a bumpless 
+   * transition between current and reset state.
+   * 
+   * Not generally required but available.
+   */
+  void reset(void);
+
+  /**
+   * Reset the PID calculation period.
    *
+   * Reset the PID calculation period. Really only applies in AUTO mode.
+   * 
+   * Not generally required but available.
+   * 
    * \sa setMode()
-   *
-   * \param newPeriod the new PID calculation period in milliseconds.
+   * 
+   * \param newPeriod the new calculation interval in milliseconds.
    */
   void setPIDPeriod(uint32_t newPeriod);
 
@@ -285,7 +296,6 @@ private:
   int16_t _prevCv;          ///< PID previous current value (for PoM calcs)
   int16_t _prevCo;          ///< Control output calculated at the last iteration
 
-  void reset(void);                ///< reset when changing modes
   int16_t clampOutput(int16_t value);   ///< clamp the output to be in the range [_outMin, _outMax]
 
   inline int32_t FL_FX(float a) { return(a * 256.0);}                   ///< float to fixed point

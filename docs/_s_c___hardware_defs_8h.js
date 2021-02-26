@@ -1,9 +1,7 @@
 var _s_c___hardware_defs_8h =
 [
-    [ "CONTROLLER_DRV8833", "_s_c___hardware_defs_8h.html#a8a8bb88a8aacc0ad4225fad5c3499299", null ],
-    [ "CONTROLLER_L293", "_s_c___hardware_defs_8h.html#a6a97c16592197c12fa3ab4b8ac38b61a", null ],
-    [ "CONTROLLER_L298", "_s_c___hardware_defs_8h.html#ab50a0869be3547f3855500fa681dbf1f", null ],
-    [ "CONTROLLER_M1508", "_s_c___hardware_defs_8h.html#ac680c8c70e704b57259d8a490542436f", null ],
+    [ "CONTROLLER_L29x", "_s_c___hardware_defs_8h.html#a41d486a62e57761c4f60755ecaceba47", null ],
+    [ "CONTROLLER_MX1508", "_s_c___hardware_defs_8h.html#a2906d6bb79abb0cdef429ad8b3c588aa", null ],
     [ "NO_PIN", "_s_c___hardware_defs_8h.html#a4af4244f8a09607e0d6a5d0ee80f1de8", null ],
     [ "DefKd", "_s_c___hardware_defs_8h.html#aaf6f26c91ebd397ae984c19aacb51c03", null ],
     [ "DefKi", "_s_c___hardware_defs_8h.html#a7db2ab99efe188b5be111fc192e6549b", null ],
@@ -26,6 +24,11 @@ var _s_c___hardware_defs_8h =
     [ "MS_PER_SEC", "_s_c___hardware_defs_8h.html#a884d56fa286d6e5585fefd06da7774b3", null ],
     [ "PID_FREQ", "_s_c___hardware_defs_8h.html#a1cf5cdb29dac0090f9970b924ee8752d", null ],
     [ "PID_PERIOD", "_s_c___hardware_defs_8h.html#a968cd940b36537e97bceb4f8fa2084e1", null ],
+    [ "SC_BT_BAUDRATE", "_s_c___hardware_defs_8h.html#a212eba0e06f7437d675c21e525e11474", null ],
+    [ "SC_BT_RX", "_s_c___hardware_defs_8h.html#a31b84ee7a87a59ebdc9f0769f267893c", null ],
+    [ "SC_BT_TX", "_s_c___hardware_defs_8h.html#a4d38fd1f8092aca502b2b287c3a69a76", null ],
+    [ "SC_LCD_COLS", "_s_c___hardware_defs_8h.html#a6e8cd2283be12da6b01db7ebd2a445bc", null ],
+    [ "SC_LCD_ROWS", "_s_c___hardware_defs_8h.html#acbca72cfee33f37016f94f8503aa861f", null ],
     [ "SIG", "_s_c___hardware_defs_8h.html#a0824a041c4f1bb37459fe354b72eda63", null ],
     [ "WHEEL_BASE", "_s_c___hardware_defs_8h.html#aa69dad587e1dc5cb820bbdae4e9b73c9", null ],
     [ "WHEEL_DIAM", "_s_c___hardware_defs_8h.html#aa6c7b5a524f31d15f58f9d99d9dbc88c", null ]

@@ -2,9 +2,14 @@
 # Datatypes (KEYWORD1)
 #######################################
 MD_SmartCar	KEYWORD1
-pathDef_t	KEYWORD1
-MD_DCMotor	KEYWORD1
-MD_MotorEncoder	KEYWORD1
+SC_DCMotor	KEYWORD1
+SC_DCMotor_L298	KEYWORD1
+SC_DCMotor_M1508	KEYWORD1
+SC_MotorEncoder	KEYWORD1
+SC_PID	KEYWORD1
+runCmd_t	KEYWORD1
+mode_t	KEYWORD1
+control_t	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -14,36 +19,42 @@ reset	KEYWORD2
 read	KEYWORD2
 run	KEYWORD2
 move	KEYWORD2
+drive	KEYWORD2
+stop	KEYWORD2
+isRunning	KEYWORD2
 setSpeed	KEYWORD2
 getSpeed	KEYWORD2
-creep	KEYWORD2
-stop	KEYWORD2
+setVolocity	KEYWORD2
+getVelocity	KEYWORD2
+setPulsePerRev	KEYWORD2
+getPulsePerRev	KEYWORD2
 loadConfig	KEYWORD2
 saveConfig	KEYWORD2
 setCreepSP	KEYWORD2
+getCreepSP	KEYWORD2
 setMinMotorSP	KEYWORD2
 setMaxMotorSP	KEYWORD2
-getCreepSP	KEYWORD2
 getMinMotorSP	KEYWORD2
 getMaxMotorSP	KEYWORD2
 setPIDTuning	KEYWORD2
+compute	KEYWORD2
+setPIDPeriod	KEYWORD2
+getPIDPeriod	KEYWORD2
+setMode	KEYWORD2
+getMode	KEYWORD2
+setOutputLimits	KEYWORD2
+setTuning	KEYWORD2
+setControlType	KEYWORD2
+getControlType	KEYWORD2
+getError	KEYWORD2
+setKp	KEYWORD2
+setKi	KEYWORD2
+setKd	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 DIR_FWD	LITERAL1
 DIR_REV	LITERAL1
-DIR_BRK	LITERAL1
-DIR_REL	LITERAL1
-LINEAR	LITERAL1
-VEER	LITERAL1
-TURN	LITERAL1
-ATURN	LITERAL1
-STOP	LITERAL1
-FWD	LITERAL1
-REV	LITERAL1
-CENTER	LITERAL1
-LEFT	LITERAL1
-RIGHT	LITERAL1
-CREEP	LITERAL1
-RUN	LITERAL1
+DIR_STOP	LITERAL1
+MAX_MOTOR	LITERAL1

@@ -143,6 +143,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6e3dd8c1c77ff5e560bd22bf6a91e50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3b8f4603c18c3776fe823bc198c59b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#ad3b8f4603c18c3776fe823bc198c59b9">setPIDTuning</a> (float <a class="el" href="class_m_d___smart_car.html#aab7af0a1b04d25c4039ea0469ef4657d">Kp</a>, float <a class="el" href="class_m_d___smart_car.html#a49a40fcab6883a6bf772a4eb47d3a7cc">Ki</a>, float <a class="el" href="class_m_d___smart_car.html#a4e4a01b00f44c60cadcaeb309733164a">Kd</a>)</td></tr>
 <tr class="separator:ad3b8f4603c18c3776fe823bc198c59b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa645962dd384c2f0d925395b7345ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#a2aa645962dd384c2f0d925395b7345ab">getPIDTuning</a> (float &amp;<a class="el" href="class_m_d___smart_car.html#aab7af0a1b04d25c4039ea0469ef4657d">Kp</a>, float &amp;<a class="el" href="class_m_d___smart_car.html#a49a40fcab6883a6bf772a4eb47d3a7cc">Ki</a>, float &amp;<a class="el" href="class_m_d___smart_car.html#a4e4a01b00f44c60cadcaeb309733164a">Kd</a>)</td></tr>
+<tr class="separator:a2aa645962dd384c2f0d925395b7345ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -390,6 +392,51 @@ Static Public Attributes</h2></td></tr>
 <p>Get the currently configured minimum set point. The units are meaningful to the motor controller (eg, PWM setting).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a650f461e1251aa8163359db3aaa9a850">setMinMotorSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>speed units currently configured. </dd></dl>
+
+</div>
+</div>
+<a id="a2aa645962dd384c2f0d925395b7345ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa645962dd384c2f0d925395b7345ab">&#9670;&nbsp;</a></span>getPIDTuning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MD_SmartCar::getPIDTuning </td>
+          <td>(</td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>Kp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>Ki</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>Kd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get PID tuning parameters.</p>
+<p>Return the current set of PID tuning parameters.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Kp</td><td>the proportional PID parameter. </td></tr>
+    <tr><td class="paramname">Ki</td><td>the integral PID parameter. </td></tr>
+    <tr><td class="paramname">Kd</td><td>the derivative PID parameter. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -719,7 +766,7 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Change PID tuning parameters.</p>
+<p>Set PID tuning parameters.</p>
 <p>Change the current set of PID tuning parameters.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -811,6 +858,7 @@ Static Public Attributes</h2></td></tr>
 <li>src/<a class="el" href="_m_d___smart_car_8h.html">MD_SmartCar.h</a></li>
 <li>src/<a class="el" href="_m_d___smart_car_8cpp.html">MD_SmartCar.cpp</a></li>
 <li>src/<a class="el" href="_m_d___smart_car___config_8cpp.html">MD_SmartCar_Config.cpp</a></li>
+<li>src/<a class="el" href="_m_d___smart_car___misc_8cpp.html">MD_SmartCar_Misc.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -818,7 +866,7 @@ Static Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_m_d___smart_car.html">MD_SmartCar</a></li>
-    <li class="footer">Generated on Tue Jan 26 2021 08:25:12 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 5 2021 16:07:02 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
