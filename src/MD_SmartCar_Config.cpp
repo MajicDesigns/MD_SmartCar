@@ -17,10 +17,12 @@ void MD_SmartCar::loadConfig(void)
     SCPRINTS(" - defaults");
     _config.sig[0] = SIG[0];
     _config.sig[1] = SIG[1];
+
     _config.movePWM = MC_PWM_MOVE;
     _config.kickerPWM = MC_PWM_KICKER;
     _config.minPWM = MC_PWM_MIN;
     _config.maxPWM = MC_PWM_MAX;
+
     for (uint8_t i = 0; i < MAX_MOTOR; i++)
     {
       _config.Kp[i] = DefKp;
@@ -31,7 +33,9 @@ void MD_SmartCar::loadConfig(void)
     saveConfig();
   }
 
+#if SCDEBUG
   printConfig();    // debug only
+#endif
 }
 
 void MD_SmartCar::saveConfig(void)
@@ -40,6 +44,7 @@ void MD_SmartCar::saveConfig(void)
   EEPROM.put(EEPROM_ADDR - sizeof(_config), _config);
 }
 
+#if SCDEBUG
 void MD_SmartCar::printConfig(void)
 // Only enabled when debugging is turned on
 {
@@ -55,5 +60,7 @@ void MD_SmartCar::printConfig(void)
     SCPRINT(", ", _config.Ki[i]);
     SCPRINT(", ", _config.Kd[i]);
   }
+
   SCPRINTS("\n------");
 }
+#endif

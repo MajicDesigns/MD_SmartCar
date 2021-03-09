@@ -93,21 +93,21 @@ $(document).ready(function(){initNavTree('page_motor_controller.html',''); initR
 <p>The best way to work out the wiring is to temporarily make the connections between motor and controller and use the test software and drive the motor 'forward'. If it spins in the wrong direction, reverse the wiring at the motor.</p>
 <h2>The L298N Motor Controller</h2>
 <p>The L298N Motor Driver Module (see below), commonly available from low-cost online stores, is a high power motor driver module for driving DC and Stepper Motors. This module consists of an L298 motor driver IC and a 78M05 5V regulator which can be used to power the Arduino Board. L298N Module can control up to 4 DC motors, or 2 stepper motors, with directional and speed control.</p>
-<p><img src="Controller-L298N.jpg" alt="" class="inline" title="L298N Controller"/></p>
+<p><img src="SmartCar_Controller_L298N.jpg" alt="" class="inline" title="L298N Controller"/></p>
 <p>ENA/ENB pins are PWM speed control pins for Motor A and Motor B while IN1/IN2 and IN3/IN4 are direction control pins for Motor A and Motor B. Motors are connected to OUT1/OUT2 and OUT3/OUT4.</p>
 <p>An external power supply up to 12V can be connected to the screw connectors to supply power for the motors. This voltage can also feed the 5V regulator to power the Arduino processor board. If the processor has its own 5V supply, then the '5V Enable' jumper should be removed to disable this function.</p>
 <h2>The L293D Motor Controller</h2>
 <p>The L293D is another commonly available 16-Pin Motor Driver Module to drive small motors. A single L293D IC is capable of running two DC motors at the same time with independent direction and speed control.</p>
-<p><img src="Controller-L293.jpg" alt="" class="inline" title="L293 Controller"/></p>
+<p><img src="SmartCar_Controller_L293.jpg" alt="" class="inline" title="L293 Controller"/></p>
 <p>This controller is physically smaller than the L298N and can control less motor current, but it has essentially the same control pins, output terminals and control mechanism as the L298N, so can be considered a drop in replacement.</p>
-<h2>The M1508 Motor Controller</h2>
-<p>The M1508 Motor Driver Module is an highly inexpensive driver module available from low-cost online suppliers. It has specifications similar to the L293D and looks like it is a low cost Chinese version of the DRV8833 Controller IC, with a few less functions. The M1805 module can control up to 2 DC motors, with directional and speed control.</p>
-<p><img src="Controller-M1508.jpg" alt="" class="inline" title="M1508 Controller"/></p>
+<h2>The MX1508 Motor Controller</h2>
+<p>The MX1508 Motor Driver Module is an highly inexpensive driver module available from low-cost online suppliers. It has specifications similar to the L293D and looks like it is a low cost Chinese version of the DRV8833 Controller IC, with a few less functions. The MX1805 module can control up to 2 DC motors, with directional and speed control.</p>
+<p><img src="SmartCar_Controller_MX1508.jpg" alt="" class="inline" title="MX1508 Controller"/></p>
 <p>IN1/IN2 and IN3/IN4 are direction control pins for Motor A and Motor B. These double as speed control pins using PWM. Motors are connected to OUT1/OUT2 and OUT3/OUT4 (MOTOR-A and MOTOR-B solder pads).</p>
 <p>An external power supply up to 10V can be connected to the screw connectors to supply power for the motors. This module does not have a 5V regulator so the Arduino processor must be powered separately.</p>
 <h2>The DRV8833 Motor Controller</h2>
 <p>The DRV8833 is a low voltage, 2A stepper or single/dual brushed DC motor driver.</p>
-<p><img src="Controller-DRV8833.jpg" alt="" class="inline" title="DRV8833 Controller"/></p>
+<p><img src="SmartCar_Controller_DRV8833.jpg" alt="" class="inline" title="DRV8833 Controller"/></p>
 <p>Similar to the M1805, IN1/IN2 and IN3/IN4 are direction control pins for Motor A and Motor B. These double as speed PWM control pins. Motors are connected to OUT1/OUT2 and OUT3/OUT4. Additionally the DRV8833 has an output status pin to signal fault mode and an input to put the device into 'sleep' mode for very low power consumption. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('page_motor_controller.html',''); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Smart Car Robot Library</a></li>
-    <li class="footer">Generated on Fri Feb 5 2021 16:07:02 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Mar 8 2021 15:46:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

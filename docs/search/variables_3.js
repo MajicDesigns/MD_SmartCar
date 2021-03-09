@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['eeprom_5faddr_188',['EEPROM_ADDR',['../_s_c___hardware_defs_8h.html#af8c40339b8cf0f84da4acf804e30abea',1,'SC_HardwareDefs.h']]],
-  ['en_5fl_5fpin_189',['EN_L_PIN',['../_s_c___hardware_defs_8h.html#ab70f24a604468dcebc91324f657cf773',1,'SC_HardwareDefs.h']]],
-  ['en_5fppr_5fdef_190',['EN_PPR_DEF',['../_s_c___hardware_defs_8h.html#acc00f06650660639e4274657c321cdf6',1,'SC_HardwareDefs.h']]],
-  ['en_5fr_5fpin_191',['EN_R_PIN',['../_s_c___hardware_defs_8h.html#a8378f7c17c4f8583d0d5ffc29e400df1',1,'SC_HardwareDefs.h']]]
+  ['kd_204',['Kd',['../class_m_d___smart_car.html#a51424dd4595be7c0ba8cc164c8b5f875',1,'MD_SmartCar']]],
+  ['ki_205',['Ki',['../class_m_d___smart_car.html#a3ff53f3fcf00a38577f1a255df450186',1,'MD_SmartCar']]],
+  ['kickerpwm_206',['kickerPWM',['../class_m_d___smart_car.html#a83b472f89b518554e1adfc4097662d23',1,'MD_SmartCar']]],
+  ['kp_207',['Kp',['../class_m_d___smart_car.html#a5dfce0d39d9bed634daf079e3aa383bd',1,'MD_SmartCar']]]
 ];

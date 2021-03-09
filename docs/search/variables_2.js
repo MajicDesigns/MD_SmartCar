@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['defkd_184',['DefKd',['../_s_c___hardware_defs_8h.html#aaf6f26c91ebd397ae984c19aacb51c03',1,'SC_HardwareDefs.h']]],
-  ['defki_185',['DefKi',['../_s_c___hardware_defs_8h.html#a7db2ab99efe188b5be111fc192e6549b',1,'SC_HardwareDefs.h']]],
-  ['defkp_186',['DefKp',['../_s_c___hardware_defs_8h.html#a5cde3ab8477db40b8fb26ceb6c156536',1,'SC_HardwareDefs.h']]],
-  ['dist_5fper_5frev_187',['DIST_PER_REV',['../_s_c___hardware_defs_8h.html#a64f5a7cb9650e1fb08ad44612d380493',1,'SC_HardwareDefs.h']]]
+  ['eeprom_5faddr_201',['EEPROM_ADDR',['../_s_c___hardware_defs_8h.html#af8c40339b8cf0f84da4acf804e30abea',1,'SC_HardwareDefs.h']]],
+  ['en_5fl_5fpin_202',['EN_L_PIN',['../_s_c___hardware_defs_8h.html#ab70f24a604468dcebc91324f657cf773',1,'SC_HardwareDefs.h']]],
+  ['en_5fr_5fpin_203',['EN_R_PIN',['../_s_c___hardware_defs_8h.html#a8378f7c17c4f8583d0d5ffc29e400df1',1,'SC_HardwareDefs.h']]]
 ];

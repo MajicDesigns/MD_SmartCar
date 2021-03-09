@@ -2,20 +2,23 @@
 /**
 \mainpage Smart Car Robot Library
 
-A enabler for an automonously roving robot is infrastructure that allows 
-it to travel about in a controlled manner. This is carried out under the 
-control of an application that responds to real-world inputs and adapts the
-movement of the vehicle accordingly.
+This library is designed to provide core mobility functions for
+an autonomous 2 wheeled Smart Car Robot. The library provides
+the code infrastructure that allows the car to travel in a 
+controlled manner, on top of which specific applications can 
+confidently be built.
 
-This library is designed to include core mobility functions for
-an autonomous Smart Car Robot.
+The assumed control Hierarchy is shown below. The library implements 
+the control elements from "Motion Control" to the right of the figure.
 
-Whilst library is designed around the limited but highly affordable 2 wheel 
-drive (plus idler castor wheel) vehicles platforms found on online marketplaces,
-it is also suitable for more capable similar platforms with little or no 
-modification.
+![Control Hierarchy] (SmartCar_Control_Hierarchy.png "Control Hierarchy")
 
-![SmartCar Platform] ( SmartCar_Platform.jpg "SmartCar Platform")
+This library is designed around a commonly obtainable 2 wheel drive (plus 
+idler castor wheel) vehicle chassis found on online marketplaces, it 
+is also suitable for more capable similar platforms with little or 
+no modification.
+
+![SmartCar Platform] (SmartCar_Platform.jpg "SmartCar Platform")
 
 The vehicle is made up of a number of subcomponents that come together to
 allow the software library to function:
@@ -23,9 +26,9 @@ allow the software library to function:
 - \subpage pageMotorController
 - \subpage pageMotorEncoder
 
-There are broadly two types of autonomous movements:
+The library control 2 types of autonomous movements:
 - _Precisely controlled movements_ (eg, spin in place), where the ability to
-  maneuver the orientation of the vehicle at low speed is important. 
+  manoeuvre the orientation of the vehicle at low speed is important. 
   Independent control of motor directions and how far it spins are used as 
   control parameters for this mode type of movement.
 - _General movements_ (eg, traveling at a set speed in a set direction),
@@ -67,30 +70,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 \page pageRevisionHistory Revision History
 Jan 2020 version 1.0.0
 - Initial release
-
-\page pageControlModel Unicycle Control Model
-Two wheeled robots are very maneuverable, but steering them requires 
-each of the independent wheels to rotated at different speeds (call 
-them vL and vR for the left and right side). Managing vL and vR
-independently to achieve a specific path is cumbersome and complex.
-
-The _unicycle model_ of an autonomous robot is a kinematic model that 
-allows us to model the movement of the vehicle using a linear velocity
-vector (v) and a rotational speed (w) about a point within the vehicle.
-Specifying a movement path in this model becomes much easier ("How fast 
-do we want to move forward and how fast do we want to turn").
-
-![SmartCar Movement Transform] ( SmartCar_Transform.png "SmartCar Movement Transform")
-
-v and w can be transformed into independent motor speeds (vL and vR)
-using the following formulas:
-- vL = (2v+wL)/2r
-- vR = (2v-wL)/2r
-
-____
-References
-
-
  */
 
 #include <Arduino.h>
@@ -104,7 +83,7 @@ References
  * \brief Main header file and class definition for the MD_SmartCar library.
  */
 
-#define PID_TUNE 0    ///< set to 1 for specific PID tuning output
+#define PID_TUNE 1    ///< set to 1 for specific PID tuning output
 #define SCDEBUG 0     ///< set to 1 for general debug output
 
 #if SCDEBUG
@@ -193,10 +172,41 @@ public:
    * Initialize the object data. This needs to be called during setup() to reset new
    * items that cannot be done during object creation.
    * 
+   * Vehicle constants are passed through to the setVehicleParameters() method. See
+   * comments for that method for more details.
+   * 
+   * \sa setVehicleParameters();
+   * 
+   * \param ppr    Number of encoder pulses per wheel revolution.
+   * \param ppsMax Maximum number of encoder pulses per second at top speed (100% velocity).
+   * \param dWheel Wheel diameter in mm.
+   * \param lBase  Base length (distance between wheel centers) in mm
    * \return false if either encoder did not reset, true otherwise.
    */
-  bool begin(void);
+  bool begin(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t lBase);
 
+  /**
+   * Set the vehicle constants
+   *
+   * Sets the number of pulses per encoder revolution, maximum speed reading and
+   * important dimensions for the vehicle. This depends on the hardware and could
+   * vary between different vehicle configurations.
+   *
+   * For encoder ppr, there is only one value for all whole vehicle, so all
+   * encoders need to operate the same way.
+   * 
+   * Passing 0 value for any parameter will mean itr takes the default value from
+   * the HardwareDefs.h file.
+   * 
+   * begin();
+   *
+   * \param ppr    Number of encoder pulses per wheel revolution.
+   * \param ppsMax Maximum number of encoder pulses per second at top speed (100% velocity).
+   * \param dWheel Wheel diameter in mm.
+   * \param lBase  Base length (distance between wheel centers) in mm
+   */
+  void setVehicleParameters(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t lBase);
+  
   /**
    * Run the Robot Management Services.
    *
@@ -205,25 +215,26 @@ public:
    */
   void run(void);
 
- /**
-  * Check if motors are running
-  * 
-  * Check if motors are commanded to run. This method is useful to check when
-  * drive() or move() have completed their motions.
-  *
-  * \return true if any of the motors are not idle
-  */ 
+  /**
+   * Check if motors are running
+   * 
+   * Check if motors are commanded to run. This method is useful to check when
+   * drive() or move() have completed their motions.
+   *
+   * \return true if any of the motors are not idle
+   */ 
   bool isRunning(void);
 
   /**
-   * Stop the smart car.
+   * Check if specific motor is running
    *
-   * This method will set the speed to 0 and disable all the motor functions to
-   * bring the smart car to a complete stop.
+   * Check if motors are commanded to run. This method is useful to check when
+   * drive() or move() have completed their motions.
    *
-   * \sa setSpeed()
+   * \param mtr  The motor number being queried [0..MAX_MOTOR-1]
+   * \return true if any of the motors are not idle
    */
-  void stop(void);
+  bool isRunning(uint8_t mtr) { return(mtr < MAX_MOTOR ? _mData[mtr].state != S_IDLE : false); }
   /** @} */
 
   //--------------------------------------------------------------
@@ -242,12 +253,27 @@ public:
    * Angular velocity is specified in degrees per second [-90..90]. Positive angle
    * is clockwise rotation.
    *
-   * \sa setVelocity(), setPIDTuning(), move()
+   * \sa getLinearVelocity(), getAngularVelocity(), setPIDTuning()
    *
    * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
    * \param vAngularD the angular velocity in degrees per second [-90..90].
    */
   void drive(int8_t vLinear, int8_t vAngularD) { drive(vLinear, deg2rad(vAngularD)); }
+
+  /**
+   * Drive the vehicle along a stright path.
+   *
+   * Run the vehicle along a straight path with the specified velocity.
+   * Moves the motors under PID control.
+   *
+   * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
+   * Positive velocity move the vehicle forward, negative moves it in reverse.
+   *
+   * \sa getLinearVelocity(), setPIDTuning()
+   *
+   * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
+   */
+  void drive(int8_t vLinear) { drive(vLinear, (float)0.0); }
 
   /**
    * Drive the vehicle along specified path (radians).
@@ -261,7 +287,7 @@ public:
    * Angular velocity direction is specified in radians per second [-pi/2..pi/2]. Positive
    * angle is clockwise rotation.
    *
-   * \sa setVelocity(), setPIDTuning(), move()
+   * \sa getLinearVelocity(), getAngularVelocity(), setPIDTuning()
    *
    * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
    * \param vAngularR the angular velocity in radians per second [-pi/2..pi/2].
@@ -269,30 +295,83 @@ public:
   void drive(int8_t vLinear, float vAngularR);
 
   /**
-   * Set the current master linear velocity.
+   * Stop the smart car.
    *
-   * Linear velocity is expressed as a percentage of the maximum velocity [0..100].
-   * 
-   * When this method is called all the motors will be set to the appropriate velocity 
-   * differentials, taking into account the currently set angular velocity.
+   * This method will sets all velocities to 0 and disables all the motor functions to
+   * bring the smart car to a complete stop.
    *
-   * \sa getVelocity(), drive()
-   * 
-   * \param vel the new linear velocity setting.
+   * \sa setSpeed()
    */
-  void setVelocity(int8_t vel);
+  void stop(void);
 
   /**
-   * Get the current master linear velocity.
+   * Set the linear velocity
+   * 
+   * Sets the linear velocity without changing any other parameters. Useful for
+   * adjusting the speed when already in motion.
+   * 
+   * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
+   * Positive velocity move the vehicle forward, negative moves it in reverse.
+   *
+   * /sa getLinearVelocity(), drive()
+   * 
+   * \param vel the new value for the linear velocity [-100..100].
+   */
+  void setLinearVelocity(int8_t vel);
+
+  /**
+   * Get the current linear velocity.
    *
    * Linear velocity is expressed as a percentage of the maximum velocity [0..100].
    * The Master velocity is used to regulate all the speed functions for the motors.
    *
-   * \sa setVelocity()
+   * \sa drive()
    *
-   * \return the current master speed setting.
+   * \return the current linear speed setting.
    */
-  inline int8_t getVelocity(void) { return(_vLinear); }
+  inline int8_t getLinearVelocity(void) { return(_vLinear); }
+
+  /**
+   * Set the angular velocity (radians).
+   *
+   * Sets the angular velocity without changing any other parameters. Useful for
+   * adjusting turning when already in motion.
+   * 
+   * Angular velocity is expressed in radians relative to the forward direction
+   * [-PI/2..PI/2]. Positive angle is turn to the right, negative left.
+   *
+   * \sa getAngularVelocity(), drive()
+   *
+   * \param angR the new turning rate in radians.
+   */
+  inline void setAngularVelocity(float angR) { drive(_vLinear, angR); }
+
+  /**
+   * Set the angular velocity (degrees).
+   *
+   * Sets the angular velocity without changing any other parameters. Useful for
+   * adjusting turning when already in motion.
+   *
+   * Angular velocity is expressed in degrees relative to the forward direction
+   * [-90..90]. Positive angle is turn to the right, negative left.
+   *
+   * \sa getAngularVelocity(), drive()
+   *
+   * \param angD the new turning rate in degrees.
+   */
+  inline void setAngularVelocity(int8_t angD) { drive(_vLinear, deg2rad(angD)); }
+
+  /**
+   * Get the current angular velocity.
+   *
+   * Angular velocity is expressed in radians relative to the forward direction 
+   * [-PI/2..PI/2]. Positive angle is turn to the right, negative left.
+   *
+   * \sa drive()
+   *
+   * \return the current angular speed setting.
+   */
+  inline int8_t getAngularVelocity(void) { return(_vAngular); }
 
   /** @} */
 
@@ -505,6 +584,18 @@ public:
    * \param Kd the derivative PID parameter.
    */
   void getPIDTuning(uint8_t mtr, float& Kp, float& Ki, float& Kd);
+
+  /**
+   * Read pulses per encoder revolution
+   *
+   * Returns the number of pulses per encoder revolution. This is needed to change from
+   * number of pulses to revolutions and then distance.
+   *
+   * \sa setPulsePerRev()
+   *
+   * \return The number of pulses per revolution.
+   */
+  inline uint16_t getPulsePerRev() { return(_ppr); }
   /** @} */
 
 private:
@@ -514,9 +605,19 @@ private:
 
   enum runState_t { S_IDLE, S_DRIVE_INIT, S_DRIVE_KICKER, S_DRIVE_PIDRST, S_DRIVE_RUN, S_MOVE_INIT, S_MOVE_RUN };
 
-  float _vMaxLinear;      ///< Maximum linear speed in mm/s 
+  float _vMaxLinear;      ///< Maximum linear speed in pulses/second 
   int16_t _vLinear;       ///< Master velocity setting as percentage [0..100] = [0.._vMaxLinear]
   float _vAngular;        ///< angular velocity in in radians per second [-PI..PI]
+
+  // Vehicle constants
+  uint16_t _ppr;          ///< Encoder pulses per wheel revolution
+  uint16_t _diaWheel;     ///< Wheel diameter in mm
+  uint16_t _lenBase;      ///< Base length in mm (distance between wheel centers)
+  uint16_t _ppsMax;       ///< Encoder maximum pulse per second (full speed reading)
+
+  float _diaWheelP;       ///< Wheel diameter in pulses (calculated)
+  float _lenBaseP;        ///< Base Length in pulses (calculated)
+
 
   // Define the control objects
   SC_DCMotor* _M[MAX_MOTOR];      ///< Motor controllers
@@ -526,10 +627,14 @@ private:
   struct
   {
     uint8_t sig[2];       ///< config signature bytes
+
+    // PWM values
     uint8_t minPWM;       ///< the min PWM setting for DC motors
     uint8_t maxPWM;       ///< the max PWM setting for DC motors
     uint8_t movePWM;      ///< the creep PWM setting for DC motors
     uint8_t kickerPWM;    ///< kicker to overcome static froction from stop position
+
+    // PID values
     float Kp[MAX_MOTOR];  ///< PID parameter per motor
     float Ki[MAX_MOTOR];  ///< PID parameter per motor
     float Kd[MAX_MOTOR];  ///< PID parameter per motor
@@ -556,10 +661,6 @@ private:
   // Methods
   void printConfig(void);             ///< debug only
   void setPIDOutputLimits(void);      ///< set the PID limits for all motors
-
-  // Calculate max linear velocity (mm/s) given physical constraints.
-  // Use the left motor in calc assuming that the encoders will have identical characteristics!
-  inline float calcVMax(void) { return(DIST_PER_REV * (MAX_PULSE_PER_SEC / _E[MLEFT]->getPulsePerRev())); }
 
   inline float deg2rad(int16_t deg) { return((PI * (float)deg) / 180.0); };   // convert degress to radians
 };

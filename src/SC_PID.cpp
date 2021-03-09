@@ -111,6 +111,7 @@ void SC_PID::reset(void)
   _prevCv = *_cv;
   _prevCo = clampOutput(*_co);
   _lastTime = millis();
+  _error = 0;
 }
 
 inline int16_t SC_PID::clampOutput(int16_t value)

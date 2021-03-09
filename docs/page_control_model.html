@@ -88,16 +88,24 @@ $(document).ready(function(){initNavTree('page_control_model.html',''); initResi
 <div class="title">Unicycle Control Model </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Two wheeled robots are very maneuverable, but steering them requires each of the independent wheels to rotated at different speeds (call them vL and vR for the left and right side). Managing vL and vR independently to achieve a specific path is cumbersome and complex.</p>
-<p>The <em>unicycle model</em> of an autonomous robot is a kinematic model that allows us to model the movement of the vehicle using a linear velocity vector (v) and a rotational speed (w) about a point within the vehicle. Specifying a movement path in this model becomes much easier ("How fast 
-do we want to move forward and how fast do we want to turn").</p>
-<p><img src="SmartCar_Transform.png" alt="" class="inline" title="SmartCar Movement Transform"/></p>
-<p>v and w can be transformed into independent motor speeds (vL and vR) using the following formulas:</p><ul>
-<li>vL = (2v-wL)/2r</li>
-<li>vR = (2v+wL)/2r</li>
+<div class="textblock"><p>Working out the displacement and velocities of each wheel on a differential drive robot can be messy.</p>
+<p>The <em>unicycle model</em> of an autonomous robot is a kinematic model that allows modelling the movement of the vehicle as if it was a unicycle, using a linear velocity vector (V) and a rotational velocity (&omega;) about a point within the vehicle. Taking this point to be midway between axis joining the 2 wheels simplifies the calculation.</p>
+<p><img src="SmartCar_Transform.png" alt="SmartCar Movement Transform" title="SmartCar Movement Transform" class="inline"/></p>
+<p>We can derive equations that translate between the unicycle model and our wheel velocities. Steering requires each of the independent wheels to rotated at different speeds (VL and VR for the left and right side) to travel the equivalent unicycle path.</p>
+<p>So specifying a movement path using this abstraction becomes much easier as we need to just specify "How fast do we want to move forward and
+how fast do we want to turn", letting the mathematics work out the wheel rotations.</p>
+<p><img src="SmartCar_Unicycle.png" alt="SmartCar Unicycle" title="SmartCar Unicycle Model" class="inline"/></p>
+<p>V and &omega; are transformed into independent motor speeds for the left and right motor(VL, VR) using the following formulas:</p><ul>
+<li>VL = (2V + &omega; B) / 2r</li>
+<li>VR = (2V - &omega; B) / 2r</li>
 </ul>
-<hr  />
-<p> References </p>
+<p>where B is the vehicle base length (ie, the distance between the wheels) and r is the radius of the wheel.</p>
+<p>The convention used in this library is:</p><ul>
+<li>Linear velocity V is postive for forward motion, negative backwards.</li>
+<li>Angular velocity &omega; is positive for right rotation, negative for left.</li>
+</ul>
+<p><img src="SmartCar_Convention.png" alt="" class="inline" title="SmartCar Convention"/> </p><hr  />
+<p> More at <a href="http:://faculty.salina.k-state.edu/tim/robotics_sg/Control/kinematics/unicycle.html">http:://faculty.salina.k-state.edu/tim/robotics_sg/Control/kinematics/unicycle.html</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -105,7 +113,7 @@ do we want to move forward and how fast do we want to turn").</p>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Smart Car Robot Library</a></li>
-    <li class="footer">Generated on Fri Feb 5 2021 16:07:02 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Mar 8 2021 15:46:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

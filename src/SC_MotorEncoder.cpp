@@ -6,12 +6,6 @@
 #include "SC_MotorEncoder.h"
 #include "SC_HardwareDefs.h"
 
-SC_MotorEncoder::SC_MotorEncoder(uint8_t pinInt) :
-  _pinInt(pinInt) 
-{
-  setPulsePerRev(EN_PPR_DEF);
-}
-
 SC_MotorEncoder::~SC_MotorEncoder(void)
 {
   if (_pinInt != NO_PIN)

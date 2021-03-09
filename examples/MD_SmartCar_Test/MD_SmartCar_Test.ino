@@ -8,7 +8,7 @@
 #endif
 
 #ifndef ECHO_COMMAND
-#define ECHO_COMMAND  0   // set to 0 to not echo command on terminal
+#define ECHO_COMMAND  1   // set to 0 to not echo command on terminal
 #endif
 
 // Global Variables
@@ -21,10 +21,10 @@ SC_DCMotor_MX1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
 SC_DCMotor_MX1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
 #endif
 
-SC_MotorEncoder EL(EN_L_PIN);                         // Left motor encoder
-SC_MotorEncoder ER(EN_R_PIN);                         // Right motor encoder
+SC_MotorEncoder EL(EN_L_PIN);       // Left motor encoder
+SC_MotorEncoder ER(EN_R_PIN);       // Right motor encoder
 
-MD_SmartCar Car(&ML, &EL, &MR, &ER);                  // SmartCar object
+MD_SmartCar Car(&ML, &EL, &MR, &ER);            // SmartCar object
 
 const uint8_t FP_SIG = 2;   // floating point number significant figures
 
@@ -42,7 +42,7 @@ void handlerV(char* param)
   Serial.print(F("\n> Velocity "));
   Serial.print(v);
 #endif
-  Car.setVelocity(v);
+  Car.setLinearVelocity(v);
 }
 
 void handlerD(char* param)
@@ -197,7 +197,7 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
 {
   { "?",  handlerHelp, "",      "Help", 0 },
   { "h",  handlerHelp, "",      "Help", 0 },
-  { "v",  handlerV,  "n",       "Velocity master setting n [0..999]", 1 },
+  { "v",  handlerV,  "n",       "linear Velocity setting n [0..999]", 1 },
   { "rp", handlerRP,  "",       "Report Parameters", 1 },
   { "d",  handlerD,  "v a",     "Drive vel v [-100,100] angle a [-90,90]", 2 },
   { "m",  handlerM,  "l r",     "Move wheels subtended angle l, r", 2 },
@@ -205,7 +205,7 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
   { "tp", handlerTP, "n p i d", "Tuning PID motor n or * [p,i,d=(float * 100)]", 3 },
   { "tw", handlerTW, "l h  ",   "Tuning PWM low/high [l, h=0..255]", 3},
   { "tk", handlerTK, "p",       "Tuning drive() Kicker PWM [p=0..255]", 3 },
-  { "tm", handlerTM, "p",       "Tuning Move() PWM [p=0..255]", 3 },
+  { "tm", handlerTM, "p",       "Tuning move() PWM [p=0..255]", 3 },
   { "cs", handlerCS, "",        "Configuration Save", 4 },
   { "cl", handlerCL, "",        "Configuration Load", 4 },
 };
@@ -222,7 +222,7 @@ void setup(void)
 {
   Serial.begin(57600);
 
-  if (!Car.begin())
+  if (!Car.begin(0, 0, 0, 0))   // take all the defaults
     Serial.print(F("\n\n!! Unable to start car"));
 
   // start command processor
@@ -230,6 +230,7 @@ void setup(void)
   Serial.print(F("\nEnter command. Ensure line ending set to newline.\n"));
   CP.begin();
   CP.help();
+  handlerRP(nullptr);
 }
 
 void loop(void)

@@ -2,7 +2,7 @@
 // an AI2 control application using a HC-05 BT module that has 
 // been pre-initialized and paired to the controller.
 // ##NOTE##
-// Set Serial Monitor to 'Both NL & CR' and '9600 Baud' at bottom right   
+// Set Serial Monitor to 'Both NL & CR' and '57600 Baud' at bottom right   
 
 #include <SoftwareSerial.h>
 #include <MD_SmartCar.h>
@@ -45,10 +45,10 @@ void handlerS(char* param);
 const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
 {
   { "r",  handlerR,  "",        "Report configured speeds", 1 },
-  { "d",  handlerD,  "v a",     "Drive vel v [-100,100] angle [-90,90]", 2 },
-  { "m",  handlerM,  "l r",     "Move subtended angle l, r", 2 },
+  { "d",  handlerD,  "v a",     "Drive lin vel v [-100..100] ang vel a [-90..90]", 2 },
+  { "m",  handlerM,  "l r",     "Move wheels subtended angle l, r", 2 },
   { "pi", handlerPI, "n p i d", "PID Tunings motor n [p,i,d = (float value * 100)]", 3 },
-  { "pw", handlerPW, "l h k m", "PWM tunings [low, high, kicker, move = 0..255]", 3},
+  { "pw", handlerPW, "l h k m", "PWM tunings (low, high, kicker, move) [0..255]", 3},
   { "s",  handlerS,  "",        "Configuration Save", 4 },
 };
 
@@ -152,7 +152,7 @@ void setup(void)
   Serial.begin(57600);
 #endif
   BTSerial.begin(SC_BT_BAUDRATE);
-  if (!Car.begin())
+  if (!Car.begin(0, 0, 0, 0))   // take all the defaults
     BTSerial.print(F("\n\n!! Unable to start car"));
 
   CP.begin();

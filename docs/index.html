@@ -88,17 +88,18 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">Smart Car Robot Library </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>A enabler for an automonously roving robot is infrastructure that allows it to travel about in a controlled manner. This is carried out under the control of an application that responds to real-world inputs and adapts the movement of the vehicle accordingly.</p>
-<p>This library is designed to include core mobility functions for an autonomous Smart Car Robot.</p>
-<p>Whilst library is designed around the limited but highly affordable 2 wheel drive (plus idler castor wheel) vehicles platforms found on online marketplaces, it is also suitable for more capable similar platforms with little or no modification.</p>
+<div class="textblock"><p>This library is designed to provide core mobility functions for an autonomous 2 wheeled Smart Car Robot. The library provides the code infrastructure that allows the car to travel in a controlled manner, on top of which specific applications can confidently be built.</p>
+<p>The assumed control Hierarchy is shown below. The library implements the control elements from "Motion Control" to the right of the figure.</p>
+<p><img src="SmartCar_Control_Hierarchy.png" alt="" class="inline" title="Control Hierarchy"/></p>
+<p>This library is designed around a commonly obtainable 2 wheel drive (plus idler castor wheel) vehicle chassis found on online marketplaces, it is also suitable for more capable similar platforms with little or no modification.</p>
 <p><img src="SmartCar_Platform.jpg" alt="" class="inline" title="SmartCar Platform"/></p>
 <p>The vehicle is made up of a number of subcomponents that come together to allow the software library to function:</p><ul>
 <li>Robot vehicle chassis</li>
 <li><a class="el" href="page_motor_controller.html">Motor Controllers</a></li>
 <li><a class="el" href="page_motor_encoder.html">Motor Encoder</a></li>
 </ul>
-<p>There are broadly two types of autonomous movements:</p><ul>
-<li><em>Precisely controlled movements</em> (eg, spin in place), where the ability to maneuver the orientation of the vehicle at low speed is important. Independent control of motor directions and how far it spins are used as control parameters for this mode type of movement.</li>
+<p>The library control 2 types of autonomous movements:</p><ul>
+<li><em>Precisely controlled movements</em> (eg, spin in place), where the ability to manoeuvre the orientation of the vehicle at low speed is important. Independent control of motor directions and how far it spins are used as control parameters for this mode type of movement.</li>
 <li><em>General movements</em> (eg, traveling at a set speed in a set direction), where the ability to move quickly in an accurate path is important. This type of movement is managed using the <a class="el" href="page_control_model.html">unicycle model</a> for control coupled to <a class="el" href="page_p_i_d.html">PID control</a> of the DC motors.</li>
 </ul>
 <p>See Also</p><ul>
@@ -117,7 +118,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Feb 5 2021 16:07:03 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Mar 8 2021 15:46:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

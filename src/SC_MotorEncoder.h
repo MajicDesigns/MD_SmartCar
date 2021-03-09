@@ -17,14 +17,15 @@ device that has a LED shining through a rotating slotted wheel with a detector
 on the other side. The slotted wheel turns with the driven wheel and the encoder
 is attached to the vehicle body. A module with this device is shown below.
 
-![Motor Encoder] (Encoder.jpg "Motor Encoder")
+![Motor Encoder] (SmartCar_Encoder.jpg "Motor Encoder")
 
 As encoders can be salvaged from a variety of inoperable electronic equipment (printers,
 mice for example), the circuit above can be used to build a near-zero cost DIY version.
 Note that the output of this circuit is pulled-up when there is no signal from the 
 detector.
 
-The output of the circuit needs to be connected to a pin that supports interrupts.
+The output of the circuit needs to be connected to a pin that supports interrupts. 
+On the Arduino Nano this is pins 2 or 3.
 */
 #include <Arduino.h>
 
@@ -53,9 +54,10 @@ public:
    * The main function for the core object is to reset the internal
    * shared variables and timers to default values.
    *
-   * \param pinInt The interrupt pin for the encoder. This is digital pin that support interrupts.
+   * \param pinInt The interrupt pin for the encoder. This is digital 
+   * pin that supports interrupts.
    */
-  SC_MotorEncoder(uint8_t pinInt);
+  SC_MotorEncoder(uint8_t pinInt) : _pinInt(pinInt) {}
 
   /**
    * Class Destructor.
@@ -97,31 +99,6 @@ public:
    * \param bReset   if true (f=default) reset the counters, otherwise leave them as they are.
    */
   void read(uint32_t& interval, uint16_t& count, bool bReset = true);
-
-  /**
-   * Set the pulses per encoder revolution
-   *
-   * Sets the number of pulses per encoder revolution. This depends on the hardware 
-   * for the encoder and could vary between different vehicle configurations.
-   * number of pulses to revolutions and then distance.
-   *
-   * \sa getPulsePerRev()
-   * 
-   * \param ppr the number of encoder pulses per wheel revolution.
-   */
-  inline void setPulsePerRev(uint8_t ppr) { if (ppr != 0) _ppr = ppr; }
-  
-  /**
-   * Read pulses per encoder revolution
-   *
-   * Returns the number of pulses per encoder revolution. This is needed to change from 
-   * number of pulses to revolutions and then distance.
-   *
-   * \sa setPulsePerRev()
-   *
-   * \return The number of pulses per revolution.
-   */
-  inline uint8_t getPulsePerRev(void) { return(_ppr); }
 
   /** @} */
 

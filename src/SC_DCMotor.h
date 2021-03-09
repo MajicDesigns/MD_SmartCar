@@ -26,7 +26,7 @@ This module consists of an L298 motor driver IC and a 78M05 5V regulator which c
 be used to power the Arduino Board. L298N Module can control up to 4 DC motors, 
 or 2 stepper motors, with directional and speed control.
 
-![L298N Controller] (Controller-L298N.jpg "L298N Controller Module")
+![L298N Controller] (SmartCar_Controller_L298N.jpg "L298N Controller Module")
 
 ENA/ENB pins are PWM speed control pins for Motor A and Motor B while IN1/IN2 and 
 IN3/IN4 are direction control pins for Motor A and Motor B. Motors are connected to 
@@ -43,20 +43,20 @@ The L293D is another commonly available 16-Pin Motor Driver Module to drive smal
 motors. A single L293D IC is capable of running two DC motors at the same time with 
 independent direction and speed control.
 
-![L293 Controller] (Controller-L293.jpg "L293 Controller Module")
+![L293 Controller] (SmartCar_Controller_L293.jpg "L293 Controller Module")
 
 This controller is physically smaller than the L298N and can control less motor current, 
 but it has essentially the same control pins, output terminals and control mechanism as 
 the L298N, so can be considered a drop in replacement.
 
-## The M1508 Motor Controller
+## The MX1508 Motor Controller
 
-The M1508 Motor Driver Module is an highly inexpensive driver module available from 
+The MX1508 Motor Driver Module is an highly inexpensive driver module available from 
 low-cost online suppliers. It has specifications similar to the L293D and looks like it 
 is a low cost Chinese version of the DRV8833 Controller IC, with a few less functions. 
-The M1805 module can control up to 2 DC motors, with directional and speed control.
+The MX1805 module can control up to 2 DC motors, with directional and speed control.
 
-![M1508 Controller] (Controller-M1508.jpg "M1508 Controller Module")
+![MX1508 Controller] (SmartCar_Controller_MX1508.jpg "MX1508 Controller Module")
 
 IN1/IN2 and IN3/IN4 are direction control pins for Motor A and Motor B. These double as 
 speed control pins using PWM. Motors are connected to OUT1/OUT2 and OUT3/OUT4 (MOTOR-A 
@@ -70,7 +70,7 @@ must be powered separately.
 
 The DRV8833 is a low voltage, 2A stepper or single/dual brushed DC motor driver. 
 
-![DRV8833 Controller] (Controller-DRV8833.jpg "DRV8833 Controller Module")
+![DRV8833 Controller] (SmartCar_Controller_DRV8833.jpg "DRV8833 Controller Module")
 
 Similar to the M1805, IN1/IN2 and IN3/IN4 are direction control pins for Motor A and 
 Motor B. These double as speed PWM control pins. Motors are connected to OUT1/OUT2 
@@ -100,7 +100,7 @@ public:
    */
   enum runCmd_t
   {
-    DIR_FWD,    ///< Rotate in forward direction.
+    DIR_FWD,   ///< Rotate in forward direction.
     DIR_REV    ///< Rotate in reverse direction (opposite of DIR_FWD).
   };
   /** @} */

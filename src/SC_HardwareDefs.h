@@ -9,58 +9,58 @@
 #endif
 
 /**
-* \page pageHardwareMap Hardware Allocation Map 
-* Hardware Functional Allocation for Arduino Nano
-* 
-* | Pin | Description
-* |-----|---------------
-* | D0* | Hardware Serial Tx
-* | D1* | Hardware Serial Rx
-* | D2  | R Motor Encoder Pulse Interrupt
-* | D3  | L Motor Encoder Pulse Interrupt
-* | D4  | R Motor Controller PWM (L29x type controller)
-* | D5  | R Motor Controller InB1
-* | D6  | R Motor Controller InB2
-* | D7  | L Motor Controller PWM (L29x type controller)/R Sonar Sensor
-* | D8  | L Motor Controller InA1
-* | D9  | L Motor Controller InA2
-* | D10 | -
-* | D11*| Hardware SPI MOSI
-* | D12*| Hardware SPI MISO
-* | D13*| Hardware SPI SCK
-* | A0  | Software Serial Rx
-* | A1  | Software Serial Tx
-* | A2  | L Sonar Sensor
-* | A3  | Mid Sonar Sensor
-* | A4* | Hardware I2C SDA
-* | A5* | Hardware I2C SCL
-* | A6  | -
-* | A7  | -
-* 
-* (*) denotes shared or communications bus pins 
+\page pageHardwareMap Hardware Allocation Map 
+Hardware Functional Allocation for Arduino Nano
+
+The library code is independent of processor used, however ther target
+platform is an Arduino Nano.
+
+| Pin | Description
+|-----|---------------
+| D0* | Hardware Serial Tx
+| D1* | Hardware Serial Rx
+| D2  | R Motor Encoder Pulse Interrupt
+| D3  | L Motor Encoder Pulse Interrupt
+| D4  | R Motor Controller PWM (L29x type controller)
+| D5  | R Motor Controller InB1
+| D6  | R Motor Controller InB2
+| D7  | L Motor Controller PWM (L29x type controller)/R Sonar Sensor
+| D8  | L Motor Controller InA1
+| D9  | L Motor Controller InA2
+| D10 | -
+| D11*| Hardware SPI MOSI
+| D12*| Hardware SPI MISO
+| D13*| Hardware SPI SCK
+| A0  | Software Serial Rx
+| A1  | Software Serial Tx
+| A2  | L Sonar Sensor
+| A3  | Mid Sonar Sensor
+| A4* | Hardware I2C SDA
+| A5* | Hardware I2C SCL
+| A6  | -
+| A7  | -
+ 
+ (*) denotes shared or communications bus pins 
 */
 
  // ------------------------------------
  // SmartCar Physical Constants
-const uint8_t WHEEL_DIAM = 65;      ///< Wheel diameter in mm
-const uint8_t WHEEL_BASE = 110;     ///< Wheel base in mm (= distance between wheel centers)
-const float DIST_PER_REV = (PI * WHEEL_DIAM);  ///< Distance traveled per rev in mm (= wheel circumference)
-const uint8_t MAX_PULSE_PER_SEC = 130;   ///< Maximum encoder pulses per second
+const uint16_t PPR_DEF = 40;        ///< Encoder pulses per revolution default value
+const uint16_t DIA_WHEEL_DEF = 65;  ///< Wheel diameter in mm
+const uint16_t LEN_BASE_DEF = 110;  ///< Wheel base in mm (= distance between wheel centers)
+const uint16_t PPS_MAX_DEF = 120;   ///< Maximum encoder pulses per second
 
 // ------------------------------------
 // Bluetooth connections using Softwareserial
-const uint8_t SC_BT_RX = A0;  // connect to to BT TX pin
-const uint8_t SC_BT_TX = A1;  // connect to to BT RX pin
+const uint8_t SC_BT_RX = A0;  ///< Arduino RX, connect to to BT TX pin
+const uint8_t SC_BT_TX = A1;  ///< Arduino TX, connect to to BT RX pin
 
-const uint16_t SC_BT_BAUDRATE = 9600;
+const uint16_t SC_BT_BAUDRATE = 9600; ///< BT serial connection speed (bps)
 
 // ------------------------------------
 // LCD module connections using I2C hardware connection
-const uint8_t SC_LCD_ROWS = 2;
-const uint8_t SC_LCD_COLS = 16;
-
-//const uint8_t SC_LCD_SCL = A5;
-//const uint8_t SC_LCD_SDA = A4;
+const uint8_t SC_LCD_ROWS = 2;  ///< LCD module number of rows (lines down)
+const uint8_t SC_LCD_COLS = 16; ///< LCD module number of columns (characters across)
 
 // ------------------------------------
 // Motor Controller - Select hardware being used
@@ -104,18 +104,17 @@ const uint8_t MC_KICKER_ACTIVE = 150; ///< Kicker active time in milliseconds
 //
 const uint8_t EN_L_PIN = 3;    ///< Left Motor encoder interrupt pin
 const uint8_t EN_R_PIN = 2;    ///< Right Motor encoder interrupt pin
-const uint8_t EN_PPR_DEF = 40; ///< Encoder pulses per revolution default value
 
 // -----------------------------------
 // PID Control
 //
-const float DefKp = 1.0;    ///< PID proportional weighting default
+const float DefKp = 1.5;    ///< PID proportional weighting default
 const float DefKi = 0.0;    ///< PID integral weighting default
 const float DefKd = 0.1;    ///< PID derivative weighting default
 
-const uint32_t PID_PERIOD = 250;  ///< PID calculation period in ms
-const uint32_t MS_PER_SEC = 1000; ///< number of ms in 1 second
-const uint16_t PID_FREQ = (MS_PER_SEC / PID_PERIOD);  ///< whole divisor is better
+const uint16_t PID_PERIOD = 250;  ///< PID calculation period in ms
+const uint16_t MS_PER_SEC = 1000; ///< number of ms in 1 second
+const float PID_FREQ = ((float)MS_PER_SEC / (float)PID_PERIOD);  ///< whole divisor is better
 
 // -----------------------------------
 // Configuration EEPROM settings

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['kd_39',['Kd',['../class_m_d___smart_car.html#a4e4a01b00f44c60cadcaeb309733164a',1,'MD_SmartCar']]],
-  ['ki_40',['Ki',['../class_m_d___smart_car.html#a49a40fcab6883a6bf772a4eb47d3a7cc',1,'MD_SmartCar']]],
-  ['kp_41',['Kp',['../class_m_d___smart_car.html#aab7af0a1b04d25c4039ea0469ef4657d',1,'MD_SmartCar']]]
+  ['kd_38',['Kd',['../class_m_d___smart_car.html#a51424dd4595be7c0ba8cc164c8b5f875',1,'MD_SmartCar']]],
+  ['ki_39',['Ki',['../class_m_d___smart_car.html#a3ff53f3fcf00a38577f1a255df450186',1,'MD_SmartCar']]],
+  ['kickerpwm_40',['kickerPWM',['../class_m_d___smart_car.html#a83b472f89b518554e1adfc4097662d23',1,'MD_SmartCar']]],
+  ['kp_41',['Kp',['../class_m_d___smart_car.html#a5dfce0d39d9bed634daf079e3aa383bd',1,'MD_SmartCar']]]
 ];

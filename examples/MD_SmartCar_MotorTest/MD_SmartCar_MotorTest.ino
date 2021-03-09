@@ -63,6 +63,7 @@ void handlerSL(char* param) { motorSpeed(ML, 'L', param); }
 void handlerSR(char* param) { motorSpeed(MR, 'R', param); }
 void handlerRL(char* param) { motorMode(ML, 'L', param); }
 void handlerRR(char* param) { motorMode(MR, 'R', param); }
+void handlerX(char* param)  { ML.setSpeed(0); MR.setSpeed(0); }
 
 void handlerE(char* param)
 {
@@ -80,6 +81,7 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
   { "h",  handlerHelp, "",  "Help", 0 },
   { "sl", handlerSL,  "n", "Left speed setting to n [0..255]", 1 },
   { "sr", handlerSR,  "n", "Right speed setting to n [0..255]", 1 },
+  { "x",  handlerX,   "",  "Stop all motors", 1 },
   { "rl", handlerRL,  "m", "Run Left in mode m [f=fwd, r=rev]", 1 },
   { "rr", handlerRR,  "m", "Run Right in mode m [f=fwd, r=rev]", 1 },
   { "e", handlerE,    "",  "Toggle encoder reporting on/off", 2 },

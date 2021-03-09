@@ -1,17 +1,19 @@
 var searchData=
 [
-  ['getcontroltype_137',['getControlType',['../class_s_c___p_i_d.html#ad3fa85ae19210ac9fd34fb009ee28242',1,'SC_PID']]],
-  ['getcreepsp_138',['getCreepSP',['../class_m_d___smart_car.html#af59df303dd78923f9a3040b010795b33',1,'MD_SmartCar']]],
-  ['geterror_139',['getError',['../class_s_c___p_i_d.html#a8b3fc2571cfe167648818429056a2927',1,'SC_PID']]],
-  ['getkd_140',['getKd',['../class_s_c___p_i_d.html#a438de64273b2b314719bf413c09658a7',1,'SC_PID']]],
-  ['getki_141',['getKi',['../class_s_c___p_i_d.html#a3a2d8e83d0f811e7cc71ff7d0472a2eb',1,'SC_PID']]],
-  ['getkp_142',['getKp',['../class_s_c___p_i_d.html#ab31cdb29eb5aeba19c35617aa3ac8e0d',1,'SC_PID']]],
-  ['getmaxmotorsp_143',['getMaxMotorSP',['../class_m_d___smart_car.html#a6e3dd8c1c77ff5e560bd22bf6a91e50d',1,'MD_SmartCar']]],
-  ['getminmotorsp_144',['getMinMotorSP',['../class_m_d___smart_car.html#adbd568c47674d03da8e455363808778b',1,'MD_SmartCar']]],
-  ['getmode_145',['getMode',['../class_s_c___p_i_d.html#a0b44fa071ac90736f03907b9c0e04c0b',1,'SC_PID']]],
-  ['getpidperiod_146',['getPIDPeriod',['../class_s_c___p_i_d.html#a53ef8f0e4c9226c786fe5d253e9efc67',1,'SC_PID']]],
-  ['getpidtuning_147',['getPIDTuning',['../class_m_d___smart_car.html#a2aa645962dd384c2f0d925395b7345ab',1,'MD_SmartCar']]],
-  ['getpulseperrev_148',['getPulsePerRev',['../class_s_c___motor_encoder.html#aa05458188b4856ee902ca47be6c9e53d',1,'SC_MotorEncoder']]],
-  ['getspeed_149',['getSpeed',['../class_s_c___d_c_motor.html#aeb106e1741a1fecdaf27077384102177',1,'SC_DCMotor']]],
-  ['getvelocity_150',['getVelocity',['../class_m_d___smart_car.html#a3483e8e44231f318d02573cf881b5b90',1,'MD_SmartCar']]]
+  ['getangularvelocity_147',['getAngularVelocity',['../class_m_d___smart_car.html#ac22a9935a54509dcf402c776ad74e83d',1,'MD_SmartCar']]],
+  ['getcontroltype_148',['getControlType',['../class_s_c___p_i_d.html#ad3fa85ae19210ac9fd34fb009ee28242',1,'SC_PID']]],
+  ['geterror_149',['getError',['../class_s_c___p_i_d.html#a8b3fc2571cfe167648818429056a2927',1,'SC_PID']]],
+  ['getkd_150',['getKd',['../class_s_c___p_i_d.html#a438de64273b2b314719bf413c09658a7',1,'SC_PID']]],
+  ['getki_151',['getKi',['../class_s_c___p_i_d.html#a3a2d8e83d0f811e7cc71ff7d0472a2eb',1,'SC_PID']]],
+  ['getkickersp_152',['getKickerSP',['../class_m_d___smart_car.html#a1f67fa64c9cc49a085d176aa8b7fe31d',1,'MD_SmartCar']]],
+  ['getkp_153',['getKp',['../class_s_c___p_i_d.html#ab31cdb29eb5aeba19c35617aa3ac8e0d',1,'SC_PID']]],
+  ['getlinearvelocity_154',['getLinearVelocity',['../class_m_d___smart_car.html#a1d8624801dedb941d71059559395f4af',1,'MD_SmartCar']]],
+  ['getmaxmotorsp_155',['getMaxMotorSP',['../class_m_d___smart_car.html#a6e3dd8c1c77ff5e560bd22bf6a91e50d',1,'MD_SmartCar']]],
+  ['getminmotorsp_156',['getMinMotorSP',['../class_m_d___smart_car.html#adbd568c47674d03da8e455363808778b',1,'MD_SmartCar']]],
+  ['getmode_157',['getMode',['../class_s_c___p_i_d.html#a0b44fa071ac90736f03907b9c0e04c0b',1,'SC_PID']]],
+  ['getmovesp_158',['getMoveSP',['../class_m_d___smart_car.html#a28192b72d682de755a5fbf3387cfa393',1,'MD_SmartCar']]],
+  ['getpidperiod_159',['getPIDPeriod',['../class_s_c___p_i_d.html#a53ef8f0e4c9226c786fe5d253e9efc67',1,'SC_PID']]],
+  ['getpidtuning_160',['getPIDTuning',['../class_m_d___smart_car.html#abb35fa46f8a68fd133363dfe2fe477ef',1,'MD_SmartCar']]],
+  ['getpulseperrev_161',['getPulsePerRev',['../class_m_d___smart_car.html#a48120b81f656546c3b6b359a8323d305',1,'MD_SmartCar']]],
+  ['getspeed_162',['getSpeed',['../class_s_c___d_c_motor.html#aeb106e1741a1fecdaf27077384102177',1,'SC_DCMotor']]]
 ];
