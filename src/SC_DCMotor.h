@@ -79,6 +79,16 @@ and an input to put the device into 'sleep' mode for very low power consumption.
  */
 #include <Arduino.h>
 
+#ifndef USE_PWM_LIBRARY
+#define USE_PWM_LIBRARY 1   ///< Set to 1 to use MD_PWM library, 0 for standard Arduino PWM
+#endif
+
+#if USE_PWM_LIBRARY
+#include <MD_PWM.h>
+
+const uint16_t PWM_FREQ = 60;   ///< PWM frequency in Hz
+#endif
+
 /**
  * Core object for the SC_DCMotor class
  * 
@@ -114,9 +124,11 @@ public:
    *
    * Initialize the object data. This needs to be called during setup() to reset new
    * data for the class that cannot be done during the object creation.
+   *
+   * \return true if initialisation succeeded
    */
-  virtual void begin(void) = 0;
-
+  virtual bool begin(void) = 0;
+  
   /**
    * Run/Stop the motor with speed.
    *
@@ -189,6 +201,9 @@ public:
   {
     _mode = DIR_FWD;
     _speed = 0;
+#if USE_PWM_LIBRARY
+    pwm = new MD_PWM(_pinEn);
+#endif
   }
 
   /**
@@ -196,7 +211,7 @@ public:
    *
    * Release any allocated memory and clean up anything else.
    */
-  ~SC_DCMotor_L29x(void) { setSpeed(0); }
+  ~SC_DCMotor_L29x(void) { setSpeed(0); delete pwm; }
   /** @} */
 
   //--------------------------------------------------------------
@@ -208,8 +223,10 @@ public:
    *
    * Initialize the object data. Sets up the pins for output and puts the 
    * controlled in a stopped position.
+   * 
+   * \return true if initialisation succeeded
    */
-  void begin(void);
+  bool begin(void);
 
   /**
    * Run/Stop the motor with speed.
@@ -243,6 +260,10 @@ private:
   uint8_t _pinIn1;  ///< One of the mode control control pins
   uint8_t _pinIn2;  ///< The other mode control control pins
   uint8_t _pinEn;   ///< Must be a PWM enabled pin for speed control
+#if USE_PWM_LIBRARY
+  MD_PWM* pwm;      ///< PWM controller
+#endif
+
 
   void setMode(runCmd_t cmd);
 };
@@ -278,6 +299,10 @@ public:
     _pinIn[1] = pinIn2;
     _mode = DIR_FWD; 
     _speed = 0;
+#if USE_PWM_LIBRARY
+    pwm[0] = new MD_PWM(_pinIn[0]);
+    pwm[1] = new MD_PWM(_pinIn[1]);
+#endif
   }
 
   /**
@@ -285,7 +310,7 @@ public:
    *
    * Release any allocated memory and clean up anything else.
    */
-  ~SC_DCMotor_MX1508(void) { setSpeed(0); }
+  ~SC_DCMotor_MX1508(void) { setSpeed(0); delete pwm[0]; delete pwm[1]; }
   /** @} */
 
   //--------------------------------------------------------------
@@ -297,8 +322,10 @@ public:
    *
    * Initialize the object data. Sets up the pins for output and puts the
    * controlled in a stopped position.
+   *
+   * \return true if initialisation succeeded
    */
-  void begin(void);
+  bool begin(void);
 
   /**
    * Run/Stop the motor with speed.
@@ -331,6 +358,10 @@ private:
   // Define the hardware interface pins
   uint8_t _pinIn[2];  ///< The mode control control pins
   uint8_t _pinPWM;    ///< the pin to use for PWM control
+
+#if USE_PWM_LIBRARY
+  MD_PWM* pwm[2];     ///< PWM controller
+#endif
 
   void setMode(runCmd_t cmd);
 };

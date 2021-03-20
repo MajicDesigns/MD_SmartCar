@@ -29,7 +29,7 @@
    <div id="projectname">Smart Car Controller
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">LIbrary to manage a Smart Car Robot</div>
+   <div id="projectbrief">Library to manage a two wheeled robotic vehicle</div>
   </td>
  </tr>
  </tbody>
@@ -94,9 +94,6 @@ $(document).ready(function(){initNavTree('globals_vars.html',''); initResizable(
 <li>DefKp
 : <a class="el" href="_s_c___hardware_defs_8h.html#a5cde3ab8477db40b8fb26ceb6c156536">SC_HardwareDefs.h</a>
 </li>
-<li>DIA_WHEEL_DEF
-: <a class="el" href="_s_c___hardware_defs_8h.html#a0528ad33071d47b2c68930232b110479">SC_HardwareDefs.h</a>
-</li>
 <li>EEPROM_ADDR
 : <a class="el" href="_s_c___hardware_defs_8h.html#af8c40339b8cf0f84da4acf804e30abea">SC_HardwareDefs.h</a>
 </li>
@@ -105,9 +102,6 @@ $(document).ready(function(){initNavTree('globals_vars.html',''); initResizable(
 </li>
 <li>EN_R_PIN
 : <a class="el" href="_s_c___hardware_defs_8h.html#a8378f7c17c4f8583d0d5ffc29e400df1">SC_HardwareDefs.h</a>
-</li>
-<li>LEN_BASE_DEF
-: <a class="el" href="_s_c___hardware_defs_8h.html#aef92f61b601da8872edb9fb6b3d50352">SC_HardwareDefs.h</a>
 </li>
 <li>MC_INA1_PIN
 : <a class="el" href="_s_c___hardware_defs_8h.html#aa90839f10f0c49c1705d4cfd44876c82">SC_HardwareDefs.h</a>
@@ -136,6 +130,9 @@ $(document).ready(function(){initNavTree('globals_vars.html',''); initResizable(
 <li>MC_PWM_MOVE
 : <a class="el" href="_s_c___hardware_defs_8h.html#afcb7e4d96dcbbad864181f74684a02d0">SC_HardwareDefs.h</a>
 </li>
+<li>MC_SPIN_ADJUST
+: <a class="el" href="_s_c___hardware_defs_8h.html#a129c65196d23ef4ca37947b9d581c24d">SC_HardwareDefs.h</a>
+</li>
 <li>MS_PER_SEC
 : <a class="el" href="_s_c___hardware_defs_8h.html#a60cce0bdf9d507b5e6b55ef13d913fe1">SC_HardwareDefs.h</a>
 </li>
@@ -145,11 +142,8 @@ $(document).ready(function(){initNavTree('globals_vars.html',''); initResizable(
 <li>PID_PERIOD
 : <a class="el" href="_s_c___hardware_defs_8h.html#ac6e85f80829803b7fdcd02bb295c2813">SC_HardwareDefs.h</a>
 </li>
-<li>PPR_DEF
-: <a class="el" href="_s_c___hardware_defs_8h.html#ab55708ba3457e8c233abd64c379633ef">SC_HardwareDefs.h</a>
-</li>
-<li>PPS_MAX_DEF
-: <a class="el" href="_s_c___hardware_defs_8h.html#ab09aab0fc7d34e34aed7f9685ba98017">SC_HardwareDefs.h</a>
+<li>PWM_FREQ
+: <a class="el" href="_s_c___d_c_motor_8h.html#a55c3f2aa23fd09b15718dadfb07f011e">SC_DCMotor.h</a>
 </li>
 <li>SC_BT_BAUDRATE
 : <a class="el" href="_s_c___hardware_defs_8h.html#a212eba0e06f7437d675c21e525e11474">SC_HardwareDefs.h</a>
@@ -160,11 +154,20 @@ $(document).ready(function(){initNavTree('globals_vars.html',''); initResizable(
 <li>SC_BT_TX
 : <a class="el" href="_s_c___hardware_defs_8h.html#a4d38fd1f8092aca502b2b287c3a69a76">SC_HardwareDefs.h</a>
 </li>
+<li>SC_L_SONAR
+: <a class="el" href="_s_c___hardware_defs_8h.html#a8ef0c12cf16a0ba984ac03b6aa39c14b">SC_HardwareDefs.h</a>
+</li>
 <li>SC_LCD_COLS
 : <a class="el" href="_s_c___hardware_defs_8h.html#a6e8cd2283be12da6b01db7ebd2a445bc">SC_HardwareDefs.h</a>
 </li>
 <li>SC_LCD_ROWS
 : <a class="el" href="_s_c___hardware_defs_8h.html#acbca72cfee33f37016f94f8503aa861f">SC_HardwareDefs.h</a>
+</li>
+<li>SC_M_SONAR
+: <a class="el" href="_s_c___hardware_defs_8h.html#a40b916cba73d397fa4bf9eab888447d1">SC_HardwareDefs.h</a>
+</li>
+<li>SC_R_SONAR
+: <a class="el" href="_s_c___hardware_defs_8h.html#a98b2e88aa661909e87b40b97b215eeca">SC_HardwareDefs.h</a>
 </li>
 <li>SIG
 : <a class="el" href="_s_c___hardware_defs_8h.html#a0824a041c4f1bb37459fe354b72eda63">SC_HardwareDefs.h</a>
@@ -175,7 +178,7 @@ $(document).ready(function(){initNavTree('globals_vars.html',''); initResizable(
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Mar 8 2021 15:46:57 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Mar 20 2021 14:15:21 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

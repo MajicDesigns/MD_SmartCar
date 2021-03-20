@@ -1,18 +1,25 @@
-// Test MD_SmartCar class through an Bluetooth interface to 
+// Test MD_SmartCar class through a Bluetooth interface to 
 // an AI2 control application using a HC-05 BT module that has 
 // been pre-initialized and paired to the controller.
-// ##NOTE##
-// Set Serial Monitor to 'Both NL & CR' and '57600 Baud' at bottom right   
+// 
+// This is to test 'real-world' motion after the vehicle 
+// parameters have been calibrated.
+// 
+// All Vehicle motion types can be exercised and parameters fine
+// tuned from the AI2 interface.
 
 #include <SoftwareSerial.h>
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
 
-#ifndef ARRAY_SIZE
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
-#endif
-
 #define ECHO_COMMAND 0    // Echo commands to the Serial stream for debugging
+
+// ------------------------------------
+// SmartCar Physical Constants
+const uint16_t PPR = 40;        ///< Encoder pulses per revolution default value
+const uint16_t DIA_WHEEL = 65;  ///< Wheel diameter in mm
+const uint16_t LEN_BASE = 110;  ///< Wheel base in mm (= distance between wheel centers)
+const uint16_t PPS_MAX = 175;   ///< Maximum encoder pulses per second (PWM=255)
 
 // Global Variables
 #if CONTROLLER_L29x
@@ -40,6 +47,7 @@ void handlerM(char* param);
 void handlerR(char* param);
 void handlerPI(char* param);
 void handlerPW(char* param);
+void handlerPS(char* param);
 void handlerS(char* param);
 
 const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
@@ -47,8 +55,10 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
   { "r",  handlerR,  "",        "Report configured speeds", 1 },
   { "d",  handlerD,  "v a",     "Drive lin vel v [-100..100] ang vel a [-90..90]", 2 },
   { "m",  handlerM,  "l r",     "Move wheels subtended angle l, r", 2 },
+  { "z",  handlerZ,  "f",       "Spin full circle fraction f% [-100, 100]", 2 },
   { "pi", handlerPI, "n p i d", "PID Tunings motor n [p,i,d = (float value * 100)]", 3 },
   { "pw", handlerPW, "l h k m", "PWM tunings (low, high, kicker, move) [0..255]", 3},
+  { "ps", handlerPS, "f",       "Interial Adjust f for spin() [float value * 100]", 3},
   { "s",  handlerS,  "",        "Configuration Save", 4 },
 };
 
@@ -85,6 +95,18 @@ void handlerM(char* param)
   Car.move((int16_t)al, (int16_t)ar);
 }
 
+void handlerZ(char* param)
+{
+  int f;
+
+#if ECHO_COMMAND
+  Serial.println(CP.getLastCmdLine());
+#endif
+  sscanf(param, "%d", &f);
+
+  Car.spin((int16_t)f);
+}
+ 
 void handlerR(char* param)
 {
   float Kp, Ki, Kd;
@@ -104,6 +126,7 @@ void handlerR(char* param)
   BTSerial.print(F(", "));        BTSerial.print(Car.getMaxMotorSP());
   BTSerial.print(F("\nKick: "));  BTSerial.print(Car.getKickerSP());
   BTSerial.print(F("\nMove: "));  BTSerial.print(Car.getMoveSP());
+  BTSerial.print(F("\nSpin: "));  BTSerial.print(Car.getSpinSP());
   BTSerial.print(F("\n"));
 }
 
@@ -138,6 +161,20 @@ void handlerPW(char* param)
   Car.setMoveSP(m);
 }
 
+void handlerPS(char* param)
+{
+  int ai;
+  float af;
+
+#if ECHO_COMMAND
+  Serial.println(CP.getLastCmdLine());
+#endif
+  sscanf(param, "%d", &ai);
+  af = ai / 100.0;
+
+  Car.setSpinSP(af);
+}
+
 void handlerS(char* param)
 {
 #if ECHO_COMMAND
@@ -152,7 +189,7 @@ void setup(void)
   Serial.begin(57600);
 #endif
   BTSerial.begin(SC_BT_BAUDRATE);
-  if (!Car.begin(0, 0, 0, 0))   // take all the defaults
+  if (!Car.begin(PPR, PPS_MAX, DIA_WHEEL, LEN_BASE))   // take all the defaults
     BTSerial.print(F("\n\n!! Unable to start car"));
 
   CP.begin();

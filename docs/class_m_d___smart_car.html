@@ -29,7 +29,7 @@
    <div id="projectname">Smart Car Controller
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">LIbrary to manage a Smart Car Robot</div>
+   <div id="projectbrief">Library to manage a two wheeled robotic vehicle</div>
   </td>
  </tr>
  </tbody>
@@ -136,6 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa8b0d65f25ba30846e67fe78d3266a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa09aa7d95be6298af095d81f334843a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#aa09aa7d95be6298af095d81f334843a6">move</a> (int16_t angL, int16_t angR)</td></tr>
 <tr class="separator:aa09aa7d95be6298af095d81f334843a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50015e2da43dceae8fb696387f023fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin</a> (int16_t fraction)</td></tr>
+<tr class="separator:ad50015e2da43dceae8fb696387f023fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Methods for EEPROM and Configuration Management.</div></td></tr>
 <tr class="memitem:a0f5b2aa6e8628072aedb43779fd7837e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#a0f5b2aa6e8628072aedb43779fd7837e">loadConfig</a> (void)</td></tr>
 <tr class="separator:a0f5b2aa6e8628072aedb43779fd7837e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,6 +151,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac73702de4b832243cf33ed0410d81358"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f67fa64c9cc49a085d176aa8b7fe31d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#a1f67fa64c9cc49a085d176aa8b7fe31d">getKickerSP</a> (void)</td></tr>
 <tr class="separator:a1f67fa64c9cc49a085d176aa8b7fe31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa024d5c3a68de673393238fc6893eb90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#aa024d5c3a68de673393238fc6893eb90">setSpinSP</a> (float adjust)</td></tr>
+<tr class="separator:aa024d5c3a68de673393238fc6893eb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7bed3f412480f55986f0b8f6a4c74c4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4">getSpinSP</a> (void)</td></tr>
+<tr class="separator:ae7bed3f412480f55986f0b8f6a4c74c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a650f461e1251aa8163359db3aaa9a850"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#a650f461e1251aa8163359db3aaa9a850">setMinMotorSP</a> (uint8_t units)</td></tr>
 <tr class="separator:a650f461e1251aa8163359db3aaa9a850"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61269ad33e920b183cc3644b4053999b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___smart_car.html#a61269ad33e920b183cc3644b4053999b">setMaxMotorSP</a> (uint8_t units)</td></tr>
@@ -447,7 +453,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the drive kicker speed.</p>
 <p>Get the <a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a> kicker speed units for the motors. These units will be passed on directly to DCMotorControl and are meaningful to that class.</p>
-<p>The Kicker is needed to overcome the static friction when the motor is stopped and shuold be determined as the minimum that reliably gets a motor rotation started.</p>
+<p>The Kicker is needed to overcome the static friction when the motor is stopped and should be determined as the minimum that reliably gets a motor rotation started.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, <a class="el" href="class_m_d___smart_car.html#ac73702de4b832243cf33ed0410d81358">setKickerSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the previously configured speed. </dd></dl>
 
@@ -614,6 +620,28 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae7bed3f412480f55986f0b8f6a4c74c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7bed3f412480f55986f0b8f6a4c74c4">&#9670;&nbsp;</a></span>getSpinSP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MD_SmartCar::getSpinSP </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the spin adjustment factor.</p>
+<p>Get the <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> inertia adjustment. When the vehicle is spinning and the motors turn off, it may continue spinning due to its inertia. This factor is applied to proportionatley reduce the pulses used to execute the spin to account for the additional free spin movement after the powered spin stops.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a>, <a class="el" href="class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4">getSpinSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the previously configured spin adjustment. </dd></dl>
+
+</div>
+</div>
 <a id="a3492d97300bbfd8dbec8e2764f3032d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3492d97300bbfd8dbec8e2764f3032d7">&#9670;&nbsp;</a></span>isRunning() <span class="overload">[1/2]</span></h2>
 
@@ -709,10 +737,10 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Precisely move the vehicle (radians).</p>
-<p>Move controls the movement by counting the encoder pulses rather that PID, which should make it more precise and controlled. This is useful for specific movements run at slow speed.</p>
+<p>Controls the movement by counting the encoder pulses rather that PID, which should make it more precise and controlled. This is useful for specific movements run at slow speed.</p>
 <p>The call to <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">move()</a> specifies the angle each wheels will turn, independently. This method is design to allow close movements such as spin-in-place or other short precise motions.</p>
 <p>The motion for each wheel is specified as speed as the total angle subtended by the turned by the wheel in radians. Negative angle is a reverse wheel rotation.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, setCreepSP()</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a>, <a class="el" href="class_m_d___smart_car.html#a505f4130aa6d2a20b7d67b448679b993">setMoveSP()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">angL</td><td>left wheel angle subtended by the motion in radians. </td></tr>
@@ -749,10 +777,10 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Precisely move the vehicle (degrees).</p>
-<p>Move controls the movement by counting the encoder pulses rather that PID, which should make it more precise and controlled. This is useful for specific movements run at slow speed.</p>
+<p>Controls the movement by counting the encoder pulses rather that PID, which should make it more precise and controlled. This is useful for specific movements run at slow speed.</p>
 <p>The call to <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">move()</a> specifies the precise motion of the motors, independently. This method is design to allow close movements such as spin-in-place or other short precise motions.</p>
 <p>The motion for each wheel is specified as speed as the total angle subtended by the turned by the wheel in degrees. Negative angle is a reverse wheel rotation.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, setCreepSP()</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a>, <a class="el" href="class_m_d___smart_car.html#a505f4130aa6d2a20b7d67b448679b993">setMoveSP()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">angL</td><td>left wheel angle subtended by the motion in degrees. </td></tr>
@@ -877,7 +905,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Set the drive kicker speed.</p>
 <p>Set the <a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a> kicker speed for the motors. These units will be passed on directly to DCMotorControl and are meaningful to that class.</p>
-<p>The Kicker is needed to overcome the static friction when the motor is stopped and shuold be determined as the minimum that reliably gets a motor rotation started.</p>
+<p>The Kicker is needed to overcome the static friction when the motor is stopped and should be determined as the minimum that reliably gets a motor rotation started.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, <a class="el" href="class_m_d___smart_car.html#a1f67fa64c9cc49a085d176aa8b7fe31d">getKickerSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1051,6 +1079,33 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa024d5c3a68de673393238fc6893eb90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa024d5c3a68de673393238fc6893eb90">&#9670;&nbsp;</a></span>setSpinSP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MD_SmartCar::setSpinSP </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>adjust</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the spin adjustment factor.</p>
+<p>Set the <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> inertia adjustment. When the vehicle is spinning and the motors turn off, it may continue spinning due to its inertia. This factor is applied to proportionatley reduce the pulses used to execute the spin to account for the additional free spin movement after the powered spin stops.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a>, <a class="el" href="class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4">getSpinSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">adjust</td><td>factor applied to the spin pulses (pulses * adjust) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a4764a2aeb1c335799a42e028bae6ebd2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4764a2aeb1c335799a42e028bae6ebd2">&#9670;&nbsp;</a></span>setVehicleParameters()</h2>
 
@@ -1091,7 +1146,6 @@ Static Public Attributes</h2></td></tr>
 <p>Set the vehicle constants</p>
 <p>Sets the number of pulses per encoder revolution, maximum speed reading and important dimensions for the vehicle. This depends on the hardware and could vary between different vehicle configurations.</p>
 <p>For encoder ppr, there is only one value for all whole vehicle, so all encoders need to operate the same way.</p>
-<p>Passing 0 value for any parameter will mean itr takes the default value from the HardwareDefs.h file.</p>
 <p><a class="el" href="class_m_d___smart_car.html#a5caa39e3336d1789c3b63b12f301870a">begin()</a>;</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1099,6 +1153,34 @@ Static Public Attributes</h2></td></tr>
     <tr><td class="paramname">ppsMax</td><td>Maximum number of encoder pulses per second at top speed (100% velocity). </td></tr>
     <tr><td class="paramname">dWheel</td><td>Wheel diameter in mm. </td></tr>
     <tr><td class="paramname">lBase</td><td>Base length (distance between wheel centers) in mm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad50015e2da43dceae8fb696387f023fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50015e2da43dceae8fb696387f023fd">&#9670;&nbsp;</a></span>spin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MD_SmartCar::spin </td>
+          <td>(</td>
+          <td class="paramtype">int16_t&#160;</td>
+          <td class="paramname"><em>fraction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Precisely spin the vehicle.</p>
+<p>Controls the movement by spinning the vehicle about its central vertical axis. It works similar to <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">move()</a> to spin the wheels in an directions to effect the turning motion.</p>
+<p>The call to <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> specifies the percentage (-100 to 100) of the full circle rotation about the central axis passing through the vehicle base length. Positive angle is a turn to the right, negative to the left.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">drive()</a>, <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">move()</a>, <a class="el" href="class_m_d___smart_car.html#a505f4130aa6d2a20b7d67b448679b993">setMoveSP()</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fraction</td><td>Percentage fraction of full revolution [-100..100]. Positive spins right; negative pins left. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1163,7 +1245,7 @@ Static Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_m_d___smart_car.html">MD_SmartCar</a></li>
-    <li class="footer">Generated on Mon Mar 8 2021 15:46:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Mar 20 2021 14:15:21 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

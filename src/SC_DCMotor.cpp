@@ -5,18 +5,30 @@
 
 #include "SC_DCMotor.h"
 
-void SC_DCMotor_L29x::begin(void)
+bool SC_DCMotor_L29x::begin(void)
 {
+  bool b = true;
+
   pinMode(_pinIn1, OUTPUT);
   pinMode(_pinIn2, OUTPUT);
   pinMode(_pinEn, OUTPUT);
+
+#if USE_PWM_LIBRARY
+  pwm->begin(PWM_FREQ);
+#endif
+
+  return(b);
 }
 
 void SC_DCMotor_L29x::setSpeed(uint16_t s)
 {
   if (s > 255) s = 255;
   _speed = s;
+#if USE_PWM_LIBRARY
+  pwm->write(_speed);
+#else
   analogWrite(_pinEn, _speed);
+#endif
 }
 
 void SC_DCMotor_L29x::setMode(runCmd_t cmd)
@@ -30,11 +42,20 @@ void SC_DCMotor_L29x::setMode(runCmd_t cmd)
   }
 }
 
-void SC_DCMotor_MX1508::begin(void)
+bool SC_DCMotor_MX1508::begin(void)
 {
+  bool b = true;
+
   pinMode(_pinIn[0], OUTPUT);
   pinMode(_pinIn[1], OUTPUT);
+#if USE_PWM_LIBRARY
+  pwm[0]->begin(PWM_FREQ);
+  pwm[1]->begin(PWM_FREQ);
+#endif
+
   setMode(_mode);   // set the current PWM pin number
+
+  return(b);
 }
 
 void SC_DCMotor_MX1508::setSpeed(uint16_t s)
@@ -43,8 +64,12 @@ void SC_DCMotor_MX1508::setSpeed(uint16_t s)
   _speed = s;
 
   // direction with slow decay (coasting)
-  digitalWrite(_pinIn[_pinPWM == 0 ? 1 : 0], LOW);
+  digitalWrite(_pinIn[_pinPWM ? 0 : 1], LOW);   // use the alternative pin to _pinPWM
+#if USE_PWM_LIBRARY
+  pwm[_pinPWM]->write(_speed);
+#else
   analogWrite(_pinIn[_pinPWM], _speed);
+#endif
 }
 
 void SC_DCMotor_MX1508::setMode(runCmd_t cmd)

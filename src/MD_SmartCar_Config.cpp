@@ -22,6 +22,7 @@ void MD_SmartCar::loadConfig(void)
     _config.kickerPWM = MC_PWM_KICKER;
     _config.minPWM = MC_PWM_MIN;
     _config.maxPWM = MC_PWM_MAX;
+    _config.spinAdjust = MC_SPIN_ADJUST;
 
     for (uint8_t i = 0; i < MAX_MOTOR; i++)
     {
@@ -49,14 +50,15 @@ void MD_SmartCar::printConfig(void)
 // Only enabled when debugging is turned on
 {
   SCPRINTS("\nCONFIG\n------");
-  SCPRINTX("\nSig:\t", _config.sig[0]); SCPRINTX(", ", _config.sig[1]);
-  SCPRINT("\nCreepPWM:", _config.movePWM);
-  SCPRINT("\nKickerPWM:", _config.kickerPWM);
-  SCPRINT("\nPWM:\t", _config.minPWM); SCPRINT(", ", _config.maxPWM);
+  SCPRINTX("\nSig: ", _config.sig[0]); SCPRINTX(", ", _config.sig[1]);
+  SCPRINT("\nMove PWM: ", _config.movePWM);
+  SCPRINT("\nKicker PWM: ", _config.kickerPWM);
+  SCPRINT("\nSpin Inertial: ", _config.spinAdjust);
+  SCPRINT("\nPWM: ", _config.minPWM); SCPRINT(", ", _config.maxPWM);
   for (uint8_t i = 0; i < MAX_MOTOR; i++)
   {
     SCPRINT("\nPID", i);
-    SCPRINT(":\t", _config.Kp[i]);
+    SCPRINT(": ", _config.Kp[i]);
     SCPRINT(", ", _config.Ki[i]);
     SCPRINT(", ", _config.Kd[i]);
   }

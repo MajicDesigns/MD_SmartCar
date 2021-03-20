@@ -1,5 +1,14 @@
 // Test SC_DCMotor class with DC Motors
 //
+// This sketch is used to test and set up the DC motors and encoders.
+// - Encoder feedback
+// - Rotation direction
+// - Maximum encoder feedback rate (Pulses per second)
+//
+// Application is controlled from the Serial interface.
+// Set Serial monitor to 57600 and ensure line ending is 'newline'
+//
+
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
 
@@ -23,9 +32,7 @@ const uint32_t REPORT_TIME = 1000;        // reporting period in ms
 bool bEncoderEnabled = false;             // global flag for reporting
 uint32_t timeLastReport = 0;              // report every REPORT_TIME period
 
-// handler function prototypes
-void handlerHelp(char* param);
-
+// cmdProcessor handlers and support functions 
 void motorSpeed(SC_DCMotor &M, char m, char* param)
 {
   uint16_t s = 0;
@@ -58,6 +65,8 @@ void motorMode(SC_DCMotor& M, char m, char* param)
 
   M.run(cmd, M.getSpeed());
 }
+
+void handlerHelp(char* param); 
 
 void handlerSL(char* param) { motorSpeed(ML, 'L', param); }
 void handlerSR(char* param) { motorSpeed(MR, 'R', param); }
@@ -101,12 +110,10 @@ void setup(void)
   Serial.print(F("\nMD_SmartCar - DC Motor/Encoder Tester\n-----------------------"));
   Serial.print(F("\nEnter command. Ensure line ending set to newline.\n"));
 
-  ML.begin();
-  MR.begin();
-  if (!EL.begin())
-    Serial.print(F("\n\n!! Unable to start EL"));
-  if (!ER.begin())
-    Serial.print(F("\n\n!! Unable to start EL"));
+  if (!ML.begin()) Serial.print(F("\n\n!! Unable to start ML"));
+  if (!MR.begin()) Serial.print(F("\n\n!! Unable to start MR"));
+  if (!EL.begin()) Serial.print(F("\n\n!! Unable to start EL"));
+  if (!ER.begin()) Serial.print(F("\n\n!! Unable to start EL"));
 
   // start command processor
   CP.begin();

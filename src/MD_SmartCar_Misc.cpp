@@ -19,7 +19,7 @@ bool MD_SmartCar::isRunning(void)
   bool b = true;
 
   for (uint8_t i = 0; i < MAX_MOTOR; i++)
-    b &= _mData[i].state != S_IDLE;
+    b = b && _mData[i].state != S_IDLE;
 
   return(b);
 }
@@ -90,11 +90,11 @@ void MD_SmartCar::setMaxMotorSP(uint8_t units)
 
 void MD_SmartCar::setVehicleParameters(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t lBase)
 {
-  // save valid values or sensible defaults
-  _ppr = (ppr != 0) ? ppr : PPR_DEF;
-  _ppsMax = (ppsMax != 0) ? ppsMax : PPS_MAX_DEF;
-  _diaWheel = (dWheel != 0) ? dWheel : DIA_WHEEL_DEF;
-  _lenBase = (lBase != 0) ? lBase : LEN_BASE_DEF;
+  // save values
+  _ppr = ppr;
+  _ppsMax = ppsMax;
+  _diaWheel = dWheel;
+  _lenBase = lBase;
 
   // now calculate derived constants
   float lenPerPulse = (PI * (float)_diaWheel) / (float)_ppr;   // distance traveled per encoder pulse

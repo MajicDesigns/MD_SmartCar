@@ -1,14 +1,48 @@
-// Test MD_SmartCar class PID/DC Motors/Encoders and Unicycle model
+// Calibrate MD_SmartCar controlled vehicle
+// 
+// Use to calibrate and test functions of the vehicle
+// - Test and set PID parameters
+// - Test Unicycle control model
+// - Set, test and save EEPROM application parameters
+// - Test Sonar/Ping sensors (optional see USE_SONAR)
 //
+// Application is controlled from the Serial interface.
+// Set Serial monitor to 57600 and ensure line ending is 'newline'
+//
+// NewPing library available from https://bitbucket.org/teckel12/arduino-new-ping/src/master/
+//
+
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
 
-#ifndef ARRAY_SIZE
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
+#ifndef USE_SONAR
+#define USE_SONAR   1     // include SONAR related items
 #endif
 
 #ifndef ECHO_COMMAND
-#define ECHO_COMMAND  1   // set to 0 to not echo command on terminal
+#define ECHO_COMMAND  1   // set to 0 to not echo command confirmation on terminal
+#endif
+
+// ------------------------------------
+// SmartCar Physical Constants
+const uint16_t PPR = 40;        ///< Encoder pulses per revolution default value
+const uint16_t DIA_WHEEL = 65;  ///< Wheel diameter in mm
+const uint16_t LEN_BASE = 110;  ///< Wheel base in mm (= distance between wheel centers)
+const uint16_t PPS_MAX = 175;   ///< Maximum encoder pulses per second (PWM=255)
+
+#if USE_SONAR
+#include <NewPing.h>
+
+const uint8_t MAX_SONAR = 3;      // Number of sensors
+const uint8_t MAX_DISTANCE = 200; // Maximum distance (in cm) to ping
+
+NewPing sonar[MAX_SONAR] =
+{
+  NewPing(SC_L_SONAR, SC_L_SONAR, MAX_DISTANCE),
+  NewPing(SC_M_SONAR, SC_M_SONAR, MAX_DISTANCE),
+  NewPing(SC_R_SONAR, SC_R_SONAR, MAX_DISTANCE)
+};
+bool showSonar = false;
 #endif
 
 // Global Variables
@@ -77,6 +111,19 @@ void handlerM(char* param)
   Car.move((int16_t)al, (int16_t)ar);
 }
 
+void handlerZ(char* param)
+{
+  int a;
+
+  sscanf(param, "%d", &a);
+#if ECHO_COMMAND
+  Serial.print(F("\n> Spin "));
+  Serial.print(a);
+#endif
+
+  Car.spin((int16_t)a);
+}
+
 void handlerX(char* param)
 {
 #if ECHO_COMMAND
@@ -85,7 +132,7 @@ void handlerX(char* param)
   Car.stop();
 }
 
-void handlerRP(char* param)
+void handlerR(char* param)
 {
   float kp, ki, kd;
 
@@ -101,6 +148,9 @@ void handlerRP(char* param)
 
   Serial.print(F("\nKicker: "));
   Serial.print(Car.getKickerSP());
+
+  Serial.print(F("\nSpin: "));
+  Serial.print(Car.getSpinSP(), FP_SIG);
 
   for (uint8_t i = 0; i < MD_SmartCar::MAX_MOTOR; i++)
   {
@@ -190,24 +240,68 @@ void handlerTM(char* param)
   Car.setMoveSP(v);
 }
 
-void handlerCS(char* param) { Serial.print(F("\n> Save ")); Car.saveConfig(); }
-void handlerCL(char* param) { Serial.print(F("\n> Load ")); Car.loadConfig(); }
+void handlerTS(char* param)
+{
+  uint16_t v;
+  float f;
+
+  v = atoi(param);
+  f = v / 100.0;
+#if ECHO_COMMAND
+  Serial.print(F("\n> Spin "));
+  Serial.print(f, FP_SIG);
+#endif
+
+  Car.setSpinSP(f);
+}
+
+void handlerCS(char* param)
+{ 
+#if ECHO_COMMAND
+  Serial.print(F("\n> Save "));
+#endif
+  Car.saveConfig(); 
+}
+
+void handlerCL(char* param) 
+{
+#if ECHO_COMMAND
+  Serial.print(F("\n> Load ")); 
+#endif
+  Car.loadConfig(); 
+  handlerR(param);
+}
+
+#if USE_SONAR
+void handlerS(char* param) 
+{ 
+#if ECHO_COMMAND
+  Serial.print(F("\n> Toggle SONAR")); 
+#endif
+  showSonar = !showSonar; 
+}
+#endif
 
 const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
 {
-  { "?",  handlerHelp, "",      "Help", 0 },
-  { "h",  handlerHelp, "",      "Help", 0 },
-  { "v",  handlerV,  "n",       "linear Velocity setting n [0..999]", 1 },
-  { "rp", handlerRP,  "",       "Report Parameters", 1 },
-  { "d",  handlerD,  "v a",     "Drive vel v [-100,100] angle a [-90,90]", 2 },
-  { "m",  handlerM,  "l r",     "Move wheels subtended angle l, r", 2 },
-  { "x",  handlerX,  "",        "Stop", 2 },
-  { "tp", handlerTP, "n p i d", "Tuning PID motor n or * [p,i,d=(float * 100)]", 3 },
-  { "tw", handlerTW, "l h  ",   "Tuning PWM low/high [l, h=0..255]", 3},
-  { "tk", handlerTK, "p",       "Tuning drive() Kicker PWM [p=0..255]", 3 },
-  { "tm", handlerTM, "p",       "Tuning move() PWM [p=0..255]", 3 },
-  { "cs", handlerCS, "",        "Configuration Save", 4 },
-  { "cl", handlerCL, "",        "Configuration Load", 4 },
+  { "?",  handlerHelp, "",        "Help", 0 },
+  { "h",  handlerHelp, "",        "Help", 0 },
+  { "r",  handlerR,    "",        "Report Parameters", 1 },
+#if USE_SONAR
+  { "s",  handlerS,    "",        "Toggle SONAR report", 1 },
+#endif
+  { "v",  handlerV,    "n",       "Velocity (linear) setting n [-100..100]", 2 },
+  { "d",  handlerD,    "v a",     "Drive vel v [-100,100] angle a [-90,90]", 2 },
+  { "m",  handlerM,    "l r",     "Move wheels subtended angle l, r", 2 },
+  { "z",  handlerZ,    "a",       "Spin a% around vertical axis [-100, 100]", 2 },
+  { "x",  handlerX,    "",        "Stop", 2 },
+  { "tp", handlerTP,   "n p i d", "Tuning PID motor n or * [p,i,d=(float * 100)]", 3 },
+  { "tw", handlerTW,   "l h",     "Tuning PWM low/high [0..255]", 3},
+  { "tk", handlerTK,   "p",       "Tuning drive() Kicker PWM [0..255]", 3 },
+  { "tm", handlerTM,   "p",       "Tuning move() PWM [0..255]", 3 },
+  { "ts", handlerTS,   "f",       "Tuning spin() adjust [float * 100]", 3 },
+  { "cs", handlerCS,   "",        "Configuration Save", 4 },
+  { "cl", handlerCL,   "",        "Configuration Load", 4 },
 };
 
 MD_cmdProcessor CP(Serial, cmdTable, ARRAY_SIZE(cmdTable));
@@ -218,23 +312,51 @@ void handlerHelp(char* param)
   CP.help();
 }
 
+void readSonar(void)
+{
+  static uint16_t dist[MAX_SONAR] = { 0 };
+  static uint8_t curDevice = 0;
+  static uint32_t lastTime = 0;
+
+  if (millis() - lastTime < 100)     // ping each one every 100 ms
+    return;
+
+  dist[curDevice] = sonar[curDevice].ping_cm();
+  lastTime = millis();
+
+  curDevice++;
+  if (curDevice >= MAX_SONAR)
+  {
+    curDevice = 0;
+    Serial.print("\nSonar");
+    for (uint8_t i = 0; i < MAX_SONAR; i++)
+    {
+      Serial.print(" ");
+      Serial.print(dist[i]);
+    }
+  }
+}
+
 void setup(void)
 {
   Serial.begin(57600);
 
-  if (!Car.begin(0, 0, 0, 0))   // take all the defaults
+  if (!Car.begin(PPR, PPS_MAX, DIA_WHEEL, LEN_BASE))
     Serial.print(F("\n\n!! Unable to start car"));
 
   // start command processor
-  Serial.print(F("\n\nMD_SmartCar Tester\n------------------"));
+  Serial.print(F("\n\nMD_SmartCar Calibrate\n---------------------"));
   Serial.print(F("\nEnter command. Ensure line ending set to newline.\n"));
   CP.begin();
   CP.help();
-  handlerRP(nullptr);
+  handlerR(nullptr);
 }
 
 void loop(void)
 {
   Car.run();
   CP.run();
+#if USE_SONAR
+  if (showSonar) readSonar();
+#endif
 }

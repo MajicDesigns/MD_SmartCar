@@ -1,4 +1,4 @@
-# Doxyfile 1.9.0
+# Doxyfile 1.9.1
 
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project.
@@ -44,7 +44,7 @@ PROJECT_NUMBER         = 1.0
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "LIbrary to manage a Smart Car Robot"
+PROJECT_BRIEF          = "Library to manage a two wheeled robotic vehicle"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
@@ -1148,6 +1148,12 @@ VERBATIM_HEADERS       = NO
 # The default value is: NO.
 
 CLANG_ASSISTED_PARSING = NO
+
+# If clang assisted parsing is enabled and the CLANG_ADD_INC_PATHS tag is set to
+# YES then doxygen will add the directory of each input to the include path.
+# The default value is: YES.
+
+CLANG_ADD_INC_PATHS    = YES
 
 # If clang assisted parsing is enabled you can provide the compiler with command
 # line options that you would normally use when invoking the compiler. Note that

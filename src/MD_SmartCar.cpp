@@ -140,6 +140,7 @@ void MD_SmartCar::run(void)
         uint16_t cv;        // current encoder value
 
         // Print Tuning parameters if this is the first pass.
+        // Only enabled with PID_TUNE set to 1.
         // This actually prints the results of the last pass but should be good 
         // enough to see what is happening during tuning.
         if (firstPass)
@@ -214,13 +215,15 @@ void MD_SmartCar::drive(int8_t vLinear, float vAngularR)
 {
   float spL, spR;
 
-  SCPRINT("\n** DRIVE v:", vLinear);
-  SCPRINT(" a:", vAngularR);
-
   if (vLinear == 0)
     stop();
+  else if ((abs(vLinear) == _vLinear) && (vAngularR == _vAngular))
+    return;    // no change
   else
   {
+    SCPRINT("\n** DRIVE v:", vLinear);
+    SCPRINT(" a:", vAngularR);
+
     // sanitize input
     if (vLinear < -100) vLinear = -100;
     if (vLinear > 100) vLinear = 100;
@@ -271,11 +274,14 @@ void MD_SmartCar::drive(int8_t vLinear, float vAngularR)
 
 void MD_SmartCar::move(float angL, float angR)
 {
+  SCPRINT("\n** MOVE L:", angL);
+  SCPRINT(" R:", angR);
+
   // set the motor direction
   _mData[MLEFT].direction = (angL < 0.0 ? SC_DCMotor::DIR_REV : SC_DCMotor::DIR_FWD);
   _mData[MRIGHT].direction = (angR < 0.0 ? SC_DCMotor::DIR_REV : SC_DCMotor::DIR_FWD);
-  if (angL < 0.0) angL = -angL;
-  if (angR < 0.0) angR = -angR;
+  if (angL < 0.0) angL = -angL;   // absolute value
+  if (angR < 0.0) angR = -angR;   // absolute value
 
   // set the motor PWM setpoint
   _mData[MLEFT].sp = _mData[MRIGHT].sp = getMoveSP();
@@ -287,6 +293,28 @@ void MD_SmartCar::move(float angL, float angR)
   _mData[MRIGHT].cv = trunc((angR * _ppr) / (2.0 * PI));
   SCPRINT("; Pulses L ", _mData[MLEFT].cv);
   SCPRINT(" R ", _mData[MRIGHT].cv);
+
+  // finally, set it up for the FSM to execute
+  _mData[MLEFT].state = _mData[MRIGHT].state = S_MOVE_INIT;
+}
+
+void MD_SmartCar::spin(int16_t fraction)
+{
+  SCPRINT("\n** SPIN f:", fraction);
+
+  // Work out the wheel directions
+  _mData[MLEFT].direction = (fraction > 0.0 ? SC_DCMotor::DIR_FWD : SC_DCMotor::DIR_REV);
+  _mData[MRIGHT].direction = (fraction > 0.0 ? SC_DCMotor::DIR_REV : SC_DCMotor::DIR_FWD);
+  if (fraction < 0.0) fraction = -fraction; // absolute value
+
+  // set the motor PWM setpoint
+  _mData[MLEFT].sp = _mData[MRIGHT].sp = getMoveSP();
+
+  // Convert fraction into number of encoder pulses. Both wheels will 
+  // turn the same number of pulses.
+  // Circle distance in pulses = PI * base length (diameter) in pulses
+  _mData[MLEFT].cv = _mData[MRIGHT].cv = ((PI * _lenBaseP * fraction) / 100.0) * _config.spinAdjust;
+  SCPRINT(" pulses ", _mData[MLEFT].cv);
 
   // finally, set it up for the FSM to execute
   _mData[MLEFT].state = _mData[MRIGHT].state = S_MOVE_INIT;

@@ -29,7 +29,7 @@
    <div id="projectname">Smart Car Controller
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">LIbrary to manage a Smart Car Robot</div>
+   <div id="projectbrief">Library to manage a two wheeled robotic vehicle</div>
   </td>
  </tr>
  </tbody>
@@ -98,33 +98,33 @@ $(document).ready(function(){initNavTree('page_hardware_map.html',''); initResiz
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">D1*   </td><td class="markdownTableBodyNone">Hardware Serial Rx    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D2   </td><td class="markdownTableBodyNone">R Motor Encoder Pulse Interrupt    </td></tr>
+<td class="markdownTableBodyNone">D2!   </td><td class="markdownTableBodyNone">R Motor Encoder Pulse Interrupt    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">D3   </td><td class="markdownTableBodyNone">L Motor Encoder Pulse Interrupt    </td></tr>
+<td class="markdownTableBodyNone">D3!~   </td><td class="markdownTableBodyNone">L Motor Encoder Pulse Interrupt    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D4   </td><td class="markdownTableBodyNone">R Motor Controller PWM (L29x type controller)    </td></tr>
+<td class="markdownTableBodyNone">D4   </td><td class="markdownTableBodyNone">R Motor Controller InB1    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">D5   </td><td class="markdownTableBodyNone">R Motor Controller InB1    </td></tr>
+<td class="markdownTableBodyNone">D5~   </td><td class="markdownTableBodyNone">R Motor Controller InB2    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D6   </td><td class="markdownTableBodyNone">R Motor Controller InB2    </td></tr>
+<td class="markdownTableBodyNone">D6~   </td><td class="markdownTableBodyNone">L Motor Controller InA1    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">D7   </td><td class="markdownTableBodyNone">L Motor Controller PWM (L29x type controller)/R Sonar Sensor    </td></tr>
+<td class="markdownTableBodyNone">D7   </td><td class="markdownTableBodyNone">L Motor Controller InA2    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D8   </td><td class="markdownTableBodyNone">L Motor Controller InA1    </td></tr>
+<td class="markdownTableBodyNone">D8   </td><td class="markdownTableBodyNone">Unallocated    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">D9   </td><td class="markdownTableBodyNone">L Motor Controller InA2    </td></tr>
+<td class="markdownTableBodyNone">D9~   </td><td class="markdownTableBodyNone">R Motor Controller PWM (L29x type controller) / R Sonar Sensor    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D10   </td><td class="markdownTableBodyNone">-    </td></tr>
+<td class="markdownTableBodyNone">D10~   </td><td class="markdownTableBodyNone">L Motor Controller PWM (L29x type controller) / SPI SS (default)    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">D11*   </td><td class="markdownTableBodyNone">Hardware SPI MOSI    </td></tr>
+<td class="markdownTableBodyNone">D11~*   </td><td class="markdownTableBodyNone">Hardware SPI MOSI    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">D12*   </td><td class="markdownTableBodyNone">Hardware SPI MISO    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">D13*   </td><td class="markdownTableBodyNone">Hardware SPI SCK    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">A0   </td><td class="markdownTableBodyNone">Software Serial Rx    </td></tr>
+<td class="markdownTableBodyNone">A0   </td><td class="markdownTableBodyNone">Software Serial Rx (Bluetooth)    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">A1   </td><td class="markdownTableBodyNone">Software Serial Tx    </td></tr>
+<td class="markdownTableBodyNone">A1   </td><td class="markdownTableBodyNone">Software Serial Tx (Bluetooth)    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">A2   </td><td class="markdownTableBodyNone">L Sonar Sensor    </td></tr>
 <tr class="markdownTableRowEven">
@@ -134,11 +134,11 @@ $(document).ready(function(){initNavTree('page_hardware_map.html',''); initResiz
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">A5*   </td><td class="markdownTableBodyNone">Hardware I2C SCL    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">A6   </td><td class="markdownTableBodyNone">-    </td></tr>
+<td class="markdownTableBodyNone">A6   </td><td class="markdownTableBodyNone">Nano Analog output only    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">A7   </td><td class="markdownTableBodyNone">-   </td></tr>
+<td class="markdownTableBodyNone">A7   </td><td class="markdownTableBodyNone">Nano Analog output only   </td></tr>
 </table>
-<p>(*) denotes shared or communications bus pins </p>
+<p>(*) shared or comms bus pins, (~) hardware PWM pin, (!) external iRQ pin </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('page_hardware_map.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Smart Car Robot Library</a></li>
-    <li class="footer">Generated on Mon Mar 8 2021 15:46:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Mar 20 2021 14:15:21 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

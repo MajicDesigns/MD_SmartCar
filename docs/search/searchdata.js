@@ -4,10 +4,10 @@ var indexSectionsWithContent =
   1: "ms",
   2: "ms",
   3: "bcdgilmrs~",
-  4: "_deklmps",
+  4: "_dekmps",
   5: "cmr",
   6: "adoru",
-  7: "cmnps",
+  7: "cmnpsu",
   8: "chmprsu"
 };
 

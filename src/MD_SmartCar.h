@@ -83,8 +83,12 @@ Jan 2020 version 1.0.0
  * \brief Main header file and class definition for the MD_SmartCar library.
  */
 
-#define PID_TUNE 1    ///< set to 1 for specific PID tuning output
+#ifndef PID_TUNE
+#define PID_TUNE 0    ///< set to 1 for specific PID tuning output
+#endif
+#ifndef SCDEBUG
 #define SCDEBUG 0     ///< set to 1 for general debug output
+#endif
 
 #if SCDEBUG
 #define SCPRINT(s,v)   do { Serial.print(F(s)); Serial.print(v); } while (false)
@@ -125,34 +129,34 @@ public:
   /** \name Enumerated Types and Constants.
    * @{
    */
-  /**
-    * Maximum number of motors
-    *
-    * Define the maximum number of motors that this library can control
-    */
-    static const uint8_t MAX_MOTOR = 2;
+   /**
+     * Maximum number of motors
+     *
+     * Define the maximum number of motors that this library can control
+     */
+  static const uint8_t MAX_MOTOR = 2;
 
-   /** @} */
+  /** @} */
 
-  //--------------------------------------------------------------
-  /** \name Class constructor and destructor.
-   * @{
-   */
+ //--------------------------------------------------------------
+ /** \name Class constructor and destructor.
+  * @{
+  */
   /**
    * Class Constructor
    *
    * Instantiate a new instance of the class.
    * This variant is for motor controllers that have a PWM input for speed control.
-   * 
+   *
    * The main function for the core object is to reset the internal
    * shared variables and timers to default values.
-   * 
+   *
    * \param ml The object for controlling the left side motor.
    * \param el The object to use as the left side encoder input.
    * \param mr The object for controlling the right side motor.
    * \param er The object to use as the right side encoder input.
    */
-  MD_SmartCar(SC_DCMotor *ml, SC_MotorEncoder *el, SC_DCMotor *mr, SC_MotorEncoder *er);
+  MD_SmartCar(SC_DCMotor* ml, SC_MotorEncoder* el, SC_DCMotor* mr, SC_MotorEncoder* er);
 
   /**
    * Class Destructor.
@@ -166,23 +170,23 @@ public:
   /** \name Methods for core object control.
    * @{
    */
-  /**
-   * Initialize the object.
-   *
-   * Initialize the object data. This needs to be called during setup() to reset new
-   * items that cannot be done during object creation.
-   * 
-   * Vehicle constants are passed through to the setVehicleParameters() method. See
-   * comments for that method for more details.
-   * 
-   * \sa setVehicleParameters();
-   * 
-   * \param ppr    Number of encoder pulses per wheel revolution.
-   * \param ppsMax Maximum number of encoder pulses per second at top speed (100% velocity).
-   * \param dWheel Wheel diameter in mm.
-   * \param lBase  Base length (distance between wheel centers) in mm
-   * \return false if either encoder did not reset, true otherwise.
-   */
+   /**
+    * Initialize the object.
+    *
+    * Initialize the object data. This needs to be called during setup() to reset new
+    * items that cannot be done during object creation.
+    *
+    * Vehicle constants are passed through to the setVehicleParameters() method. See
+    * comments for that method for more details.
+    *
+    * \sa setVehicleParameters();
+    *
+    * \param ppr    Number of encoder pulses per wheel revolution.
+    * \param ppsMax Maximum number of encoder pulses per second at top speed (100% velocity).
+    * \param dWheel Wheel diameter in mm.
+    * \param lBase  Base length (distance between wheel centers) in mm
+    * \return false if either encoder did not reset, true otherwise.
+    */
   bool begin(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t lBase);
 
   /**
@@ -194,10 +198,7 @@ public:
    *
    * For encoder ppr, there is only one value for all whole vehicle, so all
    * encoders need to operate the same way.
-   * 
-   * Passing 0 value for any parameter will mean itr takes the default value from
-   * the HardwareDefs.h file.
-   * 
+   *
    * begin();
    *
    * \param ppr    Number of encoder pulses per wheel revolution.
@@ -206,7 +207,7 @@ public:
    * \param lBase  Base length (distance between wheel centers) in mm
    */
   void setVehicleParameters(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t lBase);
-  
+
   /**
    * Run the Robot Management Services.
    *
@@ -217,12 +218,12 @@ public:
 
   /**
    * Check if motors are running
-   * 
+   *
    * Check if motors are commanded to run. This method is useful to check when
    * drive() or move() have completed their motions.
    *
    * \return true if any of the motors are not idle
-   */ 
+   */
   bool isRunning(void);
 
   /**
@@ -241,23 +242,23 @@ public:
   /** \name Methods for free running the vehicle.
    * @{
    */
-  /**
-   * Drive the vehicle along specified path (degrees).
-   *
-   * Run the vehicle along a path with the specified velocity and angular orientation.
-   * Moves the motors under PID control.
-   *
-   * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
-   * Positive velocity move the vehicle forward, negative moves it in reverse.
-   *
-   * Angular velocity is specified in degrees per second [-90..90]. Positive angle
-   * is clockwise rotation.
-   *
-   * \sa getLinearVelocity(), getAngularVelocity(), setPIDTuning()
-   *
-   * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
-   * \param vAngularD the angular velocity in degrees per second [-90..90].
-   */
+   /**
+    * Drive the vehicle along specified path (degrees).
+    *
+    * Run the vehicle along a path with the specified velocity and angular orientation.
+    * Moves the motors under PID control.
+    *
+    * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
+    * Positive velocity move the vehicle forward, negative moves it in reverse.
+    *
+    * Angular velocity is specified in degrees per second [-90..90]. Positive angle
+    * is clockwise rotation.
+    *
+    * \sa getLinearVelocity(), getAngularVelocity(), setPIDTuning()
+    *
+    * \param vLinear   the linear velocity as a percentage of full scale [-100..100].
+    * \param vAngularD the angular velocity in degrees per second [-90..90].
+    */
   void drive(int8_t vLinear, int8_t vAngularD) { drive(vLinear, deg2rad(vAngularD)); }
 
   /**
@@ -306,15 +307,15 @@ public:
 
   /**
    * Set the linear velocity
-   * 
+   *
    * Sets the linear velocity without changing any other parameters. Useful for
    * adjusting the speed when already in motion.
-   * 
+   *
    * The velocity is specified as a percentage of the maximum vehicle velocity [0..100].
    * Positive velocity move the vehicle forward, negative moves it in reverse.
    *
    * /sa getLinearVelocity(), drive()
-   * 
+   *
    * \param vel the new value for the linear velocity [-100..100].
    */
   void setLinearVelocity(int8_t vel);
@@ -336,7 +337,7 @@ public:
    *
    * Sets the angular velocity without changing any other parameters. Useful for
    * adjusting turning when already in motion.
-   * 
+   *
    * Angular velocity is expressed in radians relative to the forward direction
    * [-PI/2..PI/2]. Positive angle is turn to the right, negative left.
    *
@@ -364,7 +365,7 @@ public:
   /**
    * Get the current angular velocity.
    *
-   * Angular velocity is expressed in radians relative to the forward direction 
+   * Angular velocity is expressed in radians relative to the forward direction
    * [-PI/2..PI/2]. Positive angle is turn to the right, negative left.
    *
    * \sa drive()
@@ -382,20 +383,20 @@ public:
    /**
    * Precisely move the vehicle (radians).
    *
-   * Move controls the movement by counting the encoder pulses rather that PID,
-   * which should make it more precise and controlled. This is useful for specific 
+   * Controls the movement by counting the encoder pulses rather that PID,
+   * which should make it more precise and controlled. This is useful for specific
    * movements run at slow speed.
-   * 
+   *
    * The call to move() specifies the angle each wheels will turn, independently.
-   * This method is design to allow close movements such as spin-in-place or 
+   * This method is design to allow close movements such as spin-in-place or
    * other short precise motions.
-   * 
-   * The motion for each wheel is specified as speed as the total angle subtended 
-   * by the turned by the wheel in radians. Negative angle is a reverse wheel 
+   *
+   * The motion for each wheel is specified as speed as the total angle subtended
+   * by the turned by the wheel in radians. Negative angle is a reverse wheel
    * rotation.
-   * 
-   * \sa drive(), setCreepSP()
-   * 
+   *
+   * \sa drive(), spin(), setMoveSP()
+   *
    * \param angL left wheel angle subtended by the motion in radians.
    * \param angR right wheel angle subtended by the motion in radians.
    */
@@ -404,7 +405,7 @@ public:
   /**
   * Precisely move the vehicle (degrees).
   *
-  * Move controls the movement by counting the encoder pulses rather that PID,
+  * Controls the movement by counting the encoder pulses rather that PID,
   * which should make it more precise and controlled. This is useful for specific
   * movements run at slow speed.
   *
@@ -412,36 +413,53 @@ public:
   * This method is design to allow close movements such as spin-in-place or
   * other short precise motions.
   *
-  * The motion for each wheel is specified as speed as the total angle subtended 
+  * The motion for each wheel is specified as speed as the total angle subtended
   * by the turned by the wheel in degrees. Negative angle is a reverse wheel rotation.
   *
-  * \sa drive(), setCreepSP()
+  * \sa drive(), spin(), setMoveSP()
   *
   * \param angL left wheel angle subtended by the motion in degrees.
   * \param angR right wheel angle subtended by the motion in degrees.
   */
   void move(int16_t angL, int16_t angR) { move(deg2rad(angL), deg2rad(angR)); }
 
+  /**
+  * Precisely spin the vehicle.
+  *
+  * Controls the movement by spinning the vehicle about its central vertical
+  * axis. It works similar to move() to spin the wheels in an directions to
+  * effect the turning motion.
+  *
+  * The call to spin() specifies the percentage (-100 to 100) of the full circle
+  * rotation about the central axis passing through the vehicle base length.
+  * Positive angle is a turn to the right, negative to the left.
+  *
+  * \sa drive(), move(), setMoveSP()
+  *
+  * \param fraction Percentage fraction of full revolution [-100..100]. Positive spins right; negative pins left.
+  */
+  void spin(int16_t fraction);
+
   /** @} */
   //--------------------------------------------------------------
   /** \name Methods for EEPROM and Configuration Management.
    * @{
    */
-  /**
-   * Load settings from EEPROM.
-   *
-   * Load the config settings from EEPROM. These will have been saved 
-   * to EEPROM by saveConfig(). If there is no currently saved config,
-   * defaults are loaded.
-   *
-   * \sa saveConfig()
-   */
+   /**
+    * Load settings from EEPROM.
+    *
+    * Load the config settings from EEPROM. These will have been saved
+    * to EEPROM by saveConfig(). If there is no currently saved config,
+    * defaults are loaded.
+    *
+    * \sa saveConfig()
+    */
   void loadConfig(void);
 
   /**
    * Save settings to EEPROM.
    *
-   * Save the current settings to EEPROM. These will overwrite any previously 
+   * Save the current settings to EEPROM. These will overwrite any previously
    * saved settings.
    *
    * \sa loadConfig()
@@ -455,7 +473,7 @@ public:
    * on directly to DCMotorControl and are meaningful to that class.
    *
    * \sa move(), getMoveSP(), saveConfig()
-   * 
+   *
    * \param units speed units to be used with the motor controller.
    * \return true if the value was set, false if it fails sanity checks.
    */
@@ -478,9 +496,9 @@ public:
    *
    * Set the drive() kicker speed for the motors. These units will be passed
    * on directly to DCMotorControl and are meaningful to that class.
-   * 
-   * The Kicker is needed to overcome the static friction when the motor is 
-   * stopped and shuold be determined as the minimum that reliably gets a 
+   *
+   * The Kicker is needed to overcome the static friction when the motor is
+   * stopped and should be determined as the minimum that reliably gets a
    * motor rotation started.
    *
    * \sa drive(), getKickerSP(), saveConfig()
@@ -497,7 +515,7 @@ public:
    * on directly to DCMotorControl and are meaningful to that class.
    *
    * The Kicker is needed to overcome the static friction when the motor is
-   * stopped and shuold be determined as the minimum that reliably gets a
+   * stopped and should be determined as the minimum that reliably gets a
    * motor rotation started.
    *
    * \sa drive(), setKickerSP(), saveConfig()
@@ -505,6 +523,36 @@ public:
    * \return the previously configured speed.
    */
   uint8_t getKickerSP(void) { return(_config.kickerPWM); }
+
+  /**
+   * Set the spin adjustment factor.
+   *
+   * Set the spin() inertia adjustment. When the vehicle is spinning
+   * and the motors turn off, it may continue spinning due to its inertia.
+   * This factor is applied to proportionatley reduce the pulses used 
+   * to execute the spin to account for the additional free spin movement 
+   * after the powered spin stops.
+   *
+   * \sa spin(), getSpinSP(), saveConfig()
+   *
+   * \param adjust factor applied to the spin pulses (pulses * adjust)
+   */
+  void setSpinSP(float adjust) { _config.spinAdjust = adjust; }
+
+  /**
+   * Get the spin adjustment factor.
+   *
+   * Get the spin() inertia adjustment. When the vehicle is spinning
+   * and the motors turn off, it may continue spinning due to its inertia.
+   * This factor is applied to proportionatley reduce the pulses used
+   * to execute the spin to account for the additional free spin movement
+   * after the powered spin stops.
+   *
+   * \sa spin(), getSpinSP(), saveConfig()
+   *
+   * \return the previously configured spin adjustment.
+   */
+  float getSpinSP(void) { return(_config.spinAdjust); }
 
   /**
    * Set the minimum motor setpoint.
@@ -632,7 +680,8 @@ private:
     uint8_t minPWM;       ///< the min PWM setting for DC motors
     uint8_t maxPWM;       ///< the max PWM setting for DC motors
     uint8_t movePWM;      ///< the creep PWM setting for DC motors
-    uint8_t kickerPWM;    ///< kicker to overcome static froction from stop position
+    uint8_t kickerPWM;    ///< kicker to overcome static friction from stop position
+    float spinAdjust;     ///< spin intertia adjustment
 
     // PID values
     float Kp[MAX_MOTOR];  ///< PID parameter per motor

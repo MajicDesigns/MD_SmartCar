@@ -9,12 +9,12 @@
 
 ## Photo Interruptor Encoder
 
-The motor encoder can be any device that will provide a known number of pulses 
-per revolution.
+The motor encoder can be any sensor that provides a known number of pulses 
+per wheel revolution.
 
-The simplest encoder for this application is a photo interruptor. This is a 
+A simple encoder for this application is a photo interruptor. This is a 
 device that has a LED shining through a rotating slotted wheel with a detector 
-on the other side. The slotted wheel turns with the driven wheel and the encoder
+on the other side. The slotted wheel turns with the wheel and the encoder
 is attached to the vehicle body. A module with this device is shown below.
 
 ![Motor Encoder] (SmartCar_Encoder.jpg "Motor Encoder")
@@ -25,7 +25,7 @@ Note that the output of this circuit is pulled-up when there is no signal from t
 detector.
 
 The output of the circuit needs to be connected to a pin that supports interrupts. 
-On the Arduino Nano this is pins 2 or 3.
+On the Arduino Uno/Nano this is pin 2 or 3.
 */
 #include <Arduino.h>
 

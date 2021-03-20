@@ -29,7 +29,7 @@
    <div id="projectname">Smart Car Controller
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">LIbrary to manage a Smart Car Robot</div>
+   <div id="projectbrief">Library to manage a two wheeled robotic vehicle</div>
   </td>
  </tr>
  </tbody>
@@ -92,14 +92,14 @@ $(document).ready(function(){initNavTree('_s_c___hardware_defs_8h.html',''); ini
 </div><!--header-->
 <div class="contents">
 
-<p>Header file for SmartCar library hardware related definitions.  
+<p>Header file for SmartCar library hardware related parameters.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_s_c___hardware_defs_8h__dep__incl.png" border="0" usemap="#asrc_2_s_c___hardware_defs_8hdep" alt=""/></div>
 <map name="asrc_2_s_c___hardware_defs_8hdep" id="asrc_2_s_c___hardware_defs_8hdep">
-<area shape="rect" title="Header file for SmartCar library hardware related definitions." alt="" coords="287,5,447,32"/>
+<area shape="rect" title="Header file for SmartCar library hardware related parameters." alt="" coords="287,5,447,32"/>
 <area shape="rect" href="_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,80,345,107"/>
 <area shape="rect" href="_s_c___motor_encoder_8cpp.html" title="Class definition file for the SC_MotorEncoder class." alt="" coords="370,80,544,107"/>
 <area shape="rect" href="_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,155,155,181"/>
@@ -125,22 +125,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ab55708ba3457e8c233abd64c379633ef"><td class="memItemLeft" align="right" valign="top"><a id="ab55708ba3457e8c233abd64c379633ef"></a>
-const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#ab55708ba3457e8c233abd64c379633ef">PPR_DEF</a> = 40</td></tr>
-<tr class="memdesc:ab55708ba3457e8c233abd64c379633ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encoder pulses per revolution default value. <br /></td></tr>
-<tr class="separator:ab55708ba3457e8c233abd64c379633ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0528ad33071d47b2c68930232b110479"><td class="memItemLeft" align="right" valign="top"><a id="a0528ad33071d47b2c68930232b110479"></a>
-const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a0528ad33071d47b2c68930232b110479">DIA_WHEEL_DEF</a> = 65</td></tr>
-<tr class="memdesc:a0528ad33071d47b2c68930232b110479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheel diameter in mm. <br /></td></tr>
-<tr class="separator:a0528ad33071d47b2c68930232b110479"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef92f61b601da8872edb9fb6b3d50352"><td class="memItemLeft" align="right" valign="top"><a id="aef92f61b601da8872edb9fb6b3d50352"></a>
-const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#aef92f61b601da8872edb9fb6b3d50352">LEN_BASE_DEF</a> = 110</td></tr>
-<tr class="memdesc:aef92f61b601da8872edb9fb6b3d50352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheel base in mm (= distance between wheel centers) <br /></td></tr>
-<tr class="separator:aef92f61b601da8872edb9fb6b3d50352"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab09aab0fc7d34e34aed7f9685ba98017"><td class="memItemLeft" align="right" valign="top"><a id="ab09aab0fc7d34e34aed7f9685ba98017"></a>
-const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#ab09aab0fc7d34e34aed7f9685ba98017">PPS_MAX_DEF</a> = 120</td></tr>
-<tr class="memdesc:ab09aab0fc7d34e34aed7f9685ba98017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum encoder pulses per second. <br /></td></tr>
-<tr class="separator:ab09aab0fc7d34e34aed7f9685ba98017"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31b84ee7a87a59ebdc9f0769f267893c"><td class="memItemLeft" align="right" valign="top"><a id="a31b84ee7a87a59ebdc9f0769f267893c"></a>
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a31b84ee7a87a59ebdc9f0769f267893c">SC_BT_RX</a> = A0</td></tr>
 <tr class="memdesc:a31b84ee7a87a59ebdc9f0769f267893c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arduino RX, connect to to BT TX pin. <br /></td></tr>
@@ -161,20 +145,32 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a6e8cd2283be12da6b01db7ebd2a445bc">SC_LCD_COLS</a> = 16</td></tr>
 <tr class="memdesc:a6e8cd2283be12da6b01db7ebd2a445bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCD module number of columns (characters across) <br /></td></tr>
 <tr class="separator:a6e8cd2283be12da6b01db7ebd2a445bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ef0c12cf16a0ba984ac03b6aa39c14b"><td class="memItemLeft" align="right" valign="top"><a id="a8ef0c12cf16a0ba984ac03b6aa39c14b"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a8ef0c12cf16a0ba984ac03b6aa39c14b">SC_L_SONAR</a> = A2</td></tr>
+<tr class="memdesc:a8ef0c12cf16a0ba984ac03b6aa39c14b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonar (ping sensor) Left side pin. <br /></td></tr>
+<tr class="separator:a8ef0c12cf16a0ba984ac03b6aa39c14b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40b916cba73d397fa4bf9eab888447d1"><td class="memItemLeft" align="right" valign="top"><a id="a40b916cba73d397fa4bf9eab888447d1"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a40b916cba73d397fa4bf9eab888447d1">SC_M_SONAR</a> = A3</td></tr>
+<tr class="memdesc:a40b916cba73d397fa4bf9eab888447d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonar (ping sensor) Middle side pin. <br /></td></tr>
+<tr class="separator:a40b916cba73d397fa4bf9eab888447d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98b2e88aa661909e87b40b97b215eeca"><td class="memItemLeft" align="right" valign="top"><a id="a98b2e88aa661909e87b40b97b215eeca"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a98b2e88aa661909e87b40b97b215eeca">SC_R_SONAR</a> = 9</td></tr>
+<tr class="memdesc:a98b2e88aa661909e87b40b97b215eeca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonar (ping sensor) Right side pin. <br /></td></tr>
+<tr class="separator:a98b2e88aa661909e87b40b97b215eeca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa90839f10f0c49c1705d4cfd44876c82"><td class="memItemLeft" align="right" valign="top"><a id="aa90839f10f0c49c1705d4cfd44876c82"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#aa90839f10f0c49c1705d4cfd44876c82">MC_INA1_PIN</a> = 9</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#aa90839f10f0c49c1705d4cfd44876c82">MC_INA1_PIN</a> = 6</td></tr>
 <tr class="memdesc:aa90839f10f0c49c1705d4cfd44876c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor A Mode pin 1 - PWM capable pin. <br /></td></tr>
 <tr class="separator:aa90839f10f0c49c1705d4cfd44876c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41b944c330acb32d08d2df1d1362c00f"><td class="memItemLeft" align="right" valign="top"><a id="a41b944c330acb32d08d2df1d1362c00f"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a41b944c330acb32d08d2df1d1362c00f">MC_INA2_PIN</a> = 10</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a41b944c330acb32d08d2df1d1362c00f">MC_INA2_PIN</a> = 7</td></tr>
 <tr class="memdesc:a41b944c330acb32d08d2df1d1362c00f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor A Mode pin 2 - PWM capable pin. <br /></td></tr>
 <tr class="separator:a41b944c330acb32d08d2df1d1362c00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d21e811759dfcf94cb09f349f84df3b"><td class="memItemLeft" align="right" valign="top"><a id="a1d21e811759dfcf94cb09f349f84df3b"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a1d21e811759dfcf94cb09f349f84df3b">MC_INB1_PIN</a> = 5</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a1d21e811759dfcf94cb09f349f84df3b">MC_INB1_PIN</a> = 4</td></tr>
 <tr class="memdesc:a1d21e811759dfcf94cb09f349f84df3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor B Mode pin 1 - PWM capable pin. <br /></td></tr>
 <tr class="separator:a1d21e811759dfcf94cb09f349f84df3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a986b091ff4c70e30447525b65690d89c"><td class="memItemLeft" align="right" valign="top"><a id="a986b091ff4c70e30447525b65690d89c"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a986b091ff4c70e30447525b65690d89c">MC_INB2_PIN</a> = 6</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a986b091ff4c70e30447525b65690d89c">MC_INB2_PIN</a> = 5</td></tr>
 <tr class="memdesc:a986b091ff4c70e30447525b65690d89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor B Mode pin 2 - PWM capable pin. <br /></td></tr>
 <tr class="separator:a986b091ff4c70e30447525b65690d89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20da37053d419dd2b190c3e9c913a5e0"><td class="memItemLeft" align="right" valign="top"><a id="a20da37053d419dd2b190c3e9c913a5e0"></a>
@@ -186,15 +182,19 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr class="memdesc:ad8a71ea151f52a19deb7a7eab997c4a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum PWM. <br /></td></tr>
 <tr class="separator:ad8a71ea151f52a19deb7a7eab997c4a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcb7e4d96dcbbad864181f74684a02d0"><td class="memItemLeft" align="right" valign="top"><a id="afcb7e4d96dcbbad864181f74684a02d0"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#afcb7e4d96dcbbad864181f74684a02d0">MC_PWM_MOVE</a> = 80</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#afcb7e4d96dcbbad864181f74684a02d0">MC_PWM_MOVE</a> = 84</td></tr>
 <tr class="memdesc:afcb7e4d96dcbbad864181f74684a02d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slow move() speed PWM default value. <br /></td></tr>
 <tr class="separator:afcb7e4d96dcbbad864181f74684a02d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabb90d80a676a8c64865541bcec038f8"><td class="memItemLeft" align="right" valign="top"><a id="aabb90d80a676a8c64865541bcec038f8"></a>
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#aabb90d80a676a8c64865541bcec038f8">MC_PWM_KICKER</a> = 90</td></tr>
 <tr class="memdesc:aabb90d80a676a8c64865541bcec038f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kicker for drive() to overcome static friction from standing start. <br /></td></tr>
 <tr class="separator:aabb90d80a676a8c64865541bcec038f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a129c65196d23ef4ca37947b9d581c24d"><td class="memItemLeft" align="right" valign="top"><a id="a129c65196d23ef4ca37947b9d581c24d"></a>
+const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a129c65196d23ef4ca37947b9d581c24d">MC_SPIN_ADJUST</a> = 0.75</td></tr>
+<tr class="memdesc:a129c65196d23ef4ca37947b9d581c24d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inertial adjustment for spin() operation. <br /></td></tr>
+<tr class="separator:a129c65196d23ef4ca37947b9d581c24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39ce05b913e66dac84fe21bc45ff2a19"><td class="memItemLeft" align="right" valign="top"><a id="a39ce05b913e66dac84fe21bc45ff2a19"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a39ce05b913e66dac84fe21bc45ff2a19">MC_KICKER_ACTIVE</a> = 150</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a39ce05b913e66dac84fe21bc45ff2a19">MC_KICKER_ACTIVE</a> = 100</td></tr>
 <tr class="memdesc:a39ce05b913e66dac84fe21bc45ff2a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kicker active time in milliseconds. <br /></td></tr>
 <tr class="separator:a39ce05b913e66dac84fe21bc45ff2a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab70f24a604468dcebc91324f657cf773"><td class="memItemLeft" align="right" valign="top"><a id="ab70f24a604468dcebc91324f657cf773"></a>
@@ -234,19 +234,19 @@ const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 <tr class="memdesc:af8c40339b8cf0f84da4acf804e30abea"><td class="mdescLeft">&#160;</td><td class="mdescRight">EEPROM config data ENDS at this address (ie saved below addr) <br /></td></tr>
 <tr class="separator:af8c40339b8cf0f84da4acf804e30abea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0824a041c4f1bb37459fe354b72eda63"><td class="memItemLeft" align="right" valign="top"><a id="a0824a041c4f1bb37459fe354b72eda63"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a0824a041c4f1bb37459fe354b72eda63">SIG</a> [2] = { 0x33, 0xaa }</td></tr>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_c___hardware_defs_8h.html#a0824a041c4f1bb37459fe354b72eda63">SIG</a> [2] = { 0xaa, 0x33 }</td></tr>
 <tr class="memdesc:a0824a041c4f1bb37459fe354b72eda63"><td class="mdescLeft">&#160;</td><td class="mdescRight">EEPROM config signature bytes. <br /></td></tr>
 <tr class="separator:a0824a041c4f1bb37459fe354b72eda63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Header file for SmartCar library hardware related definitions. </p>
+<div class="textblock"><p>Header file for SmartCar library hardware related parameters. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_s_c___hardware_defs_8h.html">SC_HardwareDefs.h</a></li>
-    <li class="footer">Generated on Mon Mar 8 2021 15:46:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Mar 20 2021 14:15:21 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

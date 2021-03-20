@@ -14,6 +14,7 @@ var class_m_d___smart_car =
     [ "getMoveSP", "class_m_d___smart_car.html#a28192b72d682de755a5fbf3387cfa393", null ],
     [ "getPIDTuning", "class_m_d___smart_car.html#abb35fa46f8a68fd133363dfe2fe477ef", null ],
     [ "getPulsePerRev", "class_m_d___smart_car.html#a48120b81f656546c3b6b359a8323d305", null ],
+    [ "getSpinSP", "class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4", null ],
     [ "isRunning", "class_m_d___smart_car.html#a3492d97300bbfd8dbec8e2764f3032d7", null ],
     [ "isRunning", "class_m_d___smart_car.html#ae36a6340bd9ace4c1774aee8a26dbf8d", null ],
     [ "loadConfig", "class_m_d___smart_car.html#a0f5b2aa6e8628072aedb43779fd7837e", null ],
@@ -29,7 +30,9 @@ var class_m_d___smart_car =
     [ "setMinMotorSP", "class_m_d___smart_car.html#a650f461e1251aa8163359db3aaa9a850", null ],
     [ "setMoveSP", "class_m_d___smart_car.html#a505f4130aa6d2a20b7d67b448679b993", null ],
     [ "setPIDTuning", "class_m_d___smart_car.html#ac1e14326b957d5d6e3fd3fc4da7adc60", null ],
+    [ "setSpinSP", "class_m_d___smart_car.html#aa024d5c3a68de673393238fc6893eb90", null ],
     [ "setVehicleParameters", "class_m_d___smart_car.html#a4764a2aeb1c335799a42e028bae6ebd2", null ],
+    [ "spin", "class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd", null ],
     [ "stop", "class_m_d___smart_car.html#ab555a45475df1be564a04eaf11dec51f", null ],
     [ "Kd", "class_m_d___smart_car.html#a51424dd4595be7c0ba8cc164c8b5f875", null ],
     [ "Ki", "class_m_d___smart_car.html#a3ff53f3fcf00a38577f1a255df450186", null ],
@@ -39,5 +42,6 @@ var class_m_d___smart_car =
     [ "maxPWM", "class_m_d___smart_car.html#ade2258b594c7c50469154988c6d49d92", null ],
     [ "minPWM", "class_m_d___smart_car.html#a6332a4be9387e4e0ab81db07199d7469", null ],
     [ "movePWM", "class_m_d___smart_car.html#aac232d1a274aed69c8c6787b4aad0230", null ],
-    [ "sig", "class_m_d___smart_car.html#a912d169653f34429ba5e3be2345082be", null ]
+    [ "sig", "class_m_d___smart_car.html#a912d169653f34429ba5e3be2345082be", null ],
+    [ "spinAdjust", "class_m_d___smart_car.html#a2dd13c6836aa6799fbb8f84b53cf4781", null ]
 ];
