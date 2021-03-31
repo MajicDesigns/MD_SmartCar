@@ -87,7 +87,7 @@ Jan 2020 version 1.0.0
 #define PID_TUNE 0    ///< set to 1 for specific PID tuning output
 #endif
 #ifndef SCDEBUG
-#define SCDEBUG 0     ///< set to 1 for general debug output
+#define SCDEBUG  0    ///< set to 1 for general debug output
 #endif
 
 #if SCDEBUG
@@ -126,22 +126,48 @@ class MD_SmartCar
 {
 public:
   //--------------------------------------------------------------
-  /** \name Enumerated Types and Constants.
+  /** \name Structures, Enumerated Types and Constants.
    * @{
    */
-   /**
-     * Maximum number of motors
-     *
-     * Define the maximum number of motors that this library can control
-     */
+  /**
+    * Maximum number of motors
+    *
+    * Define the maximum number of motors that this library can control
+    */
   static const uint8_t MAX_MOTOR = 2;
+
+  /**
+   * Enumerated type for Action Items operation
+   * 
+   * Specifies which operation is being defined in the actionItem_t
+   */
+  enum actionId_t
+  {
+    DRIVE,    ///< executes drive(); param 0 lin vel, param 1 angular velocity
+    MOVE,     ///< executes a move(); param 0 +/- left, param 1 +/- right
+    SPIN,     ///< executes a spin(); param 0 +/- spin percentage
+    PAUSE,    ///< executes a pause; param 0 milliseconds pause
+    STOP,     ///< executes a stop()
+    END       ///< marks the end of the action list; should always be last item.
+  };
+  
+  /**
+    * Move sequence item definition
+    * 
+    * Define one of the action elements for a move() sequence.
+    */
+  typedef struct 
+  {
+    actionId_t opId;          ///< id for the action specified by this item
+    float parm[MAX_MOTOR];    ///< function paremeter
+  } actionItem_t;
 
   /** @} */
 
- //--------------------------------------------------------------
- /** \name Class constructor and destructor.
-  * @{
-  */
+  //--------------------------------------------------------------
+  /** \name Class constructor and destructor.
+   * @{
+   */
   /**
    * Class Constructor
    *
@@ -262,7 +288,7 @@ public:
   void drive(int8_t vLinear, int8_t vAngularD) { drive(vLinear, deg2rad(vAngularD)); }
 
   /**
-   * Drive the vehicle along a stright path.
+   * Drive the vehicle along a straight path.
    *
    * Run the vehicle along a straight path with the specified velocity.
    * Moves the motors under PID control.
@@ -439,6 +465,12 @@ public:
   * \param fraction Percentage fraction of full revolution [-100..100]. Positive spins right; negative pins left.
   */
   void spin(int16_t fraction);
+
+
+  void startSequence(const actionItem_t* actionList);   // PROGMEM version
+  void startSequence(actionItem_t* actionList);
+
+  bool isSequenceComplete(void) { return(!_inSequence); }
 
   /** @} */
   //--------------------------------------------------------------
@@ -644,6 +676,21 @@ public:
    * \return The number of pulses per revolution.
    */
   inline uint16_t getPulsePerRev() { return(_ppr); }
+
+  /** @} */
+  //--------------------------------------------------------------
+  /** \name Utility methods.
+   * @{
+   */
+  /**
+   * Convert degrees to radians.
+   *
+   * Convert the degrees measure specified into radians.
+   *
+   * \return the converted value
+   */
+  inline float deg2rad(int16_t deg) { return((PI * (float)deg) / 180.0); };
+
   /** @} */
 
 private:
@@ -666,6 +713,18 @@ private:
   float _diaWheelP;       ///< Wheel diameter in pulses (calculated)
   float _lenBaseP;        ///< Base Length in pulses (calculated)
 
+  // Data for tracking action sequences
+  bool _inSequence;       ///< true if currently executing a sequence
+  bool _inAction;         ///< waiting for current item to complete
+  bool _seqIsConstant;    ///< true if sequence is stored is declared in PROGMEM
+  union 
+  {                 ///< current list of actions being sequenced
+    const actionItem_t* cp; 
+    actionItem_t* p;
+  } _uAction;
+  uint8_t _curActionItem; ///< index for the current action item
+  actionItem_t _ai;       ///< current action item
+  uint32_t _timeStartSeq; ///< generic time variable for sequences
 
   // Define the control objects
   SC_DCMotor* _M[MAX_MOTOR];      ///< Motor controllers
@@ -707,9 +766,12 @@ private:
   
   motorData_t _mData[MAX_MOTOR];  ///< keeping track of each motor's parameters
 
-  // Methods
-  void printConfig(void);             ///< debug only
-  void setPIDOutputLimits(void);      ///< set the PID limits for all motors
+  // Private Methods
+  void printConfig(void);               ///< debug only
+  void setPIDOutputLimits(void);        ///< set the PID limits for all motors
 
-  inline float deg2rad(int16_t deg) { return((PI * (float)deg) / 180.0); };   // convert degress to radians
+  void startSeqCommon(void);            ///< common part of sequence start
+  void runSequence(void);               ///< keep running current sequence
+  bool runActionItem(actionItem_t& ai); ///< run the logic for this action item
+
 };

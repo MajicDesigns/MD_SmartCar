@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['turn_250',['TURN',['../class_m_d___smart_car.html#a6739640d84701e00e263fec6833f7478afe1ec13c1404be08543ec70a6d3200fc',1,'MD_SmartCar']]]
+  ['user_262',['USER',['../class_s_c___p_i_d.html#ada768158001147b6abaecf918bd17d63aa0019fbe29904ceac263806427c76064',1,'SC_PID']]]
 ];

@@ -1,8 +1,18 @@
 var class_m_d___smart_car =
 [
+    [ "actionItem_t", "struct_m_d___smart_car_1_1action_item__t.html", "struct_m_d___smart_car_1_1action_item__t" ],
+    [ "actionId_t", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3", [
+      [ "DRIVE", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3a9bab464ab626bc2300b54cdccb997365", null ],
+      [ "MOVE", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3a053b567a0670fe61504ebca48d209c97", null ],
+      [ "SPIN", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3a7057220f3ac34263ac5a1fce2ae1e6db", null ],
+      [ "PAUSE", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3a97825ef528924669c26ad1b325b9cef0", null ],
+      [ "STOP", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3a3cfed36cbf6234b0972bc2f2c5f6d04e", null ],
+      [ "END", "class_m_d___smart_car.html#a4a5b42e85d4bbb24b74760e15732dbd3a05c251e31a7f9052b7e63e9ace44ad20", null ]
+    ] ],
     [ "MD_SmartCar", "class_m_d___smart_car.html#a126cd8f8ec4bf0fb5a48e87be2d9dd77", null ],
     [ "~MD_SmartCar", "class_m_d___smart_car.html#a4716b9b6fb5944b5ab9dee9f42a68936", null ],
     [ "begin", "class_m_d___smart_car.html#a5caa39e3336d1789c3b63b12f301870a", null ],
+    [ "deg2rad", "class_m_d___smart_car.html#a5bb2751c26c20c0edea22411b0dad5e5", null ],
     [ "drive", "class_m_d___smart_car.html#aae69d103492041887c773d28e2af560a", null ],
     [ "drive", "class_m_d___smart_car.html#abfe509e683e9b9da3d4f60ceb72c9471", null ],
     [ "drive", "class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782", null ],
@@ -17,6 +27,7 @@ var class_m_d___smart_car =
     [ "getSpinSP", "class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4", null ],
     [ "isRunning", "class_m_d___smart_car.html#a3492d97300bbfd8dbec8e2764f3032d7", null ],
     [ "isRunning", "class_m_d___smart_car.html#ae36a6340bd9ace4c1774aee8a26dbf8d", null ],
+    [ "isSequenceComplete", "class_m_d___smart_car.html#a0176a93875b99181d5484017683a01e9", null ],
     [ "loadConfig", "class_m_d___smart_car.html#a0f5b2aa6e8628072aedb43779fd7837e", null ],
     [ "move", "class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c", null ],
     [ "move", "class_m_d___smart_car.html#aa09aa7d95be6298af095d81f334843a6", null ],
@@ -33,7 +44,10 @@ var class_m_d___smart_car =
     [ "setSpinSP", "class_m_d___smart_car.html#aa024d5c3a68de673393238fc6893eb90", null ],
     [ "setVehicleParameters", "class_m_d___smart_car.html#a4764a2aeb1c335799a42e028bae6ebd2", null ],
     [ "spin", "class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd", null ],
+    [ "startSequence", "class_m_d___smart_car.html#a9612214bde9dcb059835a7894599542d", null ],
+    [ "startSequence", "class_m_d___smart_car.html#aad5c4e2806d7284283a3ff8e0e21d333", null ],
     [ "stop", "class_m_d___smart_car.html#ab555a45475df1be564a04eaf11dec51f", null ],
+    [ "cp", "class_m_d___smart_car.html#a26dc6915c27c765e55bb6ddc32fa04d9", null ],
     [ "Kd", "class_m_d___smart_car.html#a51424dd4595be7c0ba8cc164c8b5f875", null ],
     [ "Ki", "class_m_d___smart_car.html#a3ff53f3fcf00a38577f1a255df450186", null ],
     [ "kickerPWM", "class_m_d___smart_car.html#a83b472f89b518554e1adfc4097662d23", null ],
@@ -42,6 +56,7 @@ var class_m_d___smart_car =
     [ "maxPWM", "class_m_d___smart_car.html#ade2258b594c7c50469154988c6d49d92", null ],
     [ "minPWM", "class_m_d___smart_car.html#a6332a4be9387e4e0ab81db07199d7469", null ],
     [ "movePWM", "class_m_d___smart_car.html#aac232d1a274aed69c8c6787b4aad0230", null ],
+    [ "p", "class_m_d___smart_car.html#a713b37c715c74cdd3d99a2710607ca44", null ],
     [ "sig", "class_m_d___smart_car.html#a912d169653f34429ba5e3be2345082be", null ],
     [ "spinAdjust", "class_m_d___smart_car.html#a2dd13c6836aa6799fbb8f84b53cf4781", null ]
 ];

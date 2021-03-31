@@ -6,6 +6,7 @@
 #include <hd44780ioClass/hd44780_I2Cexp.h>
 
 #include <MD_SmartCar.h>
+#include "SmartCar_HW.h"
 
 #define DEBUG 1
 
@@ -17,10 +18,6 @@
 #define PRINTS(s)
 #define PRINT(s,v)
 #define PRINTF(s,v)
-#endif
-
-#ifndef ARRAY_SIZE
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
 #endif
 
 //----------------------------------------------------------
@@ -114,7 +111,7 @@ void setup(void)
   PRINTS("\nMD_SmartCar_Joystick Debug\n--------------------------");
 
   // SmartCar
-  if (!Car.begin()) // unable to start
+  if (!Car.begin(PPR, PPS_MAX, DIA_WHEEL, LEN_BASE))
   {
     pinMode(LED_BUILTIN, OUTPUT);
     do 

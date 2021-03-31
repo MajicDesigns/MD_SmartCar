@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['wheel_5fbase_213',['WHEEL_BASE',['../_s_c___hardware_defs_8h.html#aa69dad587e1dc5cb820bbdae4e9b73c9',1,'SC_HardwareDefs.h']]],
-  ['wheel_5fdiam_214',['WHEEL_DIAM',['../_s_c___hardware_defs_8h.html#aa6c7b5a524f31d15f58f9d99d9dbc88c',1,'SC_HardwareDefs.h']]]
+  ['sig_243',['sig',['../class_m_d___smart_car.html#a912d169653f34429ba5e3be2345082be',1,'MD_SmartCar']]],
+  ['sig_244',['SIG',['../_s_c___hardware_defs_8h.html#a0824a041c4f1bb37459fe354b72eda63',1,'SC_HardwareDefs.h']]],
+  ['spinadjust_245',['spinAdjust',['../class_m_d___smart_car.html#a2dd13c6836aa6799fbb8f84b53cf4781',1,'MD_SmartCar']]]
 ];

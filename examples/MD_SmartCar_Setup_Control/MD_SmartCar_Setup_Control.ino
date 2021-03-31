@@ -6,20 +6,14 @@
 // parameters have been calibrated.
 // 
 // All Vehicle motion types can be exercised and parameters fine
-// tuned from the AI2 interface.
+// tuned from the AI2 'SmartCar_Setup_Control' interface application.
 
 #include <SoftwareSerial.h>
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
+#include "SmartCar_HW.h"
 
 #define ECHO_COMMAND 0    // Echo commands to the Serial stream for debugging
-
-// ------------------------------------
-// SmartCar Physical Constants
-const uint16_t PPR = 40;        ///< Encoder pulses per revolution default value
-const uint16_t DIA_WHEEL = 65;  ///< Wheel diameter in mm
-const uint16_t LEN_BASE = 110;  ///< Wheel base in mm (= distance between wheel centers)
-const uint16_t PPS_MAX = 175;   ///< Maximum encoder pulses per second (PWM=255)
 
 // Global Variables
 #if CONTROLLER_L29x
@@ -39,7 +33,7 @@ MD_SmartCar Car(&ML, &EL, &MR, &ER);                  // SmartCar object
 const uint8_t FP_SIG = 2;   // floating point significant decimal points
 
 // Global Objects and Variables
-SoftwareSerial BTSerial(SC_BT_RX, SC_BT_TX);
+SoftwareSerial BTSerial(PIN_BT_RX, PIN_BT_TX);
 
 // handler function prototypes
 void handlerD(char* param);
@@ -188,7 +182,7 @@ void setup(void)
 #if ECHO_COMMAND || SCDEBUG || PID_TUNE
   Serial.begin(57600);
 #endif
-  BTSerial.begin(SC_BT_BAUDRATE);
+  BTSerial.begin(BT_BAUDRATE);
   if (!Car.begin(PPR, PPS_MAX, DIA_WHEEL, LEN_BASE))   // take all the defaults
     BTSerial.print(F("\n\n!! Unable to start car"));
 

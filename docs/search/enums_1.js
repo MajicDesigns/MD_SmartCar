@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mode_5ft_246',['mode_t',['../class_s_c___p_i_d.html#ada768158001147b6abaecf918bd17d63',1,'SC_PID']]]
+  ['control_5ft_247',['control_t',['../class_s_c___p_i_d.html#ada5a53ec5bc72d5d4f5d344e63f977e5',1,'SC_PID']]]
 ];

@@ -48,6 +48,7 @@ The convention used in this library is:
 ____
 More at
 http:://faculty.salina.k-state.edu/tim/robotics_sg/Control/kinematics/unicycle.html
+https://www.youtube.com/watch?v=aSwCMK96NOw&list=PLp8ijpvp8iCvFDYdcXqqYU5Ibl_aOqwjr
 */
 
 MD_SmartCar::MD_SmartCar(SC_DCMotor *ml, SC_MotorEncoder *el, SC_DCMotor *mr, SC_MotorEncoder *er)
@@ -71,6 +72,7 @@ bool MD_SmartCar::begin(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t
   bool b = true;
 
   loadConfig();
+  _inSequence = false;
 
   // do PID initialization
   for (uint8_t i = 0; i < MAX_MOTOR; i++)
@@ -98,9 +100,14 @@ bool MD_SmartCar::begin(uint16_t ppr, uint16_t ppsMax, uint16_t dWheel, uint16_t
 void MD_SmartCar::run(void)
 // run the FSM to manage motor functions
 {
+  const uint32_t MOVE_TIMEOUT = 2000;   // ms
   bool firstPass = true;
-  uint32_t now = millis();    // keep time in sync for all motors
-  
+  uint32_t now = millis();      // keep time in sync for all motors in the loop
+
+  // run the sequence if we are currently in that mode
+  if (_inSequence)
+    runSequence();
+
   // loop through all the motors doing whatever in each state
   for (uint8_t motor = 0; motor < MAX_MOTOR; motor++)
   {
@@ -179,15 +186,19 @@ void MD_SmartCar::run(void)
       SCPRINT("\n>>MOVE_INIT #", motor);
       _E[motor]->reset();
       _M[motor]->run(_mData[motor].direction, _mData[motor].sp);
+      _mData[motor].timeLast = now;   // watchdog timer for moves
       _mData[motor].state = S_MOVE_RUN;
-      // deliberately fall through to S_MOVE
+      // deliberately fall through
 
     case S_MOVE_RUN:
       {
         uint32_t time;
         uint16_t count;
 
+        // Read pulses and if we got something, reset the watchdog
         _E[motor]->read(time, count, false);
+        if (count != 0) _mData[motor].timeLast = now;
+
         if (firstPass)
         {
           firstPass = false;
@@ -198,7 +209,10 @@ void MD_SmartCar::run(void)
         SCPRINT(" [", motor); 
         SCPRINT("] ", count);
         SCPRINT("/", _mData[motor].cv);
-        if ((int16_t)count >= _mData[motor].cv)    // done all the pulses required
+        
+        // check for ending conditions
+        if (((int16_t)count >= _mData[motor].cv) ||               // done all the pulses required
+           (millis() - _mData[motor].timeLast >= MOVE_TIMEOUT))   // watchdog timed out!
         {
           _M[motor]->setSpeed(0);
           _mData[motor].state = S_IDLE;
@@ -234,10 +248,10 @@ void MD_SmartCar::drive(int8_t vLinear, float vAngularR)
     _mData[MLEFT].direction = (vLinear < 0 ? SC_DCMotor::DIR_REV : SC_DCMotor::DIR_FWD);
     _mData[MRIGHT].direction = _mData[MLEFT].direction;
     _vLinear = abs(vLinear);
-    _vAngular = vAngularR;
+    _vAngular = -vAngularR; // reverse library the convention
 
     // Unicycle control kinematics differential wheel velocity
-    // vL = (2v + wL)/(D); vR = (2v - wL)/(D)
+    // vL = (2v - wL)/(D); vR = (2v + wL)/(D)
     // where 
     // vL, vR are left and right velocity of wheel in encoder pulse/sec
     // v = linear velocity of vehicle (_vLinear)
@@ -252,8 +266,8 @@ void MD_SmartCar::drive(int8_t vLinear, float vAngularR)
     spL = spR = ((float)_ppsMax * _vLinear) / 100.0; // convert velocity from % to pps
     SCPRINT("\nSPLR: ", spL);
 
-    spL = spL + ((_vAngular * _lenBaseP) / 2);
-    spR = spR - ((_vAngular * _lenBaseP) / 2);
+    spL = spL - ((_vAngular * _lenBaseP) / 2);
+    spR = spR + ((_vAngular * _lenBaseP) / 2);
 
     SCPRINT(" -> pps L:", spL);
     SCPRINT(" R:", spR);
@@ -325,6 +339,7 @@ void MD_SmartCar::stop(void)
 {
   _vLinear = 0;
   _vAngular = 0.0;
+  _inSequence = false;
 
   for (uint8_t i = 0; i < MAX_MOTOR; i++)
   {
@@ -332,5 +347,128 @@ void MD_SmartCar::stop(void)
     _mData[i].sp = 0;
     _mData[i].state = S_IDLE;
     _M[i]->run(_mData[i].direction, _mData[i].sp);
+  }
+}
+
+bool MD_SmartCar::runActionItem(actionItem_t &ai)
+{
+  switch (ai.opId)
+  {
+  case DRIVE:
+    SCPRINT("\nSEQ: drive(", ai.parm[0]);
+    SCPRINT(", ", ai.parm[1]);
+    SCPRINTS(")");
+    drive(ai.parm[0], ai.parm[1]);
+    _inSequence = true;     // in case speed ws 0 and stop() was invoked
+    _inAction = false;
+    break;
+
+  case MOVE:
+    if (!_inAction)
+    {
+      SCPRINT("\nSEQ: move(", ai.parm[0]);
+      SCPRINT(", ", ai.parm[1]);
+      SCPRINTS(")");
+      move(ai.parm[0], ai.parm[1]);
+      _inAction = true;
+    }
+    else
+      _inAction = isRunning();
+    break;
+
+  case SPIN:
+    if (!_inAction)
+    {
+      SCPRINT("\nSEQ: spin(", (int16_t)ai.parm[0]);
+      SCPRINTS(")");
+      spin((int16_t)ai.parm[0]);
+      _inAction = true;
+    }
+    else 
+      _inAction = isRunning();
+    break;
+
+  case PAUSE:
+    if (!_inAction)
+    {
+      SCPRINT("\nSEQ: pause(", (uint32_t) ai.parm[0]);
+      SCPRINTS(")");
+      _timeStartSeq = millis();
+      _inAction = true;
+    }
+    else 
+      _inAction = (millis() - _timeStartSeq < ai.parm[0]);
+    break;
+
+  case STOP:
+    SCPRINTS("\nSEQ: stop()");
+    stop();
+    _inSequence = true;   // stop() sets this false but we need it on
+    _inAction = false;
+    break;
+
+  case END:
+    SCPRINTS("\nSEQ: end");
+    _inSequence = false;
+    _inAction = false;
+    break;
+  }
+
+  return(_inAction);
+}
+
+void MD_SmartCar::startSequence(const actionItem_t* actionList)
+{
+  if (actionList == nullptr)
+    return;
+
+  SCPRINTS("\nSEQ: startSequence PROGMEM");
+
+  // initialise for a new run
+  _seqIsConstant = true;
+  _uAction.cp = actionList;
+
+  startSeqCommon();
+}
+
+void MD_SmartCar::startSequence(actionItem_t* actionList)
+{
+  if (actionList == nullptr)
+    return;
+
+  SCPRINTS("\nSEQ: startSequence RAM");
+
+  // initialise for a new run
+  _seqIsConstant = false;
+  _uAction.p = actionList;
+
+  startSeqCommon();
+}
+
+void MD_SmartCar::startSeqCommon(void)
+{
+  _curActionItem = 0;
+  _inSequence = true;
+  _inAction = false;
+
+  runSequence();    // do the first step
+}
+
+
+void MD_SmartCar::runSequence(void)
+{
+  // If executing a sequence, work with action items
+  if (_inSequence)
+  {
+    if (!_inAction)   // not currently doing anything, load next action item
+    {
+      if (_seqIsConstant)
+        memcpy_P(&_ai, _uAction.cp + _curActionItem, sizeof(actionItem_t));
+      else
+        memcpy(&_ai, _uAction.p + _curActionItem, sizeof(actionItem_t));
+      _curActionItem++;
+    }
+
+    runActionItem(_ai);   // process current action
   }
 }

@@ -4,62 +4,41 @@
  * \brief Header file for SmartCar library hardware related parameters.
  */
 
-#ifndef NO_PIN
-#define NO_PIN 255          ///< Pin number when pin is not defined
-#endif
-
 /**
 \page pageHardwareMap Hardware Allocation Map 
 Hardware Functional Allocation for Arduino Nano
 
 The library code is independent of processor used, however ther target
-platform is an Arduino Nano.
+platform is an Arduino Nano. The pins listed here as used by the library
+are reserved (R). Spare pins are for use by the application (A).
 
-| Pin  | Description
-|------|---------------
-| D0*  | Hardware Serial Tx
-| D1*  | Hardware Serial Rx
-| D2!  | R Motor Encoder Pulse Interrupt
-| D3!~ | L Motor Encoder Pulse Interrupt
-| D4   | R Motor Controller InB1 
-| D5~  | R Motor Controller InB2
-| D6~  | L Motor Controller InA1
-| D7   | L Motor Controller InA2
-| D8   | Unallocated
-| D9~  | R Motor Controller PWM (L29x type controller) / R Sonar Sensor
-| D10~ | L Motor Controller PWM (L29x type controller) / SPI SS (default)
-| D11~*| Hardware SPI MOSI
-| D12* | Hardware SPI MISO
-| D13* | Hardware SPI SCK
-| A0   | Software Serial Rx (Bluetooth)
-| A1   | Software Serial Tx (Bluetooth)
-| A2   | L Sonar Sensor
-| A3   | Mid Sonar Sensor
-| A4*  | Hardware I2C SDA
-| A5*  | Hardware I2C SCL
-| A6   | Nano Analog output only
-| A7   | Nano Analog output only
+| Pin  |Use| Description
+|------:---:---------------
+| D0*  | R | Hardware Serial Tx
+| D1*  | R | Hardware Serial Rx
+| D2!  | R | R Motor Encoder Pulse Interrupt
+| D3!~ | R | L Motor Encoder Pulse Interrupt
+| D4   | R | R Motor Controller InB1 
+| D5~  | R | R Motor Controller InB2
+| D6~  | R | L Motor Controller InA1
+| D7   | R | L Motor Controller InA2
+| D8   | A | Spare
+| D9~  |A/R| Spare / R Motor Controller PWM (L29x type controller)
+| D10~ |A/R| Spare / L Motor Controller PWM (L29x type controller)
+| D11~*| A | Spare / Hardware SPI MOSI
+| D12* | A | Spare / Hardware SPI MISO
+| D13* | A | Spare / Hardware SPI SCK
+| A0   | A | Spare
+| A1   | A | Spare
+| A2   | A | Spare
+| A3   | A | Spare 
+| A4*  | A | Spare / Hardware I2C SDA
+| A5*  | A | Spare / Hardware I2C SCL
+| A6   | A | Spare / Nano Analog I/O only
+| A7   | A | Spare / Nano Analog I/O only
  
 (*) shared or comms bus pins, (~) hardware PWM pin, (!) external iRQ pin
 */
-
-// ------------------------------------
-// Bluetooth connections using SoftwareSerial
-const uint8_t SC_BT_RX = A0;  ///< Arduino RX, connect to to BT TX pin
-const uint8_t SC_BT_TX = A1;  ///< Arduino TX, connect to to BT RX pin
-
-const uint16_t SC_BT_BAUDRATE = 9600; ///< BT serial connection speed (bps)
-
-// ------------------------------------
-// LCD module connections using I2C hardware connection
-const uint8_t SC_LCD_ROWS = 2;  ///< LCD module number of rows (lines down)
-const uint8_t SC_LCD_COLS = 16; ///< LCD module number of columns (characters across)
-
-// ------------------------------------
-// Sonar sensors connections (NewPing library - single pin)
-const uint8_t SC_L_SONAR = A2;  ///< Sonar (ping sensor) Left side pin
-const uint8_t SC_M_SONAR = A3;  ///< Sonar (ping sensor) Middle side pin
-const uint8_t SC_R_SONAR = 9;   ///< Sonar (ping sensor) Right side pin
 
 // ------------------------------------
 // Motor Controller - Select hardware being used

@@ -14,6 +14,7 @@
 
 #include <MD_SmartCar.h>
 #include <MD_cmdProcessor.h>
+#include "SmartCar_HW.h"
 
 #ifndef USE_SONAR
 #define USE_SONAR   1     // include SONAR related items
@@ -23,13 +24,6 @@
 #define ECHO_COMMAND  1   // set to 0 to not echo command confirmation on terminal
 #endif
 
-// ------------------------------------
-// SmartCar Physical Constants
-const uint16_t PPR = 40;        ///< Encoder pulses per revolution default value
-const uint16_t DIA_WHEEL = 65;  ///< Wheel diameter in mm
-const uint16_t LEN_BASE = 110;  ///< Wheel base in mm (= distance between wheel centers)
-const uint16_t PPS_MAX = 175;   ///< Maximum encoder pulses per second (PWM=255)
-
 #if USE_SONAR
 #include <NewPing.h>
 
@@ -38,9 +32,9 @@ const uint8_t MAX_DISTANCE = 200; // Maximum distance (in cm) to ping
 
 NewPing sonar[MAX_SONAR] =
 {
-  NewPing(SC_L_SONAR, SC_L_SONAR, MAX_DISTANCE),
-  NewPing(SC_M_SONAR, SC_M_SONAR, MAX_DISTANCE),
-  NewPing(SC_R_SONAR, SC_R_SONAR, MAX_DISTANCE)
+  NewPing(PIN_L_SONAR, PIN_L_SONAR, MAX_DISTANCE),
+  NewPing(PIN_M_SONAR, PIN_M_SONAR, MAX_DISTANCE),
+  NewPing(PIN_R_SONAR, PIN_R_SONAR, MAX_DISTANCE)
 };
 bool showSonar = false;
 #endif
