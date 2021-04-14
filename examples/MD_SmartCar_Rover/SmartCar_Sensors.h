@@ -18,15 +18,32 @@ public:
 
   void begin(void) 
   {
-    pinMode(PIN_L_BUMPER, INPUT_PULLUP);
     pinMode(PIN_R_BUMPER, INPUT_PULLUP);
+    pinMode(PIN_L_BUMPER, INPUT_PULLUP);
+    pinMode(PIN_L_LIGHT, INPUT);
+    pinMode(PIN_R_LIGHT, INPUT);
   }
 
   void read(void) 
   {
+    _newData = false;     // will be set if any updates happen
     readBumper();
     readSonar();
     readLight();
+  }
+
+  inline bool isUpdated(void) { return(_newData); }
+
+  void dump(Stream& S)
+  {
+    if (isUpdated())
+    {
+      S.print("\n");
+      S.print("B("); S.print(bumperL); S.print(','); S.print(bumperR);
+      S.print(") S("); S.print(sonarL); S.print(','); S.print(sonarM); S.print(','); S.print(sonarR);
+      S.print(") L("); S.print(lightL); S.print(','); S.print(lightR);
+      S.print(")");
+    }
   }
 
   // Available Sensor Data
@@ -36,31 +53,33 @@ public:
 
 private:
   // Bumper definitions
-  static const uint16_t BUMPER_POLL_PERIOD = 10;   // in ms
   uint32_t _lastBumperPoll;
+  bool _newData;
 
   void readBumper(void)
   {
     if (millis() - _lastBumperPoll >= BUMPER_POLL_PERIOD)
     {
-      bumperL = (digitalRead(PIN_L_BUMPER) == LOW);
-      bumperR = (digitalRead(PIN_R_BUMPER) == LOW);
+      bool bl = (digitalRead(PIN_L_BUMPER) == LOW);
+      bool br = (digitalRead(PIN_R_BUMPER) == LOW);
+
+      _newData = _newData || (bumperL != bl) || (bumperR != br);
+      bumperL = bl;
+      bumperR = br;
       _lastBumperPoll = millis();
     }
   }
 
   // Sonar (Ping) definitions
   static const uint8_t MAX_SONAR = 3;             // Number of ping sensors
-  static const uint8_t MAX_DISTANCE = 200;        // Maximum distance (in cm) to ping
-  static const uint16_t SONAR_POLL_PERIOD = 50;   // in ms
   uint8_t _curSonar;        // next device to poll
   uint32_t _lastSonarPoll;
 
   NewPing _sonar[MAX_SONAR] =
   {
-    NewPing(PIN_L_SONAR, PIN_L_SONAR, MAX_DISTANCE),
-    NewPing(PIN_M_SONAR, PIN_M_SONAR, MAX_DISTANCE),
-    NewPing(PIN_R_SONAR, PIN_R_SONAR, MAX_DISTANCE)
+    NewPing(PIN_L_SONAR, PIN_L_SONAR, DIST_MAX),
+    NewPing(PIN_M_SONAR, PIN_M_SONAR, DIST_MAX),
+    NewPing(PIN_R_SONAR, PIN_R_SONAR, DIST_MAX)
   };
 
   void readSonar(void)
@@ -69,29 +88,34 @@ private:
     {
       uint16_t ping = _sonar[_curSonar].ping_cm();
 
-      if (ping == 0) ping = 999;    // distance comparisons work better than with 0
+      if (ping == 0) ping = DIST_MAX;    // distance comparisons work better than with 0
 
       switch (_curSonar)
       {
-      case 0: sonarL = ping; break;
-      case 1: sonarM = ping; break;
-      case 2: sonarR = ping; break;
+      case 0: _newData = _newData || (sonarL != ping); sonarL = ping; break;
+      case 1: _newData = _newData || (sonarM != ping); sonarM = ping; break;
+      case 2: _newData = _newData || (sonarR != ping); sonarR = ping; break;
       }
-      _lastSonarPoll = millis();
       _curSonar++;
       if (_curSonar >= MAX_SONAR) _curSonar = 0;    // roll over
+      _lastSonarPoll = millis();
     }
   }
 
   // LightSensor definitions
-  static const uint16_t LIGHT_POLL_PERIOD = 200;   // in ms
   uint32_t _lastLightPoll;
 
   void readLight(void)
   {
     if (millis() - _lastLightPoll >= LIGHT_POLL_PERIOD)
     {
-      // do something?
+      // divide the values by 4 to eliminate jitter in the bottom bits
+      uint8_t ll = (analogRead(PIN_L_LIGHT) >> 2);
+      uint8_t lr = (analogRead(PIN_R_LIGHT) >> 2);
+
+      _newData = _newData || (lightL != ll) || (lightR != lr);
+      lightL = ll;
+      lightR = lr;
       _lastLightPoll = millis();
     }
   }

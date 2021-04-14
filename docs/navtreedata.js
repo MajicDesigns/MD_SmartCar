@@ -26,6 +26,11 @@ var NAVTREE =
 [
   [ "Smart Car Controller", "index.html", [
     [ "Smart Car Robot Library", "index.html", "index" ],
+    [ "Measure Physical Constants", "page_setup_constants.html", null ],
+    [ "Confirming Motor Setup", "page_setup_motor.html", null ],
+    [ "Determining Calibration Parameters", "page_setup_config.html", null ],
+    [ "Tuning PID Parameters", "page_setup_p_i_d.html", null ],
+    [ "Testing with Remote Control", "page_setup_control.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

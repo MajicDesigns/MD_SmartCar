@@ -106,10 +106,10 @@ Include dependency graph for MD_SmartCar.h:</div>
 <map name="asrc_2_m_d___smart_car_8h" id="asrc_2_m_d___smart_car_8h">
 <area shape="rect" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="192,5,329,32"/>
 <area shape="rect" title=" " alt="" coords="289,155,366,181"/>
-<area shape="rect" href="_s_c___hardware_defs_8h.html" title="Header file for SmartCar library hardware related parameters." alt="" coords="29,80,168,107"/>
+<area shape="rect" href="_s_c___hardware_defs_8h.html" title="Header file for MD_SmartCar library hardware related parameters." alt="" coords="29,80,168,107"/>
 <area shape="rect" href="_s_c___d_c_motor_8h.html" title="Header file for the SC_DCMotor class." alt="" coords="458,80,568,107"/>
-<area shape="rect" href="_s_c___motor_encoder_8h.html" title="Header file for the SC_MotorEncoder class." alt="" coords="192,80,330,107"/>
-<area shape="rect" href="_s_c___p_i_d_8h.html" title="Header file for the SC_PID class." alt="" coords="355,80,433,107"/>
+<area shape="rect" href="_s_c___motor_encoder_8h.html" title="Header file for the SC_MotorEncoder class of the MD_SmartCar library." alt="" coords="192,80,330,107"/>
+<area shape="rect" href="_s_c___p_i_d_8h.html" title="Header file for the SC_PID class of the MD_SmartCar library." alt="" coords="355,80,433,107"/>
 <area shape="rect" title=" " alt="" coords="466,155,560,181"/>
 </map>
 </div>
@@ -135,7 +135,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a92612fb63d8c021050638e751714cde5"><td class="memItemLeft" align="right" valign="top"><a id="a92612fb63d8c021050638e751714cde5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___smart_car_8h.html#a92612fb63d8c021050638e751714cde5">PID_TUNE</a>&#160;&#160;&#160;0</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___smart_car_8h.html#a92612fb63d8c021050638e751714cde5">PID_TUNE</a>&#160;&#160;&#160;1</td></tr>
 <tr class="memdesc:a92612fb63d8c021050638e751714cde5"><td class="mdescLeft">&#160;</td><td class="mdescRight">set to 1 for specific PID tuning output <br /></td></tr>
 <tr class="separator:a92612fb63d8c021050638e751714cde5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a516ea70350646db58405ab943a17c85c"><td class="memItemLeft" align="right" valign="top"><a id="a516ea70350646db58405ab943a17c85c"></a>
@@ -152,13 +152,12 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPRINTS</b>(s)</td></tr>
 <tr class="separator:a08be8c70356c84812261483f94ad3f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad955e9fd032552034d57e5592fc9180b"><td class="memItemLeft" align="right" valign="top"><a id="ad955e9fd032552034d57e5592fc9180b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>P_PID_HDR</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>P_PID_HDR</b>&#160;&#160;&#160;do { Serial.print(F(&quot;/*&quot;)); } while (false)</td></tr>
 <tr class="separator:ad955e9fd032552034d57e5592fc9180b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19413fa1bb068afd5df6d700c855f873"><td class="memItemLeft" align="right" valign="top"><a id="a19413fa1bb068afd5df6d700c855f873"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>P_PID_BODY</b>(SP,  CV,  CO,  last)</td></tr>
+<tr class="memitem:a19413fa1bb068afd5df6d700c855f873"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>P_PID_BODY</b>(SP,  CV,  CO,  last)</td></tr>
 <tr class="separator:a19413fa1bb068afd5df6d700c855f873"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4373c31eefcefb0175dad120cf274a4"><td class="memItemLeft" align="right" valign="top"><a id="ac4373c31eefcefb0175dad120cf274a4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>P_PID_TAIL</b></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>P_PID_TAIL</b>&#160;&#160;&#160;do { Serial.print(F(&quot;,&quot;)); Serial.print(millis()); Serial.print(F(&quot;*/\n&quot;)); } while (false)</td></tr>
 <tr class="separator:ac4373c31eefcefb0175dad120cf274a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25f003de16c08a4888b69f619d70f427"><td class="memItemLeft" align="right" valign="top"><a id="a25f003de16c08a4888b69f619d70f427"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ARRAY_SIZE</b>(a)&#160;&#160;&#160;(sizeof(a)/sizeof((a)[0]))</td></tr>
@@ -166,13 +165,60 @@ Macros</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main header file and class definition for the <a class="el" href="class_m_d___smart_car.html">MD_SmartCar</a> library. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a19413fa1bb068afd5df6d700c855f873"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19413fa1bb068afd5df6d700c855f873">&#9670;&nbsp;</a></span>P_PID_BODY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define P_PID_BODY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">SP, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CV, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CO, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">last&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> \</div>
+<div class="line">{ \</div>
+<div class="line">  Serial.print(SP); Serial.print(F(<span class="stringliteral">&quot;,&quot;</span>)); \</div>
+<div class="line">  Serial.print(CV); Serial.print(F(<span class="stringliteral">&quot;,&quot;</span>)); \</div>
+<div class="line">  Serial.print(CO); <span class="keywordflow">if</span> (!last) Serial.print(F(<span class="stringliteral">&quot;,&quot;</span>)); \</div>
+<div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_m_d___smart_car_8h.html">MD_SmartCar.h</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 17:22:16 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

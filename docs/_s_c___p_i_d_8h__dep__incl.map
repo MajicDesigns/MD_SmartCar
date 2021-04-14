@@ -1,5 +1,5 @@
 <map id="src/SC_PID.h" name="src/SC_PID.h">
-<area shape="rect" id="node1" title="Header file for the SC_PID class." alt="" coords="301,5,403,32"/>
+<area shape="rect" id="node1" title="Header file for the SC_PID class of the MD_SmartCar library." alt="" coords="301,5,403,32"/>
 <area shape="rect" id="node3" href="$_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,80,345,107"/>
 <area shape="rect" id="node11" href="$_s_c___p_i_d_8cpp.html" title="Class definition file for the SC_PID class." alt="" coords="371,80,485,107"/>
 <area shape="rect" id="node5" href="$_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,155,155,181"/>

@@ -1,7 +1,7 @@
 #pragma once
 /**
  * \file
- * \brief Header file for the SC_MotorEncoder class.
+ * \brief Header file for the SC_MotorEncoder class of the MD_SmartCar library.
  */
 
 /**
@@ -13,9 +13,10 @@ The motor encoder can be any sensor that provides a known number of pulses
 per wheel revolution.
 
 A simple encoder for this application is a photo interruptor. This is a 
-device that has a LED shining through a rotating slotted wheel with a detector 
-on the other side. The slotted wheel turns with the wheel and the encoder
-is attached to the vehicle body. A module with this device is shown below.
+device that has a LED shining through a rotating slotted wheel with a light
+detector on the other side. The slotted wheel turns with the wheel and the 
+encoder is attached to the vehicle body. A commercialy available module with 
+this device is shown below.
 
 ![Motor Encoder] (SmartCar_Encoder.jpg "Motor Encoder")
 

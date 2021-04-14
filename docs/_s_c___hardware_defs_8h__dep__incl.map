@@ -1,5 +1,5 @@
 <map id="src/SC_HardwareDefs.h" name="src/SC_HardwareDefs.h">
-<area shape="rect" id="node1" title="Header file for SmartCar library hardware related parameters." alt="" coords="287,5,447,32"/>
+<area shape="rect" id="node1" title="Header file for MD_SmartCar library hardware related parameters." alt="" coords="287,5,447,32"/>
 <area shape="rect" id="node3" href="$_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library." alt="" coords="209,80,345,107"/>
 <area shape="rect" id="node11" href="$_s_c___motor_encoder_8cpp.html" title="Class definition file for the SC_MotorEncoder class." alt="" coords="370,80,544,107"/>
 <area shape="rect" id="node5" href="$_m_d___smart_car_8cpp.html" title="Code file for SmartCar library class." alt="" coords="5,155,155,181"/>

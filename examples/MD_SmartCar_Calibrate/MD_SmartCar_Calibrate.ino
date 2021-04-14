@@ -17,7 +17,7 @@
 #include "SmartCar_HW.h"
 
 #ifndef USE_SONAR
-#define USE_SONAR   1     // include SONAR related items
+#define USE_SONAR   0     // include SONAR related items
 #endif
 
 #ifndef ECHO_COMMAND
@@ -293,7 +293,7 @@ const MD_cmdProcessor::cmdItem_t PROGMEM cmdTable[] =
   { "tw", handlerTW,   "l h",     "Tuning PWM low/high [0..255]", 3},
   { "tk", handlerTK,   "p",       "Tuning drive() Kicker PWM [0..255]", 3 },
   { "tm", handlerTM,   "p",       "Tuning move() PWM [0..255]", 3 },
-  { "ts", handlerTS,   "f",       "Tuning spin() adjust [float * 100]", 3 },
+  { "ts", handlerTS,   "f",       "Tuning spin() derate [float * 100]", 3 },
   { "cs", handlerCS,   "",        "Configuration Save", 4 },
   { "cl", handlerCL,   "",        "Configuration Load", 4 },
 };
@@ -306,6 +306,7 @@ void handlerHelp(char* param)
   CP.help();
 }
 
+#if USE_SONAR
 void readSonar(void)
 {
   static uint16_t dist[MAX_SONAR] = { 0 };
@@ -330,6 +331,7 @@ void readSonar(void)
     }
   }
 }
+#endif
 
 void setup(void)
 {

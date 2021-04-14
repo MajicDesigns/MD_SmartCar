@@ -1,7 +1,7 @@
 #pragma once
 /**
  * \file
- * \brief Header file for the SC_PID class.
+ * \brief Header file for the SC_PID class of the MD_SmartCar library.
  */
 
  /**

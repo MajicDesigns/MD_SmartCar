@@ -88,9 +88,56 @@ $(document).ready(function(){initNavTree('page_hardware_map.html',''); initResiz
 <div class="title">Hardware Allocation Map </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Hardware Functional Allocation for Arduino Nano</p>
-<p>The library code is independent of processor used, however ther target platform is an Arduino Nano. The pins listed here as used by the library are reserved (R). Spare pins are for use by the application (A).</p>
-<p>| Pin |Use| Description |---&mdash;:&mdash;:------------&mdash; | D0* | R | Hardware Serial Tx | D1* | R | Hardware Serial Rx | D2! | R | R Motor Encoder Pulse Interrupt | D3!~ | R | L Motor Encoder Pulse Interrupt | D4 | R | R Motor Controller InB1 | D5~ | R | R Motor Controller InB2 | D6~ | R | L Motor Controller InA1 | D7 | R | L Motor Controller InA2 | D8 | A | Spare | D9~ |A/R| Spare / R Motor Controller PWM (L29x type controller) | D10~ |A/R| Spare / L Motor Controller PWM (L29x type controller) | D11~*| A | Spare / Hardware SPI MOSI | D12* | A | Spare / Hardware SPI MISO | D13* | A | Spare / Hardware SPI SCK | A0 | A | Spare | A1 | A | Spare | A2 | A | Spare | A3 | A | Spare | A4* | A | Spare / Hardware I2C SDA | A5* | A | Spare / Hardware I2C SCL | A6 | A | Spare / Nano Analog I/O only | A7 | A | Spare / Nano Analog I/O only</p>
+<div class="textblock"><h2>Hardware Functional Allocation for Arduino Nano</h2>
+<p>The library code is mostly independent of processor used, however the original target platform is an Arduino Nano. The pins listed here and defined in the <a class="el" href="_s_c___hardware_defs_8h.html" title="Header file for MD_SmartCar library hardware related parameters.">SC_HardwareDefs.h</a> header file are reserved (R) by the library. Spare pins are for use by any application Application (A) built on top ogf this library.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Pin   </th><th class="markdownTableHeadLeft">Use   </th><th class="markdownTableHeadLeft">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D0*   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">Hardware Serial Tx    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D1*   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">Hardware Serial Rx    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D2!   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">R Motor Encoder Pulse Interrupt    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D3!~   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">L Motor Encoder Pulse Interrupt    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D4   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">R Motor Controller InB1    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D5~   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">R Motor Controller InB2    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D6~   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">L Motor Controller InA1    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D7   </td><td class="markdownTableBodyLeft">R   </td><td class="markdownTableBodyLeft">L Motor Controller InA2    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D8   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D9~   </td><td class="markdownTableBodyLeft">A/R   </td><td class="markdownTableBodyLeft">Spare / R Motor Controller PWM (L29x type controller)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D10~   </td><td class="markdownTableBodyLeft">A/R   </td><td class="markdownTableBodyLeft">Spare / L Motor Controller PWM (L29x type controller)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D11~*   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Hardware SPI MOSI    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">D12*   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Hardware SPI MISO    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">D13*   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Hardware SPI SCK    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A0   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">A1   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A2   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">A3   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A4*   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Hardware I2C SDA    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">A5*   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Hardware I2C SCL    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A6   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Nano Analog I/O only    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">A7   </td><td class="markdownTableBodyLeft">A   </td><td class="markdownTableBodyLeft">Spare / Nano Analog I/O only   </td></tr>
+</table>
 <p>(*) shared or comms bus pins, (~) hardware PWM pin, (!) external iRQ pin </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -99,7 +146,7 @@ $(document).ready(function(){initNavTree('page_hardware_map.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Smart Car Robot Library</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 17:22:16 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

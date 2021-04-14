@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['_7emd_5fsmartcar_132',['~MD_SmartCar',['../class_m_d___smart_car.html#a4716b9b6fb5944b5ab9dee9f42a68936',1,'MD_SmartCar']]],
-  ['_7esc_5fdcmotor_5fl29x_133',['~SC_DCMotor_L29x',['../class_s_c___d_c_motor___l29x.html#a9c7c267ecaa5c529cb30dc1519a2c778',1,'SC_DCMotor_L29x']]],
-  ['_7esc_5fdcmotor_5fmx1508_134',['~SC_DCMotor_MX1508',['../class_s_c___d_c_motor___m_x1508.html#a60887a4707ce0229cd60e55564f8ac21',1,'SC_DCMotor_MX1508']]],
-  ['_7esc_5fmotorencoder_135',['~SC_MotorEncoder',['../class_s_c___motor_encoder.html#aaaa535a1a5ce0f42987fd9eed490ce39',1,'SC_MotorEncoder']]],
-  ['_7esc_5fpid_136',['~SC_PID',['../class_s_c___p_i_d.html#aa80b542c5c7be3d3b09204e9860c7f30',1,'SC_PID']]]
+  ['unicycle_20control_20model_139',['Unicycle Control Model',['../page_control_model.html',1,'index']]],
+  ['use_5fpwm_5flibrary_140',['USE_PWM_LIBRARY',['../_s_c___d_c_motor_8h.html#a83e83f7f3159095844e372f39c009825',1,'SC_DCMotor.h']]],
+  ['user_141',['USER',['../class_s_c___p_i_d.html#ada768158001147b6abaecf918bd17d63aa0019fbe29904ceac263806427c76064',1,'SC_PID']]]
 ];

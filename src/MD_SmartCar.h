@@ -3,48 +3,55 @@
 \mainpage Smart Car Robot Library
 
 This library is designed to provide core mobility functions for
-an autonomous 2 wheeled Smart Car Robot. The library provides
+an autonomous two wheeled Smart Car Robot. The library provides
 the code infrastructure that allows the car to travel in a 
 controlled manner, on top of which specific applications can 
 confidently be built.
 
-The assumed control Hierarchy is shown below. The library implements 
-the control elements from "Motion Control" to the right of the figure.
-
-![Control Hierarchy] (SmartCar_Control_Hierarchy.png "Control Hierarchy")
-
-This library is designed around a commonly obtainable 2 wheel drive (plus 
+This library is designed around a commonly obtainable two wheel drive (+ 
 idler castor wheel) vehicle chassis found on online marketplaces, it 
 is also suitable for more capable similar platforms with little or 
-no modification.
+no modification. They look something like this one below.
 
 ![SmartCar Platform] (SmartCar_Platform.jpg "SmartCar Platform")
 
-The vehicle is made up of a number of subcomponents that come together to
-allow the software library to function:
+The control hierarchy implemented in the library is shown in the figure 
+below. The library implements the control elements from "Motion Control" 
+to the right of the figure.
+
+![Control Hierarchy] (SmartCar_Control_Hierarchy.png "Control Hierarchy")
+
+The vehicle hardware and control system are made up of a number of 
+subcomponents that are functionally brought together by the software 
+library to function:
 - Robot vehicle chassis
 - \subpage pageMotorController
 - \subpage pageMotorEncoder
 
-The library control 2 types of autonomous movements:
+The library is designed to control 2 types of autonomous movements:
 - _Precisely controlled movements_ (eg, spin in place), where the ability to
   manoeuvre the orientation of the vehicle at low speed is important. 
   Independent control of motor directions and how far it spins are used as 
   control parameters for this mode type of movement.
 - _General movements_ (eg, traveling at a set speed in a set direction),
-  where the ability to move quickly in an accurate path is important. This type
-  of movement is managed using the \ref pageControlModel "unicycle model" for
-  control coupled to \ref pagePID "PID control" of the DC motors. 
+  where the ability to move more quickly in an accurate path is important. 
+  This type of movement is managed using the \ref pageControlModel "unicycle 
+  model" for control coupled to \ref pagePID "PID control" of the DC motors. 
 
 See Also
+- \subpage pageUsingLibrary
 - \subpage pageHardwareMap
 - \subpage pageControlModel
+- \subpage pageActionSequence
 - \subpage pagePID
 - \subpage pageMotorController
 - \subpage pageMotorEncoder
 - \subpage pageRevisionHistory
 - \subpage pageDonation
 - \subpage pageCopyright
+
+Library dependencies
+MD_PWM library located at https://github.com/MajicDesigns/MD_PWM or the Arduino library manager.
 
 \page pageDonation Support the Library
 If you like and use this library please consider making a small donation 
@@ -68,7 +75,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 \page pageRevisionHistory Revision History
-Jan 2020 version 1.0.0
+Apr 2021 version 1.0.0
 - Initial release
  */
 
@@ -84,7 +91,7 @@ Jan 2020 version 1.0.0
  */
 
 #ifndef PID_TUNE
-#define PID_TUNE 0    ///< set to 1 for specific PID tuning output
+#define PID_TUNE 1    ///< set to 1 for specific PID tuning output
 #endif
 #ifndef SCDEBUG
 #define SCDEBUG  0    ///< set to 1 for general debug output
@@ -144,8 +151,8 @@ public:
   enum actionId_t
   {
     DRIVE,    ///< executes drive(); param 0 lin vel, param 1 angular velocity
-    MOVE,     ///< executes a move(); param 0 +/- left, param 1 +/- right
-    SPIN,     ///< executes a spin(); param 0 +/- spin percentage
+    MOVE,     ///< executes a move(); param 0 left rotate, param 1 right rotate
+    SPIN,     ///< executes a spin(); param 0 spin percentage
     PAUSE,    ///< executes a pause; param 0 milliseconds pause
     STOP,     ///< executes a stop()
     END       ///< marks the end of the action list; should always be last item.
@@ -224,8 +231,8 @@ public:
    *
    * For encoder ppr, there is only one value for all whole vehicle, so all
    * encoders need to operate the same way.
-   *
-   * begin();
+   * 
+   * \sa begin(), \ref pageUsingLibrary
    *
    * \param ppr    Number of encoder pulses per wheel revolution.
    * \param ppsMax Maximum number of encoder pulses per second at top speed (100% velocity).
@@ -398,7 +405,7 @@ public:
    *
    * \return the current angular speed setting.
    */
-  inline int8_t getAngularVelocity(void) { return(_vAngular); }
+  inline float getAngularVelocity(void) { return(_vAngular); }
 
   /** @} */
 
@@ -414,14 +421,14 @@ public:
    * movements run at slow speed.
    *
    * The call to move() specifies the angle each wheels will turn, independently.
-   * This method is design to allow close movements such as spin-in-place or
+   * This method is designed to allow close movements such as spin-in-place or
    * other short precise motions.
    *
    * The motion for each wheel is specified as speed as the total angle subtended
    * by the turned by the wheel in radians. Negative angle is a reverse wheel
    * rotation.
    *
-   * \sa drive(), spin(), setMoveSP()
+   * \sa drive(), spin(), setMoveSP(), len2rad()
    *
    * \param angL left wheel angle subtended by the motion in radians.
    * \param angR right wheel angle subtended by the motion in radians.
@@ -436,7 +443,7 @@ public:
   * movements run at slow speed.
   *
   * The call to move() specifies the precise motion of the motors, independently.
-  * This method is design to allow close movements such as spin-in-place or
+  * This method is designed to allow close movements such as spin-in-place or
   * other short precise motions.
   *
   * The motion for each wheel is specified as speed as the total angle subtended
@@ -448,6 +455,26 @@ public:
   * \param angR right wheel angle subtended by the motion in degrees.
   */
   void move(int16_t angL, int16_t angR) { move(deg2rad(angL), deg2rad(angR)); }
+
+  /**
+  * Precisely move the vehicle (millimeter).
+  *
+  * Controls the movement by counting the encoder pulses rather that PID,
+  * which should make it more precise and controlled. This is useful for specific
+  * movements run at slow speed.
+  *
+  * The call to move() specifies the precise motion of the motors, independently.
+  * This method is designed to allow close movements such as spin-in-place or
+  * other short precise motions.
+  *
+  * The motion for each wheel will be identical to move the vehicle the required
+  * distance. Negative length is a reverse wheel rotation.
+  *
+  * \sa drive(), spin(), setMoveSP()
+  *
+  * \param len distance to move in mm.
+  */
+  void move(int16_t len) { move(len2rad(len), len2rad(len)); }
 
   /**
   * Precisely spin the vehicle.
@@ -466,10 +493,47 @@ public:
   */
   void spin(int16_t fraction);
 
+  /**
+   * Start an action sequence stored in PROGMEM.
+   * 
+   * This method passed the reference to an action sequence array stored in PROGMEM
+   * to the library for background execution.
+   * 
+   * Details on actions sequences can be found at \ref pageActionSequence
+   * 
+   * \sa isSequenceComplete()
+   * 
+   * \param actionList pointer to the array of actionItem_t ending with and END record.
+   */
+  void startSequence(const actionItem_t* actionList);
 
-  void startSequence(const actionItem_t* actionList);   // PROGMEM version
+  /** 
+   * Start an action sequence stored in RAM.
+   * 
+   * This method passed the reference to an action sequence array stored in RAM
+   * to the library for background execution. The array must remain in scope
+   * (ie, global or static declaration) for the duration of the sequence 
+   * running.
+   *
+   * Details on actions sequences can be found at \ref pageActionSequence
+   *
+   * \sa isSequenceComplete()
+   *
+   * \param actionList pointer to the array of actionItem_t ending with and END record.
+   */
   void startSequence(actionItem_t* actionList);
 
+  /**
+   * Check if the current action sequence has completed.
+   * 
+   * Once an action sequqnce is started it will automatically execute to 
+   * completion unless interrupted. This method checks to see if the
+   * action sequqnce has completed.
+   * 
+   * \sa startSequence()
+   * 
+   * \return true if the sequence has finished executing
+   */
   bool isSequenceComplete(void) { return(!_inSequence); }
 
   /** @} */
@@ -668,10 +732,10 @@ public:
   /**
    * Read pulses per encoder revolution
    *
-   * Returns the number of pulses per encoder revolution. This is needed to change from
-   * number of pulses to revolutions and then distance.
+   * Returns the number of pulses per encoder revolution. This may be needed to 
+   * change from number of pulses to revolutions and then distance.
    *
-   * \sa setPulsePerRev()
+   * \sa setVehicleParameters()
    *
    * \return The number of pulses per revolution.
    */
@@ -687,9 +751,21 @@ public:
    *
    * Convert the degrees measure specified into radians.
    *
+   * \param deg the value in degrees to be converted.
    * \return the converted value
    */
-  inline float deg2rad(int16_t deg) { return((PI * (float)deg) / 180.0); };
+  inline float deg2rad(int16_t deg) { return((PI * (float)deg) / 180.0); }
+
+  /**
+   * Convert a length to angle of wheel rotation.
+   * 
+   * Convert a length in mm to travel into the radan of wheel rotation 
+   * required for that travel.
+   * 
+   * \param len length in mm to convert.
+   * \return the angle in radians of wheel rotation to achieve that distance.
+   */
+  inline float len2rad(int16_t len) { return(((float)len * 2 * PI) / (_lenPerPulse * _ppr)); }
 
   /** @} */
 
@@ -710,6 +786,7 @@ private:
   uint16_t _lenBase;      ///< Base length in mm (distance between wheel centers)
   uint16_t _ppsMax;       ///< Encoder maximum pulse per second (full speed reading)
 
+  float _lenPerPulse;     ///< Length travelled per pulse of wheel revolution
   float _diaWheelP;       ///< Wheel diameter in pulses (calculated)
   float _lenBaseP;        ///< Base Length in pulses (calculated)
 

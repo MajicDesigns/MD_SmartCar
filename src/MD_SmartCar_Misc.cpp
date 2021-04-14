@@ -97,10 +97,10 @@ void MD_SmartCar::setVehicleParameters(uint16_t ppr, uint16_t ppsMax, uint16_t d
   _lenBase = lBase;
 
   // now calculate derived constants
-  float lenPerPulse = (PI * (float)_diaWheel) / (float)_ppr;   // distance traveled per encoder pulse
+  _lenPerPulse = (PI * (float)_diaWheel) / (float)_ppr;   // distance traveled per encoder pulse
 
-  _diaWheelP = _diaWheel / lenPerPulse;   // wheel diameter converted to pulses
-  _lenBaseP = _lenBase / lenPerPulse;     // base length converted to pulses
+  _diaWheelP = _diaWheel / _lenPerPulse;   // wheel diameter converted to pulses
+  _lenBaseP = _lenBase / _lenPerPulse;     // base length converted to pulses
   SCPRINT("\nWheel dia (P): ", _diaWheelP);
   SCPRINT("\nBase Len (P): ", _lenBaseP);
 }

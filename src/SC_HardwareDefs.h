@@ -1,19 +1,21 @@
 #pragma once
 /**
  * \file
- * \brief Header file for SmartCar library hardware related parameters.
+ * \brief Header file for MD_SmartCar library hardware related parameters.
  */
 
 /**
 \page pageHardwareMap Hardware Allocation Map 
-Hardware Functional Allocation for Arduino Nano
 
-The library code is independent of processor used, however ther target
-platform is an Arduino Nano. The pins listed here as used by the library
-are reserved (R). Spare pins are for use by the application (A).
+## Hardware Functional Allocation for Arduino Nano
+
+The library code is mostly independent of processor used, however the original 
+target platform is an Arduino Nano. The pins listed here and defined in the 
+SC_HardwareDefs.h header file are reserved (R) by the library. Spare pins are 
+for use by any application Application (A) built on top ogf this library.
 
 | Pin  |Use| Description
-|------:---:---------------
+|------|:--|:---------------
 | D0*  | R | Hardware Serial Tx
 | D1*  | R | Hardware Serial Rx
 | D2!  | R | R Motor Encoder Pulse Interrupt
@@ -71,10 +73,10 @@ const uint8_t MC_INB2_PIN = 5;    ///< Motor B Mode pin 2 - PWM capable pin
 #endif
 
 // Default PWM values for speeds
-const uint8_t MC_PWM_MIN = 30;    ///< Minimum PWM that will turn the motor
+const uint8_t MC_PWM_MIN = 40;    ///< Minimum PWM that will turn the motor
 const uint8_t MC_PWM_MAX = 255;   ///< Maximum PWM
-const uint8_t MC_PWM_MOVE = 84;   ///< Slow move() speed PWM default value
-const uint8_t MC_PWM_KICKER = 90; ///< Kicker for drive() to overcome static friction from standing start
+const uint8_t MC_PWM_MOVE = 40;   ///< Slow move() speed PWM default value
+const uint8_t MC_PWM_KICKER = 60; ///< Kicker for drive() to overcome static friction from standing start
 const float MC_SPIN_ADJUST = 0.75;    ///< Inertial adjustment for spin() operation
 const uint8_t MC_KICKER_ACTIVE = 100; ///< Kicker active time in milliseconds
 
@@ -87,9 +89,9 @@ const uint8_t EN_R_PIN = 2;    ///< Right Motor encoder interrupt pin
 // -----------------------------------
 // PID Control
 //
-const float DefKp = 1.5;    ///< PID proportional weighting default
-const float DefKi = 0.0;    ///< PID integral weighting default
-const float DefKd = 0.1;    ///< PID derivative weighting default
+const float DefKp = 1.50;    ///< PID proportional weighting default
+const float DefKi = 0.00;    ///< PID integral weighting default
+const float DefKd = 0.15;    ///< PID derivative weighting default
 
 const uint16_t PID_PERIOD = 250;  ///< PID calculation period in ms
 const uint16_t MS_PER_SEC = 1000; ///< number of ms in 1 second
