@@ -31,7 +31,7 @@ const uint8_t PIN_L_BUMPER = 9;    ///< Front Bumper Left Sensor
 const uint8_t PIN_R_BUMPER = 10;   ///< Front Bumper Right Sensor
 
 // ------------------------------------
-// Sonar sensors connections (NewPing library - single pin)
+// Sonar sensors connections (NewPing library - single pin mode)
 const uint16_t SONAR_POLL_PERIOD = 70;   // in ms
 const uint8_t PIN_L_SONAR = A2;  ///< Sonar (ping sensor) Left side pin
 const uint8_t PIN_M_SONAR = A3;  ///< Sonar (ping sensor) Middle side pin

@@ -1,11 +1,18 @@
 // Application to control an autonomous MD_SmartCar vehicle using a 
 // Bluetooth interface implemented with a HC-05 module that has been 
 // pre-initialized and paired to the controller.
+// 
+// This is an example of behaviours built on top of the library infrastructure.
+// High level control of the ronbotic vehicle is modelled after 'Behavior Based Robotics'
 //
 // All vehicle behaviour types can be exercised and monitored 
 // from the AI2 'SmartCar_Rover_Control' interface application.
 //
+// SmartCar_HW.h contains all the hardware I/O pin definitions.
+// 
 // NewPing library available from https://bitbucket.org/teckel12/arduino-new-ping/src/master/
+//
+// NOTE: Wall Follower behaviour not yet implemented.
 //
 
 #include <SoftwareSerial.h>

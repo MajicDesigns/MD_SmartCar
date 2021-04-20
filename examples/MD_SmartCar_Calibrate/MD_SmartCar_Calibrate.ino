@@ -4,7 +4,7 @@
 // - Test and set PID parameters
 // - Test Unicycle control model
 // - Set, test and save EEPROM application parameters
-// - Test Sonar/Ping sensors (optional see USE_SONAR)
+// - Test Sonar/Ping sensors (optional, see USE_SONAR)
 //
 // Application is controlled from the Serial interface.
 // Set Serial monitor to 57600 and ensure line ending is 'newline'

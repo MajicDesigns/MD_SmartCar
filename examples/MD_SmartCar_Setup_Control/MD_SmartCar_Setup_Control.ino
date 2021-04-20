@@ -1,12 +1,15 @@
 // Test MD_SmartCar class through a Bluetooth interface to 
 // an AI2 control application using a HC-05 BT module that has 
 // been pre-initialized and paired to the controller.
-// 
+//
 // This is to test 'real-world' motion after the vehicle 
 // parameters have been calibrated.
 // 
 // All Vehicle motion types can be exercised and parameters fine
-// tuned from the AI2 'SmartCar_Setup_Control' interface application.
+// tuned and saved to EEPROM from the AI2 'SmartCar_Setup_Control' 
+// interface application.
+//
+// SmartCar_HW.h contains all the hardware connection pin definitions.
 
 #include <SoftwareSerial.h>
 #include <MD_SmartCar.h>
@@ -25,10 +28,10 @@ SC_DCMotor_MX1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
 SC_DCMotor_MX1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
 #endif
 
-SC_MotorEncoder EL(EN_L_PIN);                         // Left motor encoder
-SC_MotorEncoder ER(EN_R_PIN);                         // Right motor encoder
+SC_MotorEncoder EL(EN_L_PIN);         // Left motor encoder
+SC_MotorEncoder ER(EN_R_PIN);         // Right motor encoder
 
-MD_SmartCar Car(&ML, &EL, &MR, &ER);                  // SmartCar object
+MD_SmartCar Car(&ML, &EL, &MR, &ER);  // SmartCar object
 
 const uint8_t FP_SIG = 2;   // floating point significant decimal points
 
