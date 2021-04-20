@@ -89,15 +89,15 @@ $(document).ready(function(){initNavTree('page_setup_motor.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The first part of setup is to use the <b>MotorTest</b> example sketch to ensure that the motors are turning in the correct direction and the encoders are working correctly.</p>
-<p>MotorTest allows the vehicle motors to controlled using the Serial Monitor using a command line interface to invoke test the functions (type ? for help text listing the functions).</p>
-<p>Independently commanding the motors to move in a Forward and Reverse direction provides confirmation that they are wired correctly. If they rotate the wrong (opposite) way, simply reverse the wiring between the speed controller and motor.</p>
-<p>The encoder feedback can be tested - you are looking for both encoders to be providing counts when the motors are running.</p>
-<p>The encoder feedback is printed every second, so the maximum number of pulses per second is worked out by observing the counts and recording the lowest of the two motor counts reported at the maximum speed setting (PWM = 255). Expect the counts to be different due to differences in the electrical and mechanical characteristics of the motors.</p>
+<p>MotorTest allows control of the vehicle motors using the Serial Monitor through the command line interface to invoke test the functions (type ? for help text listing the functions).</p>
+<p>Independently commanding the motors to move in a Forward and Reverse direction provides confirmation that they are wired correctly. If they rotate the wrong (opposite) direction, simply reverse the wiring between the speed controller and motor or between the processor I/O pins and the speed controller.</p>
+<p>The encoder feedback can also be tested now - you are looking for the software to print counts for both encoders when the motors are running.</p>
+<p>The encoder feedback is printed every second, so the maximum number of pulses per second is worked out by observing the counts and recording the lowest of the two motor counts reported at the maximum speed setting (PWM 255). It is normal for the counts to be different due to differences in the electrical and mechanical characteristics of the two motors.</p>
 <p>At this stage it is also worth experimenting and noting 2 additional PWM settings:</p><ul>
-<li>the lowest viable PWM setting that will keep a motor turning when it has already started. This is worked out by starting from a high value and slowly reducing until the motor no longer turns. This value is used to set the low value for PID control limits in the next stage.</li>
-<li>the PWM value needed to start a motor. Internal mechanical and electrical friction means that there is a minimum threshold below which the PWM value will not get a motor started. This value will be used to provide a lower value for the kicker setting in the next configuration step.</li>
+<li>The lowest viable PWM setting that will keep a motor turning when it has already started. This is worked out by starting from a high value and slowly reducing until the motor no longer turns. This value is a good starting point to set the low value for PID control limits in the next setup stage.</li>
+<li>The PWM value needed to start a motor. Internal mechanical and electrical friction means that there is a minimum threshold below which the PWM is insufficient to get a motor started. This value is a lower bound for the 'kicker' setting in the next configuration step.</li>
 </ul>
-<p>Once again, these values may be different for each motor and you need to pick the highest PWM value in each case.</p>
+<p>Once again, these values may be different for each motor and in this case you need to pick the highest of the two PWM values.</p>
 <p>Next: <a class="el" href="page_setup_config.html">Determining Calibration Parameters</a> </p><hr  />
  </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('page_setup_motor.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

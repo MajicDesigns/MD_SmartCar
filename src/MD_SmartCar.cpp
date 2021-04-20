@@ -24,13 +24,14 @@ An application using the library needs to pass a few physical constants to the
 MD_SmartCar::begin() method that allows the library to configure vehicle control
 parameters.
 
-Note that the units of length are specified in mm. However, alternative units may 
-be used __AS LONG AS ALL LENGTHS ARE SPECIFIED IN THE SAME UNITS__.
+Note that the units of length are specified in millimeters. However, alternative 
+units (eg inches or centimeters) may be used __AS LONG AS ALL LENGTHS ARE 
+SPECIFIED IN THE SAME UNITS__, as the units all cancel out in the calculations.
 
 Two physical constants need to be directly measured from the vehicle:
 - The __wheel diameter__ in mm. This is measured to the outer edge of the wheel tyre.
 - The __base length__ (distance between wheel centers) in mm. It may be more convenient
-to measure from inner edge of one wheel to the outer edge of the next - the same
+to measure from inner edge of one wheel to the outer edge of the other - an identical
 distance if the two wheels are the same width.
 
 These two constants are shown as _2r_ and _B_ in the figure below.
@@ -44,108 +45,110 @@ is received for each edge transition of the encoder.
 ![SmartCar Encoder](SmartCar_Encoder_Wheel.jpg "SmartCar Encoder Wheel")
 
 - The __maximum number of encoder pulses per second__ at top speed (100% velocity). 
-This can only be measured later, with the motors running, when confirming the correctness 
-of motor setup.
+This can be measured later, with the motors running, in the steps verifying the 
+correctness of motor wiring and setup.
 
 Next: \ref pageSetupMotor
 ____
 
 \page pageSetupMotor Confirming Motor Setup
 
-The first part of setup is to use the __MotorTest__ example sketch to ensure that 
-the motors are turning in the correct direction and the encoders are working correctly.
+The first part of setup is to use the __MotorTest__ example sketch to ensure 
+that the motors are turning in the correct direction and the encoders are 
+working correctly.
 
-MotorTest allows the vehicle motors to controlled using the Serial Monitor using a 
-command line interface to invoke test the functions (type ? for help text listing the 
-functions).
+MotorTest allows control of the vehicle motors using the Serial Monitor through 
+the command line interface to invoke test the functions (type ? for help text 
+listing the functions).
 
 Independently commanding the motors to move in a Forward and Reverse direction 
-provides confirmation that they are wired correctly. If they rotate the wrong (opposite)
-way, simply reverse the wiring between the speed controller and motor.
+provides confirmation that they are wired correctly. If they rotate the wrong 
+(opposite) direction, simply reverse the wiring between the speed controller 
+and motor or between the processor I/O pins and the speed controller.
 
-The encoder feedback can be tested - you are looking for both encoders to be providing
-counts when the motors are running. 
+The encoder feedback can also be tested now - you are looking for the software 
+to print counts for both encoders when the motors are running. 
 
 The encoder feedback is printed every second, so the maximum number of pulses per 
 second is worked out by observing the counts and recording the lowest of the two 
-motor counts reported at the maximum speed setting (PWM = 255). Expect the counts to 
-be different due to differences in the electrical and mechanical characteristics of 
-the motors.
+motor counts reported at the maximum speed setting (PWM 255). It is normal for 
+the counts to be different due to differences in the electrical and mechanical 
+characteristics of the two motors.
 
 At this stage it is also worth experimenting and noting 2 additional PWM settings:
-- the lowest viable PWM setting that will keep a motor turning when it has already
-started. This is worked out by starting from a high value and slowly reducing until the 
-motor no longer turns. This value is used to set the low value for PID control limits in the
-next stage.
-- the PWM value needed to start a motor. Internal mechanical and electrical friction means 
-that there is a minimum threshold below which the PWM value will not get a motor started. This
-value will be used to provide a lower value for the kicker setting in the next configuration
-step.
+- The lowest viable PWM setting that will keep a motor turning when it has already
+started. This is worked out by starting from a high value and slowly reducing until 
+the motor no longer turns. This value is a good starting point to set the low value 
+for PID control limits in the next setup stage.
+- The PWM value needed to start a motor. Internal mechanical and electrical friction 
+means that there is a minimum threshold below which the PWM is insufficient to get a 
+motor started. This value is a lower bound for the 'kicker' setting in the next 
+configuration step.
 
-Once again, these values may be different for each motor and you need to pick the highest 
-PWM value in each case.
+Once again, these values may be different for each motor and in this case you need to 
+pick the highest of the two PWM values.
 
 Next: \ref pageSetupConfig
 ____
 
 \page pageSetupConfig Determining Calibration Parameters
 
-The second step is to use the __Calibrate__ example sketch to determine a number of 
-configuration parameters and store them in EEPROM.
+The next step is to use the __Calibrate__ example sketch to determine configuration 
+parameters and store them permanently in EEPROM.
 
-Calibrate allows the vehicle motors to controlled through the Serial Monitor using a
-command line interface (CLI) to invoke test the functions (type ? for help text listing the
-functions).
+__Calibrate__ allows the vehicle motors to be controlled through the Serial Monitor 
+using a command line interface (CLI) to invoke test the functions (type ? for 
+help text listing the functions).
 
-During the process of setting the parameters listed below, it is a good idea to save
-parameters to EEPROM using the CLI on a regular basis. The saved parameters can be 
-reloaded from EEPROM at any time - useful when a set of edit parameters is not working 
-as expected.
+Whilst setting parameters, it is a good idea to save parameters to EEPROM using 
+the CLI on a regular basis. The saved parameters can be reloaded from EEPROM at 
+any time - useful when a change has created an unviable set of parameters.
 
 #### Setting MD_SmartCar::drive() kicker PWM
-The drive() method initiates PID speed control of the motors. This may include speeds 
-that are less than the minimum needed to rotate the motor from a standing start. 
+The drive() method initiates PID speed control of the motors. This may include 
+speeds that are less than the minimum needed to rotate the motor from a standing
+start. 
 
-For low speeds, the kicker PWM is set as the speed for a short time to 'unstick' the 
-motor before the actual (lower) speed is set. The kicker PWM is probably going to be 
-slightly higher PWM setpoint than the value found in the when setting up the motors.
+For low speeds and a standing start, the kicker PWM is set as the initial speed 
+for a short time to 'unstick' the motor before the actual (lower) speed is set. 
+The kicker PWM should be set slightly higher than the PWM value found when setting 
+up the motors.
 
 #### Setting MD_SmartCar::move() PWM
-The move() function allows precise movements at a set PWM setting. This setting will
-- be higher than the kicker setting to allow the motor to start with no problems
+The move() function allows precise movements at this predefined PWM setting. The 
+setting is a compromise that needs to be fine tuned by experimentation, and should
+- be higher than the kicker setting to enable the motor to start with no problems
 - be lower than a value that creates too much free movement (due to vehicle inertia)
 at the end of the move().
 
-This setting is a compromise that needs to be fine tuned.
-
 #### Setting PWM control limits
 
-The control limits set the lowest and highest outputs allowed by the PID controller.
+The control limits are the lowest and highest outputs allowed by the PID controller.
 The lower limit should have been noted in the first step, using __MotorTest__. The 
-upper limit will generally be set at 255 unless there is good reason to make it lower.
+lower limit should also be less than either the kicker or move() PWM settings.
 
-The lower limit should be less than either the kicker or move() settings.
+The upper limit will generally be set at 255 (the maximum) unless there is some other 
+reason to make it lower.
 
 Next: \ref pageSetupPID
 ____
 
 \page pageSetupPID Tuning PID Parameters
 
-The second step is to use the __Calibrate__ example sketch and the SerialStudio application
-to determine the motor control PID parameters. SerialStudio can be found at 
-https://github.com/Serial-Studio/Serial-Studio. The IDE Serial Monitor can be used to look
-at raw numbers whilst tuning the PID loop - SerialStudio makes the data visualization much
-better.
+The next step is to use the __Calibrate__ example sketch and the SerialStudio 
+application (found at https://github.com/Serial-Studio/Serial-Studio) to determine 
+the motor control PID parameters. The IDE Serial Monitor can be used to view the 
+raw numbers output from the library whilst tuning the PID loop; SerialStudio provides 
+superior data visualization and an easier tuning process.
 
-Calibrate allows the vehicle motors to controlled through the Serial Monitor using a
-command line interface (CLI) to invoke test the functions (type ? for help text listing the
-functions). SerialStudio behaves like the serial monitor but also enables visualization of 
-the behavior of the PID control loop.
+__Calibrate__ allows the vehicle motors to be controlled through the Serial Monitor 
+using a command line interface (CLI) to invoke test the functions (type ? for help 
+text listing the functions). SerialStudio replaces the IDE Serial Monitor and 
+adds real-time graphical plots of the PID control parameters.
 
-During the process of setting the parameters, it is a good idea to save parameters to EEPROM
-using the CLI when a good set of Kp, Ki and Kd parameters are worked out. The saved parameters
-can be reloaded from EEPROM at any time, especially when things have got worse in the tuning 
-process.
+Whilst setting parameters, it is a good idea to save to EEPROM using the CLI when a 
+good set of Kp, Ki and Kd parameters are found. The saved parameters can be reloaded 
+from EEPROM at any time, especially when changes make the PID tuning worse.
 
 #### Setting up for PID Tuning
 -# Edit MD_SmartCar.h and change 
@@ -153,34 +156,39 @@ process.
    \code #define PID_TUNE 1 \endcode 
    This will enable the library to output PID control parameters as JSON data. Once 
 tuning is completed, this defined value should be changed back to 0 to suppress output.
--# Compile the __Calibrate__ sketch with this setting turned on.
+-# Compile and download the __Calibrate__ sketch with this setting turned on.
 -# Start the SerialStudio application and configure it as shown in the figure below
   - Set the Serial Parameters - COM port and baud rate - in the red highlight box. 
-  - Set the JSON file to 'Manual' and choose the _PID.json_ file in the __Calibrate__ example
-  folder (orange highlight box).
+  - Set the JSON file to 'Manual' and choose the _PID.json_ file in the library _src_
+  folder (orange highlight box). Check the Settings tab and set the Start and End 
+  sequences to '{' and '}'. This will make SerialStudio recognise the PID output data 
+  packets in the received Serial stream.
   - Connect the serial port to the vehicle (yellow highlight box).
 
 ![SmartCar SerialStudio Setup](SmartCar_SerialStudio.png "SmartCar SerialStudio setup")
 
-SerialStudio has the same input functionality as the Serial Monitor. You can type commands to 
-the veicle using the console input box (light blue highlight). The figure shows the result 
-of the '?' command.
+SerialStudio has the same input functionality as the Serial Monitor. You can type 
+commands to the vehicle application using the console input box (light blue highlight). 
+The figure shows the result of the '?' command (help text).
 
 #### PID Tuning
-Once SerialStudio is set up, starting the motors from the console will automatically switch 
-to a graphical dasjhboard view, shown below. This allows you to visualize the effects of 
-changes to the speed setpoints and/or the PID parameters. You can switch between console 
-and dashboard views using the menu options at the top of the window.
+Once SerialStudio is set up, starting the motors from the console will automatically 
+switch to a graphical dasjhboard view, shown below. This allows you to visualize the 
+effects of changes to the speed setpoints and/or the PID parameters. You can switch 
+between console and dashboard views using the menu options at the top of the window.
+
+Parameters shown are Set Point (SP), Current Value (CV) and control Output (CO) for the
+Left and Right motors.
 
 ![SmartCar SerialStudio Dashboard](SmartCar_PIDsetup.png "SmartCar SerialStudio Dashboard")
 
-Parameters shown are Set Point (SP), Current Value (CV) and control Output (CO) for the 
-Left and Right motors.
+The default PID values in the SmartCar_HW header file should be a good starting point 
+for the PID motor settings - expect to have a high Kp, no Ki and a relatively small Kd 
+(this is really a PD controller). PID values can be set independently for Left and Right 
+motors if required. In most cases the same PID setup for both motors should be adequate.
 
-The default PID values are a good starting point for the PID motor settings - expect to have a
-high Kp, no Ki and a relatively small Kd (this is really a PD controller). PID values can be set
-independently for Left and Right motors if required. In most cases the same PID setup for both 
-motors should be adequate.
+Once you are happy with the performance of the PID control loop, save the parameters to 
+EEPROM.
 
 Next: \ref pageSetupControl
 ____
@@ -198,16 +206,16 @@ same commands could be issued from the Serial Monitor (or other Terminal program
 through a Bluetooth serial port.
 
 The AI2 application has a main menu leading to a displays for controlling drive() and move(),
-a Terminal to monitor message from the vehicle and a setup display for changing config parameters.
-The current parameter settings are shown in the setup screen's terminal window.
+a Terminal to monitor message from the vehicle and a setup display for changing config 
+parameters. The current parameter settings are shown in the setup screen's terminal window.
 
 ![SmartCar AI2 Setup Control](SmartCar_AI2SetupControl.jpg "SmartCar AI2 Setup Control")
 
 #### Tuning spin() derating factor
-This is the last of the setup parameters that have not yet been set. When the vehicle executes 
-a spin() and then stpos, it will continue to move for a short time due to its own angular 
-momentum. This parameter is a 'fudge' factor to stop the motion before the actual end so that 
-the vehicle will coast to approximately to right spot. The number is the fraction of the full 
+This is the last of the setup parameters. When the vehicle executes a spin() and then stops,
+it will continue to move for a short time due to angular inertia. 
+This parameter is a 'fudge' factor to stop the motion before the actual end (derate) so that 
+the vehicle will coast to approximately the right spot. The factor is the fraction of the full 
 rotation motion (for example, 0.7 will stop the motion 70% through the required steps).
 
 This parameter set up is a compromise between long rotations (more momentum) and short ones 
@@ -233,7 +241,7 @@ the 2 wheels simplifies the calculation.
 
 We can derive equations that translate between the unicycle model
 and our wheel velocities. Steering requires each of the independent
-wheels to rotated at different speeds (VL and VR for the
+wheels to rotated at different speeds (V<sub>L</sub> and V<sub>R</sub> for the
 left and right side) to travel the equivalent unicycle path.
 
 So specifying a movement path using this abstraction becomes much easier
@@ -244,9 +252,9 @@ wheel rotations.
 ![SmartCar Unicycle](SmartCar_Unicycle.png "SmartCar Unicycle Model")
 
 V and &omega; are transformed into independent motor speeds for the left
-and right motor(VL, VR) using the following formulas:
-- VL = (2V + &omega; B) / 2r
-- VR = (2V - &omega; B) / 2r
+and right motor (V<sub>L</sub>, V<sub>R</sub>) using the following formulas:
+- V<sub>L</sub> = (2V + &omega;B) / 2r
+- V<sub>R</sub> = (2V - &omega;B) / 2r
 
 where B is the vehicle base length (ie, the distance between the wheels)
 and r is the radius of the wheel.
@@ -257,19 +265,20 @@ The convention used in this library is:
 
 ![SmartCar Convention](SmartCar_Convention.png "SmartCar Library Convention")
 ____
-More details at
-http:://faculty.salina.k-state.edu/tim/robotics_sg/Control/kinematics/unicycle.html
-https://www.youtube.com/watch?v=aSwCMK96NOw&list=PLp8ijpvp8iCvFDYdcXqqYU5Ibl_aOqwjr
+### For more details
+- http:://faculty.salina.k-state.edu/tim/robotics_sg/Control/kinematics/unicycle.html
+- https://www.youtube.com/watch?v=aSwCMK96NOw&list=PLp8ijpvp8iCvFDYdcXqqYU5Ibl_aOqwjr
 
 \page pageActionSequence Action Sequences
 
 Action sequences are a way of defining a sequential actions that the library 
-will execute to move the vehicle. They save time in not having to program common 
-combinations of actions. The library executes the action sequence in the background 
-freeing the application to run other hiogher priority tasks.
+will execute to move the vehicle (ie, a 'recipe' for movement). They save time
+in not having to program common combinations of actions and monitoring each 
+completion in the application sketch. The library executes the action sequence 
+in the background freeing the application to run other higher priority tasks.
 
 An simple example is when a front bump switch detects a collision, triggering 
-the standard evasive action:
+the evasive action defined by:
 - stop the vehicle
 - pause a short while
 - reverse away from the obstacle
@@ -280,7 +289,7 @@ the standard evasive action:
 These actions can be defined in a list of actions to be performed and passed to
 the library for execution:
 \code
-static const PROGMEM MD_SmartCar::actionItem_t seqL[] =
+static const PROGMEM MD_SmartCar::actionItem_t seq[] =
 {
   { MD_SmartCar::STOP },
   { MD_SmartCar::PAUSE, 300 },
@@ -291,25 +300,27 @@ static const PROGMEM MD_SmartCar::actionItem_t seqL[] =
 };
 \endcode
 
-The action sequence is defined as an array of actionItem_t records.
-Each record contains the action to be performed and the parameters 
+The action sequence is defined as an array of MD_SmartCar::actionItem_t
+records. Each record contains the action to be performed and the parameters 
 relevant to that action (summarised in the table below). The last record
-in the array must always be the END action.
+in the array must always be the END action or the library will continue
+reading random memory beyond the end of the sequence.
 
-Sequences may be completely predefined, allowing them to be storted in PROGMEM
-to save on RAM, or they may be built or modified 'on the fly' in RAM.
+Sequences may be completely predefined, allowing them to be storted in 
+static (PROGMEM) memory to preserve dynamic RAM, or they may be built 
+and/or modified 'on the fly' in RAM.
 
 The list of actions that can be defined an actionItem_t are listed given by the
-enumerated type actionId_t.
+enumerated type MD_SmartCar::actionId_t.
 
-| ActionId_t | Comment          | Parameter 0     | Parameter 1
-|-----------:|:-----------------|:----------------|:------------
-|      DRIVE | executes drive() | Linear Velocity | Angular Velocity
-|       MOVE | executes move()  | Left rotate     | Right rotate
-|       SPIN | executes spin()  | Spin percentage | Not used
-|      PAUSE | executes pause   | Milliseconds    | Not used
-|       STOP | executes stop()  | Not used        | Not used
-|        END | marks seq end    | Not used        | Not used
+|         ActionId_t | Comment          | Parameter 0     | Parameter 1
+|-------------------:|:-----------------|:----------------|:------------
+| MD_SmartCar::DRIVE | executes drive() | Linear Velocity | Angular Velocity
+|  MD_SmartCar::MOVE | executes move()  | Left rotate     | Right rotate
+|  MD_SmartCar::SPIN | executes spin()  | Spin percentage | Not used
+| MD_SmartCar::PAUSE | executes pause   | Milliseconds    | Not used
+|  MD_SmartCar::STOP | executes stop()  | Not used        | Not used
+|   MD_SmartCar::END | marks seq end    | Not used        | Not used
 
 */
 

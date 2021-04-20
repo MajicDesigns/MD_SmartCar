@@ -88,29 +88,30 @@ $(document).ready(function(){initNavTree('page_setup_p_i_d.html',''); initResiza
 <div class="title">Tuning PID Parameters </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The second step is to use the <b>Calibrate</b> example sketch and the SerialStudio application to determine the motor control PID parameters. SerialStudio can be found at <a href="https://github.com/Serial-Studio/Serial-Studio">https://github.com/Serial-Studio/Serial-Studio</a>. The IDE Serial Monitor can be used to look at raw numbers whilst tuning the PID loop - SerialStudio makes the data visualization much better.</p>
-<p>Calibrate allows the vehicle motors to controlled through the Serial Monitor using a command line interface (CLI) to invoke test the functions (type ? for help text listing the functions). SerialStudio behaves like the serial monitor but also enables visualization of the behavior of the PID control loop.</p>
-<p>During the process of setting the parameters, it is a good idea to save parameters to EEPROM using the CLI when a good set of Kp, Ki and Kd parameters are worked out. The saved parameters can be reloaded from EEPROM at any time, especially when things have got worse in the tuning process.</p>
+<div class="textblock"><p>The next step is to use the <b>Calibrate</b> example sketch and the SerialStudio application (found at <a href="https://github.com/Serial-Studio/Serial-Studio">https://github.com/Serial-Studio/Serial-Studio</a>) to determine the motor control PID parameters. The IDE Serial Monitor can be used to view the raw numbers output from the library whilst tuning the PID loop; SerialStudio provides superior data visualization and an easier tuning process.</p>
+<p><b>Calibrate</b> allows the vehicle motors to be controlled through the Serial Monitor using a command line interface (CLI) to invoke test the functions (type ? for help text listing the functions). SerialStudio replaces the IDE Serial Monitor and adds real-time graphical plots of the PID control parameters.</p>
+<p>Whilst setting parameters, it is a good idea to save to EEPROM using the CLI when a good set of Kp, Ki and Kd parameters are found. The saved parameters can be reloaded from EEPROM at any time, especially when changes make the PID tuning worse.</p>
 <h4>Setting up for PID Tuning</h4>
 <ol type="1">
 <li>Edit <a class="el" href="_m_d___smart_car_8h.html" title="Main header file and class definition for the MD_SmartCar library.">MD_SmartCar.h</a> and change <div class="fragment"><div class="line"><span class="preprocessor">#define PID_TUNE 0 </span></div>
 </div><!-- fragment --> to <div class="fragment"><div class="line"><span class="preprocessor">#define PID_TUNE 1 </span></div>
 </div><!-- fragment --> This will enable the library to output PID control parameters as JSON data. Once tuning is completed, this defined value should be changed back to 0 to suppress output.</li>
-<li>Compile the <b>Calibrate</b> sketch with this setting turned on.</li>
+<li>Compile and download the <b>Calibrate</b> sketch with this setting turned on.</li>
 <li>Start the SerialStudio application and configure it as shown in the figure below<ul>
 <li>Set the Serial Parameters - COM port and baud rate - in the red highlight box.</li>
-<li>Set the JSON file to 'Manual' and choose the <em>PID.json</em> file in the <b>Calibrate</b> example folder (orange highlight box).</li>
+<li>Set the JSON file to 'Manual' and choose the <em>PID.json</em> file in the library <em>src</em> folder (orange highlight box). Check the Settings tab and set the Start and End sequences to '{' and '}'. This will make SerialStudio recognise the PID output data packets in the received Serial stream.</li>
 <li>Connect the serial port to the vehicle (yellow highlight box).</li>
 </ul>
 </li>
 </ol>
 <p><img src="SmartCar_SerialStudio.png" alt="" class="inline" title="SmartCar SerialStudio Setup"/></p>
-<p>SerialStudio has the same input functionality as the Serial Monitor. You can type commands to the veicle using the console input box (light blue highlight). The figure shows the result of the '?' command.</p>
+<p>SerialStudio has the same input functionality as the Serial Monitor. You can type commands to the vehicle application using the console input box (light blue highlight). The figure shows the result of the '?' command (help text).</p>
 <h4>PID Tuning</h4>
 <p>Once SerialStudio is set up, starting the motors from the console will automatically switch to a graphical dasjhboard view, shown below. This allows you to visualize the effects of changes to the speed setpoints and/or the PID parameters. You can switch between console and dashboard views using the menu options at the top of the window.</p>
-<p><img src="SmartCar_PIDsetup.png" alt="" class="inline" title="SmartCar SerialStudio Dashboard"/></p>
 <p>Parameters shown are Set Point (SP), Current Value (CV) and control Output (CO) for the Left and Right motors.</p>
-<p>The default PID values are a good starting point for the PID motor settings - expect to have a high Kp, no Ki and a relatively small Kd (this is really a PD controller). PID values can be set independently for Left and Right motors if required. In most cases the same PID setup for both motors should be adequate.</p>
+<p><img src="SmartCar_PIDsetup.png" alt="" class="inline" title="SmartCar SerialStudio Dashboard"/></p>
+<p>The default PID values in the SmartCar_HW header file should be a good starting point for the PID motor settings - expect to have a high Kp, no Ki and a relatively small Kd (this is really a PD controller). PID values can be set independently for Left and Right motors if required. In most cases the same PID setup for both motors should be adequate.</p>
+<p>Once you are happy with the performance of the PID control loop, save the parameters to EEPROM.</p>
 <p>Next: <a class="el" href="page_setup_control.html">Testing with Remote Control</a> </p><hr  />
  </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -118,7 +119,7 @@ $(document).ready(function(){initNavTree('page_setup_p_i_d.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

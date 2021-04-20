@@ -9,7 +9,8 @@ const uint16_t PPS_MAX = 175;   ///< Maximum encoder pulses per second (@ PWM=25
 const uint16_t DIA_WHEEL = 65;  ///< Wheel diameter in mm
 const uint16_t LEN_BASE = 110;  ///< Wheel base in mm (= distance between wheel centers)
 
-const uint8_t SPEED_MAX = 40;   ///< maximum speed for vehicle (% full speed)
+const uint8_t SPEED_CRUISE = 40; ///< cruising speed for vehicle (% full speed)
+const uint8_t SPEED_MAX = 80;    ///< maximum speed for vehicle (% full speed) 
 
 // ------------------------------------
 // Bluetooth connections using SoftwareSerial
@@ -37,7 +38,8 @@ const uint8_t PIN_M_SONAR = A3;  ///< Sonar (ping sensor) Middle side pin
 const uint8_t PIN_R_SONAR = 8;   ///< Sonar (ping sensor) Right side pin
 
 // Define SONAR distance points in cm for decision making
-const uint8_t DIST_MAX = 200;       ///< Maximum distance to ping
+const uint8_t DIST_ALLCLEAR = 255;  ///< All clear distance (more than DIST_MAX)
+const uint8_t DIST_MAX = 200;       ///< Maximum distance to ping (for ping library)
 const uint8_t DIST_IMPACT = 20;     ///< impact imminent
 const uint8_t DIST_CLOSE = 40;      ///< really close 
 const uint8_t DIST_OBSTACLE = 100;  ///< far obstacle detected

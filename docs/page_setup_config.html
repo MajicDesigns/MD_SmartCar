@@ -88,21 +88,20 @@ $(document).ready(function(){initNavTree('page_setup_config.html',''); initResiz
 <div class="title">Determining Calibration Parameters </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The second step is to use the <b>Calibrate</b> example sketch to determine a number of configuration parameters and store them in EEPROM.</p>
-<p>Calibrate allows the vehicle motors to controlled through the Serial Monitor using a command line interface (CLI) to invoke test the functions (type ? for help text listing the functions).</p>
-<p>During the process of setting the parameters listed below, it is a good idea to save parameters to EEPROM using the CLI on a regular basis. The saved parameters can be reloaded from EEPROM at any time - useful when a set of edit parameters is not working as expected.</p>
+<div class="textblock"><p>The next step is to use the <b>Calibrate</b> example sketch to determine configuration parameters and store them permanently in EEPROM.</p>
+<p><b>Calibrate</b> allows the vehicle motors to be controlled through the Serial Monitor using a command line interface (CLI) to invoke test the functions (type ? for help text listing the functions).</p>
+<p>Whilst setting parameters, it is a good idea to save parameters to EEPROM using the CLI on a regular basis. The saved parameters can be reloaded from EEPROM at any time - useful when a change has created an unviable set of parameters.</p>
 <h4>Setting <a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">MD_SmartCar::drive()</a> kicker PWM</h4>
 <p>The drive() method initiates PID speed control of the motors. This may include speeds that are less than the minimum needed to rotate the motor from a standing start.</p>
-<p>For low speeds, the kicker PWM is set as the speed for a short time to 'unstick' the motor before the actual (lower) speed is set. The kicker PWM is probably going to be slightly higher PWM setpoint than the value found in the when setting up the motors.</p>
+<p>For low speeds and a standing start, the kicker PWM is set as the initial speed for a short time to 'unstick' the motor before the actual (lower) speed is set. The kicker PWM should be set slightly higher than the PWM value found when setting up the motors.</p>
 <h4>Setting <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">MD_SmartCar::move()</a> PWM</h4>
-<p>The move() function allows precise movements at a set PWM setting. This setting will</p><ul>
-<li>be higher than the kicker setting to allow the motor to start with no problems</li>
+<p>The move() function allows precise movements at this predefined PWM setting. The setting is a compromise that needs to be fine tuned by experimentation, and should</p><ul>
+<li>be higher than the kicker setting to enable the motor to start with no problems</li>
 <li>be lower than a value that creates too much free movement (due to vehicle inertia) at the end of the move().</li>
 </ul>
-<p>This setting is a compromise that needs to be fine tuned.</p>
 <h4>Setting PWM control limits</h4>
-<p>The control limits set the lowest and highest outputs allowed by the PID controller. The lower limit should have been noted in the first step, using <b>MotorTest</b>. The upper limit will generally be set at 255 unless there is good reason to make it lower.</p>
-<p>The lower limit should be less than either the kicker or move() settings.</p>
+<p>The control limits are the lowest and highest outputs allowed by the PID controller. The lower limit should have been noted in the first step, using <b>MotorTest</b>. The lower limit should also be less than either the kicker or move() PWM settings.</p>
+<p>The upper limit will generally be set at 255 (the maximum) unless there is some other reason to make it lower.</p>
 <p>Next: <a class="el" href="page_setup_p_i_d.html">Tuning PID Parameters</a> </p><hr  />
  </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -110,7 +109,7 @@ $(document).ready(function(){initNavTree('page_setup_config.html',''); initResiz
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

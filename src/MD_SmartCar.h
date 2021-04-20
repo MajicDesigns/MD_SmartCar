@@ -9,24 +9,25 @@ controlled manner, on top of which specific applications can
 confidently be built.
 
 This library is designed around a commonly obtainable two wheel drive (+ 
-idler castor wheel) vehicle chassis found on online marketplaces, it 
-is also suitable for more capable similar platforms with little or 
-no modification. They look something like this one below.
+idler castor wheel) vehicle chassis found on online marketplaces that 
+look something like the one below. It is also suitable, with little or no
+modifications, for more capable platforms with similar mechanisms. 
 
 ![SmartCar Platform] (SmartCar_Platform.jpg "SmartCar Platform")
 
-The control hierarchy implemented in the library is shown in the figure 
-below. The library implements the control elements from "Motion Control" 
-to the right of the figure.
-
-![Control Hierarchy] (SmartCar_Control_Hierarchy.png "Control Hierarchy")
-
-The vehicle hardware and control system are made up of a number of 
-subcomponents that are functionally brought together by the software 
+The vehicle hardware and control system are made up of a number of
+subcomponents that are functionally brought together by the software
 library to function:
-- Robot vehicle chassis
+- Robot vehicle chassis (as shown above)
 - \subpage pageMotorController
 - \subpage pageMotorEncoder
+
+The control hierarchy implemented in the library is shown in the figure
+below. The library implements the control elements from "Motion Control" 
+to the right of the figure. The components to the left of 'Motion Control' 
+are defined into the application that defines the vehicle's behavior.
+
+![Control Hierarchy] (SmartCar_Control_Hierarchy.png "Control Hierarchy")
 
 The library is designed to control 2 types of autonomous movements:
 - _Precisely controlled movements_ (eg, spin in place), where the ability to
@@ -34,11 +35,11 @@ The library is designed to control 2 types of autonomous movements:
   Independent control of motor directions and how far it spins are used as 
   control parameters for this mode type of movement.
 - _General movements_ (eg, traveling at a set speed in a set direction),
-  where the ability to move more quickly in an accurate path is important. 
+  where the ability to move more quickly in an specifed path is important. 
   This type of movement is managed using the \ref pageControlModel "unicycle 
   model" for control coupled to \ref pagePID "PID control" of the DC motors. 
 
-See Also
+### Library Topics
 - \subpage pageUsingLibrary
 - \subpage pageHardwareMap
 - \subpage pageControlModel
@@ -46,12 +47,15 @@ See Also
 - \subpage pagePID
 - \subpage pageMotorController
 - \subpage pageMotorEncoder
+
+### Additional Topics
 - \subpage pageRevisionHistory
 - \subpage pageDonation
 - \subpage pageCopyright
 
-Library dependencies
-MD_PWM library located at https://github.com/MajicDesigns/MD_PWM or the Arduino library manager.
+### Library dependencies
+- MD_PWM library located at https://github.com/MajicDesigns/MD_PWM or the Arduino library manager.
+- MD_cmdProcessor library located at https://github.com/MajicDesigns/MD_cmdProcessor or the Arduino library manager
 
 \page pageDonation Support the Library
 If you like and use this library please consider making a small donation 
@@ -108,14 +112,14 @@ Apr 2021 version 1.0.0
 #endif
 
 #if PID_TUNE
-#define P_PID_HDR   do { Serial.print(F("/*")); } while (false)
+#define P_PID_HDR   do { Serial.print(F("{")); } while (false)
 #define P_PID_BODY(SP, CV, CO, last) do \
 { \
   Serial.print(SP); Serial.print(F(",")); \
   Serial.print(CV); Serial.print(F(",")); \
   Serial.print(CO); if (!last) Serial.print(F(",")); \
 } while (false)
-#define P_PID_TAIL do { Serial.print(F(",")); Serial.print(millis()); Serial.print(F("*/\n")); } while (false)
+#define P_PID_TAIL do { Serial.print(F(",")); Serial.print(millis()); Serial.print(F("}\n")); } while (false)
 #else
 #define P_PID_HDR
 #define P_PID_BODY(SP, CV, CO, last)

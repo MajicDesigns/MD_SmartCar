@@ -20,10 +20,10 @@ this device is shown below.
 
 ![Motor Encoder] (SmartCar_Encoder.jpg "Motor Encoder")
 
-As encoders can be salvaged from a variety of inoperable electronic equipment (printers,
-mice for example), the circuit above can be used to build a near-zero cost DIY version.
-Note that the output of this circuit is pulled-up when there is no signal from the 
-detector.
+Encoders are easy to salvage from a variety of inoperable electronic equipment
+(printers, mice for example) and the circuit above can be used to build a 
+near-zero cost DIY version. Note that the output of this circuit is pulled HIGH
+when there is no signal from the detector.
 
 The output of the circuit needs to be connected to a pin that supports interrupts. 
 On the Arduino Uno/Nano this is pin 2 or 3.

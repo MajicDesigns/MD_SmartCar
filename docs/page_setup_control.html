@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('page_setup_control.html',''); initResi
 <p>The AI2 application has a main menu leading to a displays for controlling drive() and move(), a Terminal to monitor message from the vehicle and a setup display for changing config parameters. The current parameter settings are shown in the setup screen's terminal window.</p>
 <p><img src="SmartCar_AI2SetupControl.jpg" alt="" class="inline" title="SmartCar AI2 Setup Control"/></p>
 <h4>Tuning spin() derating factor</h4>
-<p>This is the last of the setup parameters that have not yet been set. When the vehicle executes a spin() and then stpos, it will continue to move for a short time due to its own angular momentum. This parameter is a 'fudge' factor to stop the motion before the actual end so that the vehicle will coast to approximately to right spot. The number is the fraction of the full rotation motion (for example, 0.7 will stop the motion 70% through the required steps).</p>
+<p>This is the last of the setup parameters. When the vehicle executes a spin() and then stops, it will continue to move for a short time due to angular inertia. This parameter is a 'fudge' factor to stop the motion before the actual end (derate) so that the vehicle will coast to approximately the right spot. The factor is the fraction of the full rotation motion (for example, 0.7 will stop the motion 70% through the required steps).</p>
 <p>This parameter set up is a compromise between long rotations (more momentum) and short ones (less momentum).</p>
 <h4>Checking <a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">MD_SmartCar::drive()</a> kicker, <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">MD_SmartCar::move()</a> and PID parameters</h4>
 <p>A final check of these parameters in action with the vehicle moving its own weight around. The parameters can be modified from the setup screen of ther AI2 app. </p>
@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('page_setup_control.html',''); initResi
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

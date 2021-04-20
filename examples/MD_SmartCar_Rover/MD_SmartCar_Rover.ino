@@ -358,7 +358,7 @@ void doAvoid(bool restart)
 
   static MD_SmartCar::actionItem_t seqAvoid[] =
   {
-    { MD_SmartCar::DRIVE, SPEED_MAX, 0 },       // angular speed filled in at run time
+    { MD_SmartCar::DRIVE, SPEED_CRUISE, 0 },       // angular speed filled in at run time
     { MD_SmartCar::PAUSE, AVOID_ACTIVE_TIME },  // drive curved for a short time
     { MD_SmartCar::END }
   };
@@ -417,7 +417,7 @@ void doSeek(bool restart, bool toLight)
 {
   static MD_SmartCar::actionItem_t seqSeek[] =
   {
-    { MD_SmartCar::DRIVE, SPEED_MAX, 0 },     // angular filled in at run time
+    { MD_SmartCar::DRIVE, SPEED_CRUISE, 0 },     // angular filled in at run time
     { MD_SmartCar::PAUSE, SEEK_ACTIVE_TIME }, // drive curved for a short time
     { MD_SmartCar::END }
   };
@@ -468,7 +468,7 @@ void doWallFollow(bool restart)
 {
   static MD_SmartCar::actionItem_t seqFollow[] =
   {
-    { MD_SmartCar::DRIVE, SPEED_MAX, 0 },       // angular filled in at run time
+    { MD_SmartCar::DRIVE, SPEED_CRUISE, 0 },       // angular filled in at run time
     { MD_SmartCar::PAUSE, FOLLOW_ACTIVE_TIME }, // drive curved for a short time
     { MD_SmartCar::END }
   };
@@ -491,7 +491,7 @@ void doCruise(void)
 // Default is to just drive in a straight line
 // We only get here when all other behaviours are not applicable!
 {
-  Car.drive(SPEED_MAX);
+  Car.drive(Sensors.sonarM == DIST_ALLCLEAR ? SPEED_MAX : SPEED_CRUISE);
 }
 
 void setup(void)

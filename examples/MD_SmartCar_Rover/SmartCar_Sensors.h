@@ -88,7 +88,7 @@ private:
     {
       uint16_t ping = _sonar[_curSonar].ping_cm();
 
-      if (ping == 0) ping = DIST_MAX;    // distance comparisons work better than with 0
+      if (ping == 0) ping = DIST_ALLCLEAR;    // distance comparisons work better than with 0
 
       switch (_curSonar)
       {

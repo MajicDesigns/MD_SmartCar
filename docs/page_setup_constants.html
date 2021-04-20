@@ -89,10 +89,10 @@ $(document).ready(function(){initNavTree('page_setup_constants.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>An application using the library needs to pass a few physical constants to the <a class="el" href="class_m_d___smart_car.html#a5caa39e3336d1789c3b63b12f301870a">MD_SmartCar::begin()</a> method that allows the library to configure vehicle control parameters.</p>
-<p>Note that the units of length are specified in mm. However, alternative units may be used <b>AS LONG AS ALL LENGTHS ARE SPECIFIED IN THE SAME UNITS</b>.</p>
+<p>Note that the units of length are specified in millimeters. However, alternative units (eg inches or centimeters) may be used <b>AS LONG AS ALL LENGTHS ARE SPECIFIED IN THE SAME UNITS</b>, as the units all cancel out in the calculations.</p>
 <p>Two physical constants need to be directly measured from the vehicle:</p><ul>
 <li>The <b>wheel diameter</b> in mm. This is measured to the outer edge of the wheel tyre.</li>
-<li>The <b>base length</b> (distance between wheel centers) in mm. It may be more convenient to measure from inner edge of one wheel to the outer edge of the next - the same distance if the two wheels are the same width.</li>
+<li>The <b>base length</b> (distance between wheel centers) in mm. It may be more convenient to measure from inner edge of one wheel to the outer edge of the other - an identical distance if the two wheels are the same width.</li>
 </ul>
 <p>These two constants are shown as <em>2r</em> and <em>B</em> in the figure below.</p>
 <p><img src="SmartCar_Unicycle.png" alt="SmartCar Unicycle" title="SmartCar Distances Measured" class="inline"/></p>
@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('page_setup_constants.html',''); initRe
 </ul>
 <p><img src="SmartCar_Encoder_Wheel.jpg" alt="" class="inline" title="SmartCar Encoder"/></p>
 <ul>
-<li>The <b>maximum number of encoder pulses per second</b> at top speed (100% velocity). This can only be measured later, with the motors running, when confirming the correctness of motor setup.</li>
+<li>The <b>maximum number of encoder pulses per second</b> at top speed (100% velocity). This can be measured later, with the motors running, in the steps verifying the correctness of motor wiring and setup.</li>
 </ul>
 <p>Next: <a class="el" href="page_setup_motor.html">Confirming Motor Setup</a> </p><hr  />
  </div></div><!-- contents -->
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('page_setup_constants.html',''); initRe
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

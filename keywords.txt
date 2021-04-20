@@ -26,6 +26,9 @@ getLinearVelocity	KEYWORD2
 setAngularVelocity	KEYWORD2
 getAngularVelocity	KEYWORD2
 move	KEYWORD2
+spin	KEYWORD2
+startSequence	KEYWORD2
+isSequenceComplete	KEYWORD2
 loadConfig	KEYWORD2
 saveConfig	KEYWORD2
 setMoveSP	KEYWORD2
@@ -41,6 +44,11 @@ getMaxMotorSP	KEYWORD2
 setPIDTuning	KEYWORD2
 getPIDTuning	KEYWORD2
 getPulsePerRev	KEYWORD2
+deg2rad	KEYWORD2
+len2rad	KEYWORD2
+# --- Motor
+setSpeed	KEYWORD2
+getSpeed	KEYWORD2
 # --- MotorEncoder
 begin	KEYWORD2
 reset	KEYWORD2

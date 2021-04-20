@@ -89,20 +89,21 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This library is designed to provide core mobility functions for an autonomous two wheeled Smart Car Robot. The library provides the code infrastructure that allows the car to travel in a controlled manner, on top of which specific applications can confidently be built.</p>
-<p>This library is designed around a commonly obtainable two wheel drive (+ idler castor wheel) vehicle chassis found on online marketplaces, it is also suitable for more capable similar platforms with little or no modification. They look something like this one below.</p>
+<p>This library is designed around a commonly obtainable two wheel drive (+ idler castor wheel) vehicle chassis found on online marketplaces that look something like the one below. It is also suitable, with little or no modifications, for more capable platforms with similar mechanisms.</p>
 <p><img src="SmartCar_Platform.jpg" alt="" class="inline" title="SmartCar Platform"/></p>
-<p>The control hierarchy implemented in the library is shown in the figure below. The library implements the control elements from "Motion Control" to the right of the figure.</p>
-<p><img src="SmartCar_Control_Hierarchy.png" alt="" class="inline" title="Control Hierarchy"/></p>
 <p>The vehicle hardware and control system are made up of a number of subcomponents that are functionally brought together by the software library to function:</p><ul>
-<li>Robot vehicle chassis</li>
+<li>Robot vehicle chassis (as shown above)</li>
 <li><a class="el" href="page_motor_controller.html">Motor Controllers</a></li>
 <li><a class="el" href="page_motor_encoder.html">Motor Encoder</a></li>
 </ul>
+<p>The control hierarchy implemented in the library is shown in the figure below. The library implements the control elements from "Motion Control" to the right of the figure. The components to the left of 'Motion Control' are defined into the application that defines the vehicle's behavior.</p>
+<p><img src="SmartCar_Control_Hierarchy.png" alt="" class="inline" title="Control Hierarchy"/></p>
 <p>The library is designed to control 2 types of autonomous movements:</p><ul>
 <li><em>Precisely controlled movements</em> (eg, spin in place), where the ability to manoeuvre the orientation of the vehicle at low speed is important. Independent control of motor directions and how far it spins are used as control parameters for this mode type of movement.</li>
-<li><em>General movements</em> (eg, traveling at a set speed in a set direction), where the ability to move more quickly in an accurate path is important. This type of movement is managed using the <a class="el" href="page_control_model.html">unicycle </a> model" for control coupled to \ref pagePID "PID control" of the DC motors.</li>
+<li><em>General movements</em> (eg, traveling at a set speed in a set direction), where the ability to move more quickly in an specifed path is important. This type of movement is managed using the <a class="el" href="page_control_model.html">unicycle </a> model" for control coupled to \ref pagePID "PID control" of the DC motors.</li>
 </ul>
-<p>See Also</p><ul>
+<h3>Library Topics</h3>
+<ul>
 <li><a class="el" href="page_using_library.html">Setting up a new SmartCar</a></li>
 <li><a class="el" href="page_hardware_map.html">Hardware Allocation Map</a></li>
 <li><a class="el" href="page_control_model.html">Unicycle Control Model</a></li>
@@ -110,18 +111,25 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li><a class="el" href="page_p_i_d.html">PID Controller</a></li>
 <li><a class="el" href="page_motor_controller.html">Motor Controllers</a></li>
 <li><a class="el" href="page_motor_encoder.html">Motor Encoder</a></li>
+</ul>
+<h3>Additional Topics</h3>
+<ul>
 <li><a class="el" href="page_revision_history.html">Revision History</a></li>
 <li><a class="el" href="page_donation.html">Support the Library</a></li>
 <li><a class="el" href="page_copyright.html">Copyright</a></li>
 </ul>
-<p>Library dependencies MD_PWM library located at <a href="https://github.com/MajicDesigns/MD_PWM">https://github.com/MajicDesigns/MD_PWM</a> or the Arduino library manager. </p>
+<h3>Library dependencies</h3>
+<ul>
+<li>MD_PWM library located at <a href="https://github.com/MajicDesigns/MD_PWM">https://github.com/MajicDesigns/MD_PWM</a> or the Arduino library manager.</li>
+<li>MD_cmdProcessor library located at <a href="https://github.com/MajicDesigns/MD_cmdProcessor">https://github.com/MajicDesigns/MD_cmdProcessor</a> or the Arduino library manager </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 14 2021 14:12:26 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 20 2021 13:06:56 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
