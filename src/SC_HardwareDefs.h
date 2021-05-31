@@ -45,40 +45,23 @@ for use by any application Application (A) built on top ogf this library.
 // ------------------------------------
 // Motor Controller - Select hardware being used
 // 
-#ifndef CONTROLLER_L29x
-#define CONTROLLER_L29x    0    ///< Configure L298, L293 as the motor controller
-#endif
-#ifndef CONTROLLER_MX1508
-#define CONTROLLER_MX1508  1    ///< Configure MX1508, DRV8833 as the motor controller
-#endif
 
-#if CONTROLLER_L29x
 // Left Motor
 const uint8_t MC_INA1_PIN = 6;    ///< Motor A Mode pin 1 - simple digital pin
 const uint8_t MC_INA2_PIN = 7;    ///< Motor A Mode pin 2 - simple digital pin
-const uint8_t MC_ENA_PIN = 10;     ///< Motor A output enable - PWM capable pin
+const uint8_t MC_ENA_PIN = 10;    ///< Motor A output enable - PWM capable pin (L29x type only)
 // Right Motor
 const uint8_t MC_INB1_PIN = 4;    ///< Motor B Mode pin 1 - simple digital pin
 const uint8_t MC_INB2_PIN = 5;    ///< Motor B Mode pin 2 - simple digital pin
-const uint8_t MC_ENB_PIN = 9;     ///< Motor B output enable - PWM capable pin
-#endif
-
-#if CONTROLLER_MX1508
-// Left Motor
-const uint8_t MC_INA1_PIN = 6;    ///< Motor A Mode pin 1 - PWM capable pin
-const uint8_t MC_INA2_PIN = 7;    ///< Motor A Mode pin 2 - PWM capable pin
-// Right Motor
-const uint8_t MC_INB1_PIN = 4;    ///< Motor B Mode pin 1 - PWM capable pin
-const uint8_t MC_INB2_PIN = 5;    ///< Motor B Mode pin 2 - PWM capable pin
-#endif
+const uint8_t MC_ENB_PIN = 9;     ///< Motor B output enable - PWM capable pin (L29x type only)
 
 // Default PWM values for speeds
 const uint8_t MC_PWM_MIN = 40;    ///< Minimum PWM that will turn the motor
 const uint8_t MC_PWM_MAX = 255;   ///< Maximum PWM
 const uint8_t MC_PWM_MOVE = 40;   ///< Slow move() speed PWM default value
 const uint8_t MC_PWM_KICKER = 60; ///< Kicker for drive() to overcome static friction from standing start
-const float MC_SPIN_ADJUST = 0.75;    ///< Inertial adjustment for spin() operation
 const uint8_t MC_KICKER_ACTIVE = 100; ///< Kicker active time in milliseconds
+const float MC_SPIN_ADJUST = 0.75;    ///< Inertial adjustment for spin() operation
 
 // -----------------------------------
 // Motor Encoder

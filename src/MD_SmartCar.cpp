@@ -30,9 +30,8 @@ SPECIFIED IN THE SAME UNITS__, as the units all cancel out in the calculations.
 
 Two physical constants need to be directly measured from the vehicle:
 - The __wheel diameter__ in mm. This is measured to the outer edge of the wheel tyre.
-- The __base length__ (distance between wheel centers) in mm. It may be more convenient
-to measure from inner edge of one wheel to the outer edge of the other - an identical
-distance if the two wheels are the same width.
+- The __base length__ (distance between wheel centers) in mm. Inside edge of one wheel 
+to the inside edge of the other wheel.
 
 These two constants are shown as _2r_ and _B_ in the figure below.
 
@@ -136,7 +135,7 @@ ____
 \page pageSetupPID Tuning PID Parameters
 
 The next step is to use the __Calibrate__ example sketch and the SerialStudio 
-application (found at https://github.com/Serial-Studio/Serial-Studio) to determine 
+application (found at https://www.alex-spataru.com/serial-studio.html) to determine 
 the motor control PID parameters. The IDE Serial Monitor can be used to view the 
 raw numbers output from the library whilst tuning the PID loop; SerialStudio provides 
 superior data visualization and an easier tuning process.
@@ -173,7 +172,7 @@ The figure shows the result of the '?' command (help text).
 
 #### PID Tuning
 Once SerialStudio is set up, starting the motors from the console will automatically 
-switch to a graphical dasjhboard view, shown below. This allows you to visualize the 
+switch to a graphical dashboard view, shown below. This allows you to visualize the 
 effects of changes to the speed setpoints and/or the PID parameters. You can switch 
 between console and dashboard views using the menu options at the top of the window.
 
@@ -206,8 +205,9 @@ same commands could be issued from the Serial Monitor (or other Terminal program
 through a Bluetooth serial port.
 
 The AI2 application has a main menu leading to a displays for controlling drive() and move(),
-a Terminal to monitor message from the vehicle and a setup display for changing config 
-parameters. The current parameter settings are shown in the setup screen's terminal window.
+a Terminal to monitor messages from the vehicle and a setup display for changing config 
+parameters. The current parameter settings are shown in the setup screen's terminal window 
+and can be changed from there.
 
 ![SmartCar AI2 Setup Control](SmartCar_AI2SetupControl.jpg "SmartCar AI2 Setup Control")
 
@@ -223,7 +223,7 @@ This parameter set up is a compromise between long rotations (more momentum) and
 
 #### Checking MD_SmartCar::drive() kicker, MD_SmartCar::move() and PID parameters
 A final check of these parameters in action with the vehicle moving its own weight around. The 
-parameters can be modified from the setup screen of ther AI2 app.
+parameters can be modified from the setup screen of ther AI2 app if they need further tuning.
 
 \page pageControlModel Unicycle Control Model
 
@@ -256,11 +256,11 @@ and right motor (V<sub>L</sub>, V<sub>R</sub>) using the following formulas:
 - V<sub>L</sub> = (2V + &omega;B) / 2r
 - V<sub>R</sub> = (2V - &omega;B) / 2r
 
-where B is the vehicle base length (ie, the distance between the wheels)
-and r is the radius of the wheel.
+where B is the vehicle base length (ie, the distance between the wheel 
+centerlines) and r is the radius of the wheel.
 
 The convention used in this library is:
-- Linear velocity V is postive for forward motion, negative backwards.
+- Linear velocity V is positive for forward motion, negative backwards.
 - Angular velocity &omega; is positive for right rotation, negative for left.
 
 ![SmartCar Convention](SmartCar_Convention.png "SmartCar Library Convention")
@@ -302,11 +302,11 @@ static const PROGMEM MD_SmartCar::actionItem_t seq[] =
 
 The action sequence is defined as an array of MD_SmartCar::actionItem_t
 records. Each record contains the action to be performed and the parameters 
-relevant to that action (summarised in the table below). The last record
+relevant to that action (summarized in the table below). The last record
 in the array must always be the END action or the library will continue
 reading random memory beyond the end of the sequence.
 
-Sequences may be completely predefined, allowing them to be storted in 
+Sequences may be completely predefined, allowing them to be stored in 
 static (PROGMEM) memory to preserve dynamic RAM, or they may be built 
 and/or modified 'on the fly' in RAM.
 

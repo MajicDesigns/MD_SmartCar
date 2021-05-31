@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('page_setup_p_i_d.html',''); initResiza
 <div class="title">Tuning PID Parameters </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The next step is to use the <b>Calibrate</b> example sketch and the SerialStudio application (found at <a href="https://github.com/Serial-Studio/Serial-Studio">https://github.com/Serial-Studio/Serial-Studio</a>) to determine the motor control PID parameters. The IDE Serial Monitor can be used to view the raw numbers output from the library whilst tuning the PID loop; SerialStudio provides superior data visualization and an easier tuning process.</p>
+<div class="textblock"><p>The next step is to use the <b>Calibrate</b> example sketch and the SerialStudio application (found at <a href="https://www.alex-spataru.com/serial-studio.html">https://www.alex-spataru.com/serial-studio.html</a>) to determine the motor control PID parameters. The IDE Serial Monitor can be used to view the raw numbers output from the library whilst tuning the PID loop; SerialStudio provides superior data visualization and an easier tuning process.</p>
 <p><b>Calibrate</b> allows the vehicle motors to be controlled through the Serial Monitor using a command line interface (CLI) to invoke test the functions (type ? for help text listing the functions). SerialStudio replaces the IDE Serial Monitor and adds real-time graphical plots of the PID control parameters.</p>
 <p>Whilst setting parameters, it is a good idea to save to EEPROM using the CLI when a good set of Kp, Ki and Kd parameters are found. The saved parameters can be reloaded from EEPROM at any time, especially when changes make the PID tuning worse.</p>
 <h4>Setting up for PID Tuning</h4>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('page_setup_p_i_d.html',''); initResiza
 <p><img src="SmartCar_SerialStudio.png" alt="" class="inline" title="SmartCar SerialStudio Setup"/></p>
 <p>SerialStudio has the same input functionality as the Serial Monitor. You can type commands to the vehicle application using the console input box (light blue highlight). The figure shows the result of the '?' command (help text).</p>
 <h4>PID Tuning</h4>
-<p>Once SerialStudio is set up, starting the motors from the console will automatically switch to a graphical dasjhboard view, shown below. This allows you to visualize the effects of changes to the speed setpoints and/or the PID parameters. You can switch between console and dashboard views using the menu options at the top of the window.</p>
+<p>Once SerialStudio is set up, starting the motors from the console will automatically switch to a graphical dashboard view, shown below. This allows you to visualize the effects of changes to the speed setpoints and/or the PID parameters. You can switch between console and dashboard views using the menu options at the top of the window.</p>
 <p>Parameters shown are Set Point (SP), Current Value (CV) and control Output (CO) for the Left and Right motors.</p>
 <p><img src="SmartCar_PIDsetup.png" alt="" class="inline" title="SmartCar SerialStudio Dashboard"/></p>
 <p>The default PID values in the SmartCar_HW header file should be a good starting point for the PID motor settings - expect to have a high Kp, no Ki and a relatively small Kd (this is really a PD controller). PID values can be set independently for Left and Right motors if required. In most cases the same PID setup for both motors should be adequate.</p>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('page_setup_p_i_d.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon May 31 2021 14:18:50 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -125,7 +125,7 @@ public:
    * Initialize the object data. This needs to be called during setup() to reset new
    * data for the class that cannot be done during the object creation.
    *
-   * \return true if initialisation succeeded
+   * \return true if initialization succeeded
    */
   virtual bool begin(void) = 0;
   
@@ -224,7 +224,7 @@ public:
    * Initialize the object data. Sets up the pins for output and puts the 
    * controlled in a stopped position.
    * 
-   * \return true if initialisation succeeded
+   * \return true if initialization succeeded
    */
   bool begin(void);
 
@@ -323,7 +323,7 @@ public:
    * Initialize the object data. Sets up the pins for output and puts the
    * controlled in a stopped position.
    *
-   * \return true if initialisation succeeded
+   * \return true if initialization succeeded
    */
   bool begin(void);
 

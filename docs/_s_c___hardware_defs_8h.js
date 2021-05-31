@@ -1,13 +1,13 @@
 var _s_c___hardware_defs_8h =
 [
-    [ "CONTROLLER_L29x", "_s_c___hardware_defs_8h.html#a41d486a62e57761c4f60755ecaceba47", null ],
-    [ "CONTROLLER_MX1508", "_s_c___hardware_defs_8h.html#a2906d6bb79abb0cdef429ad8b3c588aa", null ],
     [ "DefKd", "_s_c___hardware_defs_8h.html#aaf6f26c91ebd397ae984c19aacb51c03", null ],
     [ "DefKi", "_s_c___hardware_defs_8h.html#a7db2ab99efe188b5be111fc192e6549b", null ],
     [ "DefKp", "_s_c___hardware_defs_8h.html#a5cde3ab8477db40b8fb26ceb6c156536", null ],
     [ "EEPROM_ADDR", "_s_c___hardware_defs_8h.html#af8c40339b8cf0f84da4acf804e30abea", null ],
     [ "EN_L_PIN", "_s_c___hardware_defs_8h.html#ab70f24a604468dcebc91324f657cf773", null ],
     [ "EN_R_PIN", "_s_c___hardware_defs_8h.html#a8378f7c17c4f8583d0d5ffc29e400df1", null ],
+    [ "MC_ENA_PIN", "_s_c___hardware_defs_8h.html#ac33a37e65dd8f2136b42a17661fa7d40", null ],
+    [ "MC_ENB_PIN", "_s_c___hardware_defs_8h.html#af68cc103b6995fbb83bb2be6c45cfb97", null ],
     [ "MC_INA1_PIN", "_s_c___hardware_defs_8h.html#aa90839f10f0c49c1705d4cfd44876c82", null ],
     [ "MC_INA2_PIN", "_s_c___hardware_defs_8h.html#a41b944c330acb32d08d2df1d1362c00f", null ],
     [ "MC_INB1_PIN", "_s_c___hardware_defs_8h.html#a1d21e811759dfcf94cb09f349f84df3b", null ],

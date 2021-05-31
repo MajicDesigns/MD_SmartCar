@@ -79,6 +79,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 \page pageRevisionHistory Revision History
+May 2021 version 1.0.1
+- Eliminated motor controller type define in library header
+
 Apr 2021 version 1.0.0
 - Initial release
  */

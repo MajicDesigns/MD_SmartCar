@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pid_5ftune_280',['PID_TUNE',['../_m_d___smart_car_8h.html#a92612fb63d8c021050638e751714cde5',1,'MD_SmartCar.h']]]
+  ['scdebug_281',['SCDEBUG',['../_m_d___smart_car_8h.html#a516ea70350646db58405ab943a17c85c',1,'MD_SmartCar.h']]]
 ];

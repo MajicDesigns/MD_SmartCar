@@ -90,20 +90,20 @@ $(document).ready(function(){initNavTree('page_setup_control.html',''); initResi
 <div class="contents">
 <div class="textblock"><p>This final phase is all about testing the vehicle 'in real life' as it moves about on the floor. The dynamics of this situation are likely to be different from the bench testing previously done, so some additional tuning may be necessary.</p>
 <p>The step uses the <b>Setup_Control</b> example sketch and the related App Inventor 2 (AI2, see <a href="http://ai2.appinventor.mit.edu/">http://ai2.appinventor.mit.edu/</a>) "Setup Control" application found in the example sketch folder. The AI2 application provides a GUI front end for commands through a Bluetooth interface. The same commands could be issued from the Serial Monitor (or other Terminal program) connected through a Bluetooth serial port.</p>
-<p>The AI2 application has a main menu leading to a displays for controlling drive() and move(), a Terminal to monitor message from the vehicle and a setup display for changing config parameters. The current parameter settings are shown in the setup screen's terminal window.</p>
+<p>The AI2 application has a main menu leading to a displays for controlling drive() and move(), a Terminal to monitor messages from the vehicle and a setup display for changing config parameters. The current parameter settings are shown in the setup screen's terminal window and can be changed from there.</p>
 <p><img src="SmartCar_AI2SetupControl.jpg" alt="" class="inline" title="SmartCar AI2 Setup Control"/></p>
 <h4>Tuning spin() derating factor</h4>
 <p>This is the last of the setup parameters. When the vehicle executes a spin() and then stops, it will continue to move for a short time due to angular inertia. This parameter is a 'fudge' factor to stop the motion before the actual end (derate) so that the vehicle will coast to approximately the right spot. The factor is the fraction of the full rotation motion (for example, 0.7 will stop the motion 70% through the required steps).</p>
 <p>This parameter set up is a compromise between long rotations (more momentum) and short ones (less momentum).</p>
 <h4>Checking <a class="el" href="class_m_d___smart_car.html#a95dc6577c747afbc70a179b951c8c782">MD_SmartCar::drive()</a> kicker, <a class="el" href="class_m_d___smart_car.html#aa8b0d65f25ba30846e67fe78d3266a8c">MD_SmartCar::move()</a> and PID parameters</h4>
-<p>A final check of these parameters in action with the vehicle moving its own weight around. The parameters can be modified from the setup screen of ther AI2 app. </p>
+<p>A final check of these parameters in action with the vehicle moving its own weight around. The parameters can be modified from the setup screen of ther AI2 app if they need further tuning. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Apr 20 2021 13:06:55 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon May 31 2021 14:18:50 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

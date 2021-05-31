@@ -7,7 +7,7 @@ var indexSectionsWithContent =
   4: "_cdekmops",
   5: "acmr",
   6: "ademoprsu",
-  7: "cmnpsu",
+  7: "mnpsu",
   8: "acdhmprstu"
 };
 

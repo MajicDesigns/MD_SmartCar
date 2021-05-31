@@ -1,6 +1,6 @@
 // Test MD_SmartCar class through a Bluetooth interface to 
 // an AI2 control application using a HC-05 BT module that has 
-// been pre-initialized and paired to the controller.
+// been pre-initialized and paired to the BT master.
 //
 // This is to test 'real-world' motion after the vehicle 
 // parameters have been calibrated.
@@ -19,14 +19,13 @@
 #define ECHO_COMMAND 0    // Echo commands to the Serial stream for debugging
 
 // Global Variables
-#if CONTROLLER_L29x
-SC_DCMotor_L29x ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
-SC_DCMotor_L29x MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
-#endif
-#if CONTROLLER_MX1508
+// L29x type motor controller
+//SC_DCMotor_L29x ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
+//SC_DCMotor_L29x MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
+
+// MX1508 type motor controller
 SC_DCMotor_MX1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
 SC_DCMotor_MX1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
-#endif
 
 SC_MotorEncoder EL(EN_L_PIN);         // Left motor encoder
 SC_MotorEncoder ER(EN_R_PIN);         // Right motor encoder

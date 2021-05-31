@@ -40,14 +40,13 @@ bool showSonar = false;
 #endif
 
 // Global Variables
-#if CONTROLLER_L29x
-SC_DCMotor_L29x ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
-SC_DCMotor_L29x MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
-#endif
-#if CONTROLLER_MX1508
+// L29x type motor controller
+//SC_DCMotor_L29x ML(MC_INB1_PIN, MC_INB2_PIN, MC_ENB_PIN);  // Left motor
+//SC_DCMotor_L29x MR(MC_INA1_PIN, MC_INA2_PIN, MC_ENA_PIN);  // Right motor
+
+// MX1508 type motor controller
 SC_DCMotor_MX1508 ML(MC_INB1_PIN, MC_INB2_PIN);  // Left motor
 SC_DCMotor_MX1508 MR(MC_INA1_PIN, MC_INA2_PIN);  // Right motor
-#endif
 
 SC_MotorEncoder EL(EN_L_PIN);       // Left motor encoder
 SC_MotorEncoder ER(EN_R_PIN);       // Right motor encoder
