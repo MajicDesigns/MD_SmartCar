@@ -79,6 +79,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 \page pageRevisionHistory Revision History
+xxx 2021 Version 1.1.0
+- Improved & corrected spin() algorithm.
+
 Jul 2021 Version 1.0.2
 - Minor updates
 

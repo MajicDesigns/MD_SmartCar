@@ -600,25 +600,33 @@ void MD_SmartCar::move(float angL, float angR)
 }
 
 void MD_SmartCar::spin(int16_t fraction)
+// A spin is a symmetrical move() about the center of the rover, 
+// so work out the maths on opposing wheel rotations and and then 
+// invoke move() with the calculated angles.
 {
+  int8_t dirL = 1, dirR = 1;
+
   SCPRINT("\n** SPIN f:", fraction);
 
   // Work out the wheel directions
-  _mData[MLEFT].direction = (fraction > 0.0 ? SC_DCMotor::DIR_FWD : SC_DCMotor::DIR_REV);
-  _mData[MRIGHT].direction = (fraction > 0.0 ? SC_DCMotor::DIR_REV : SC_DCMotor::DIR_FWD);
+  if (fraction < 0.0) dirL = -1;
+  if (fraction > 0.0) dirR = -1;
   if (fraction < 0.0) fraction = -fraction; // absolute value
 
-  // set the motor PWM setpoint
-  _mData[MLEFT].sp = _mData[MRIGHT].sp = getMoveSP();
+  // Convert fraction into number of encoder pulses. 
+  // Both wheels will turn the same number of pulses in opposite directions.
+  // 
+  // Fractional Circle distance in pulses = PI * base_length_in_pulses * (fraction / 100)
+  // Fractional Wheel Distance traveled = PI * wheel_diameter_in_pulses * (Wheel_fraction / 100)
+  // 
+  // These need to be the same, so equating and simplifying:
+  // Wheel_fraction = (base_length_in_pulses * fraction)/wheel_diameter_in_pulses.
+  // 
+  // Wheel_fraction then converted to wheel rotation angle in radians.
+  float angle = 2.0 * PI * (fraction / 100.0) * (_lenBaseP / _diaWheelP) * _config.spinAdjust;
+  SCPRINT(" wheel angle ", angle);
 
-  // Convert fraction into number of encoder pulses. Both wheels will 
-  // turn the same number of pulses.
-  // Circle distance in pulses = PI * base length (diameter) in pulses
-  _mData[MLEFT].cv = _mData[MRIGHT].cv = ((PI * _lenBaseP * fraction) / 100.0) * _config.spinAdjust;
-  SCPRINT(" pulses ", _mData[MLEFT].cv);
-
-  // finally, set it up for the FSM to execute
-  _mData[MLEFT].state = _mData[MRIGHT].state = S_MOVE_INIT;
+  move(dirL * angle, dirR * angle);
 }
 
 void MD_SmartCar::stop(void)
