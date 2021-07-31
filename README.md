@@ -9,3 +9,14 @@ This library is designed around a commonly obtainable 2 wheel drive (plus idler 
 [Library Documentation](https://majicdesigns.github.io/MD_SmartCar/)
 
 If you like and use this library please consider making a small donation using [PayPal](https://paypal.me/MajicDesigns/4USD)
+
+## Blog Articles about this software/hardware
+[Hardware Considerations](https://arduinoplusplus.wordpress.com/2021/05/06/basic-smartcar-bot-1/)
+
+[Sensors](https://arduinoplusplus.wordpress.com/2021/05/20/basic-smartcar-bot-2/)
+
+[Control using the Library](https://arduinoplusplus.wordpress.com/2021/06/10/basic-smartcar-bot-3/)
+
+[Configuring the Library](https://arduinoplusplus.wordpress.com/2021/06/24/basic-smartcar-bot-part-4/)
+
+[Implementing a Roving Bot](https://arduinoplusplus.wordpress.com/2021/07/15/basic-smartcar-bot-random-rover/)

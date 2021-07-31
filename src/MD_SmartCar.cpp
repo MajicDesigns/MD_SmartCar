@@ -600,8 +600,8 @@ void MD_SmartCar::move(float angL, float angR)
 }
 
 void MD_SmartCar::spin(int16_t fraction)
-// A spin is a symmetrical move() about the center of the rover, 
-// so work out the maths on opposing wheel rotations and and then 
+// A spin is a symmetrical move() about the center of rotation, 
+// so work out the maths on opposing wheel rotations and then 
 // invoke move() with the calculated angles.
 {
   int8_t dirL = 1, dirR = 1;

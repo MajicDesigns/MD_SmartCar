@@ -590,7 +590,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the maximum motor setpoint.</p>
+<p>Get the maximum motor set point.</p>
 <p>Get the currently configured maximum set point. The units are meaningful to the motor controller (eg, PWM setting).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a61269ad33e920b183cc3644b4053999b">setMaxMotorSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>speed units currently configured. </dd></dl>
@@ -612,7 +612,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the minimum motor setpoint.</p>
+<p>Get the minimum motor set point.</p>
 <p>Get the currently configured minimum set point. The units are meaningful to the motor controller (eg, PWM setting).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a650f461e1251aa8163359db3aaa9a850">setMinMotorSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>speed units currently configured. </dd></dl>
@@ -730,7 +730,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the spin adjustment factor.</p>
-<p>Get the <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> inertia adjustment. When the vehicle is spinning and the motors turn off, it may continue spinning due to its inertia. This factor is applied to proportionatley reduce the pulses used to execute the spin to account for the additional free spin movement after the powered spin stops.</p>
+<p>Get the <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> inertia adjustment. When the vehicle is spinning and the motors turn off, it may continue spinning due to its inertia. This factor is applied to proportionately reduce the pulses used to execute the spin to account for the additional free spin movement after the powered spin stops.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a>, <a class="el" href="class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4">getSpinSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the previously configured spin adjustment. </dd></dl>
 
@@ -800,7 +800,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Check if the current action sequence has completed.</p>
-<p>Once an action sequqnce is started it will automatically execute to completion unless interrupted. This method checks to see if the action sequqnce has completed.</p>
+<p>Once an action sequence is started it will automatically execute to completion unless interrupted. This method checks to see if the action sequence has completed.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#aad5c4e2806d7284283a3ff8e0e21d333">startSequence()</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the sequence has finished executing </dd></dl>
 
@@ -849,7 +849,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Load settings from EEPROM.</p>
-<p>Load the config settings from EEPROM. These will have been saved to EEPROM by <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a>. If there is no currently saved config, defaults are loaded.</p>
+<p>Load the configuration settings from EEPROM. These will have been saved to EEPROM by <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a>. If there is no currently saved settings, defaults are set.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a> </dd></dl>
 
 </div>
@@ -1132,7 +1132,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set the maximum motor setpoint.</p>
+<p>Set the maximum motor set point.</p>
 <p>Set the maximum set point for the motor will turn. This is used as the upper bound by the PID controller. The units are meaningful to the motor controller (eg, PWM setting). This is applicable to all motors.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a650f461e1251aa8163359db3aaa9a850">setMinMotorSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1159,7 +1159,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set the minimum motor setpoint.</p>
+<p>Set the minimum motor set point.</p>
 <p>Set the minimum set point at which the motor will turn. This is used as a lower bound by the PID controller. The units are meaningful to the motor controller (eg, PWM setting). This is applicable to all motors.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#a61269ad33e920b183cc3644b4053999b">setMaxMotorSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1267,7 +1267,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Set the spin adjustment factor.</p>
-<p>Set the <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> inertia adjustment. When the vehicle is spinning and the motors turn off, it may continue spinning due to its inertia. This factor is applied to proportionatley reduce the pulses used to execute the spin to account for the additional free spin movement after the powered spin stops.</p>
+<p>Set the <a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a> inertia adjustment. When the vehicle is spinning and the motors turn off, it may continue spinning due to its inertia. This factor is applied to proportionately reduce the pulses used to execute the spin to account for the additional free spin movement after the powered spin stops.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___smart_car.html#ad50015e2da43dceae8fb696387f023fd">spin()</a>, <a class="el" href="class_m_d___smart_car.html#ae7bed3f412480f55986f0b8f6a4c74c4">getSpinSP()</a>, <a class="el" href="class_m_d___smart_car.html#a5bf2284a065703ec869bc9c28f5cc969">saveConfig()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1473,7 +1473,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_m_d___smart_car.html">MD_SmartCar</a></li>
-    <li class="footer">Generated on Thu Jul 22 2021 15:04:58 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Jul 31 2021 16:32:30 for Smart Car Controller by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

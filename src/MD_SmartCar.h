@@ -35,9 +35,16 @@ The library is designed to control 2 types of autonomous movements:
   Independent control of motor directions and how far it spins are used as 
   control parameters for this mode type of movement.
 - _General movements_ (eg, traveling at a set speed in a set direction),
-  where the ability to move more quickly in an specifed path is important. 
+  where the ability to move more quickly in an specified path is important. 
   This type of movement is managed using the \ref pageControlModel "unicycle 
   model" for control coupled to \ref pagePID "PID control" of the DC motors. 
+
+### Build Articles & Additional Information
+- Part 1 - [Hardware Considerations](https://arduinoplusplus.wordpress.com/2021/05/06/basic-smartcar-bot-1/)
+- Part 2 - [Sensors](https://arduinoplusplus.wordpress.com/2021/05/20/basic-smartcar-bot-2/)
+- Part 3 - [Control using the Library](https://arduinoplusplus.wordpress.com/2021/06/10/basic-smartcar-bot-3/)
+- Part 4 - [Configuring the Library](https://arduinoplusplus.wordpress.com/2021/06/24/basic-smartcar-bot-part-4/)
+- Part 5 - [Implementing a Roving Bot](https://arduinoplusplus.wordpress.com/2021/07/15/basic-smartcar-bot-random-rover/)
 
 ### Library Topics
 - \subpage pageUsingLibrary
@@ -79,8 +86,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 \page pageRevisionHistory Revision History
-xxx 2021 Version 1.1.0
-- Improved & corrected spin() algorithm.
+Aug 2021 Version 1.1.0
+- Improved & corrected spin() algorithm
+- Updated and corrected documentation
 
 Jul 2021 Version 1.0.2
 - Minor updates
@@ -179,7 +187,7 @@ public:
   typedef struct 
   {
     actionId_t opId;          ///< id for the action specified by this item
-    float parm[MAX_MOTOR];    ///< function paremeter
+    float parm[MAX_MOTOR];    ///< function parameter
   } actionItem_t;
 
   /** @} */
@@ -539,9 +547,9 @@ public:
   /**
    * Check if the current action sequence has completed.
    * 
-   * Once an action sequqnce is started it will automatically execute to 
+   * Once an action sequence is started it will automatically execute to 
    * completion unless interrupted. This method checks to see if the
-   * action sequqnce has completed.
+   * action sequence has completed.
    * 
    * \sa startSequence()
    * 
@@ -557,9 +565,9 @@ public:
    /**
     * Load settings from EEPROM.
     *
-    * Load the config settings from EEPROM. These will have been saved
-    * to EEPROM by saveConfig(). If there is no currently saved config,
-    * defaults are loaded.
+    * Load the configuration settings from EEPROM. These will have been saved
+    * to EEPROM by saveConfig(). If there is no currently saved settings,
+    * defaults are set.
     *
     * \sa saveConfig()
     */
@@ -638,7 +646,7 @@ public:
    *
    * Set the spin() inertia adjustment. When the vehicle is spinning
    * and the motors turn off, it may continue spinning due to its inertia.
-   * This factor is applied to proportionatley reduce the pulses used 
+   * This factor is applied to proportionately reduce the pulses used 
    * to execute the spin to account for the additional free spin movement 
    * after the powered spin stops.
    *
@@ -653,7 +661,7 @@ public:
    *
    * Get the spin() inertia adjustment. When the vehicle is spinning
    * and the motors turn off, it may continue spinning due to its inertia.
-   * This factor is applied to proportionatley reduce the pulses used
+   * This factor is applied to proportionately reduce the pulses used
    * to execute the spin to account for the additional free spin movement
    * after the powered spin stops.
    *
@@ -664,7 +672,7 @@ public:
   float getSpinSP(void) { return(_config.spinAdjust); }
 
   /**
-   * Set the minimum motor setpoint.
+   * Set the minimum motor set point.
    *
    * Set the minimum set point at which the motor will turn. This is used 
    * as a lower bound by the PID controller. The units are meaningful to the 
@@ -677,7 +685,7 @@ public:
   void setMinMotorSP(uint8_t units);
 
   /**
-   * Set the maximum motor setpoint.
+   * Set the maximum motor set point.
    *
    * Set the maximum set point for the motor will turn. This is used
    * as the upper bound by the PID controller. The units are meaningful 
@@ -691,7 +699,7 @@ public:
   void setMaxMotorSP(uint8_t units);
 
   /**
-   * Get the minimum motor setpoint.
+   * Get the minimum motor set point.
    *
    * Get the currently configured minimum set point. The units are 
    * meaningful to the motor controller (eg, PWM setting).
@@ -703,7 +711,7 @@ public:
   uint8_t getMinMotorSP(void) { return(_config.minPWM); }
 
   /**
-   * Get the maximum motor setpoint.
+   * Get the maximum motor set point.
    *
    * Get the currently configured maximum set point. The units are
    * meaningful to the motor controller (eg, PWM setting).
@@ -799,7 +807,7 @@ private:
   uint16_t _lenBase;      ///< Base length in mm (distance between wheel centers)
   uint16_t _ppsMax;       ///< Encoder maximum pulse per second (full speed reading)
 
-  float _lenPerPulse;     ///< Length travelled per pulse of wheel revolution
+  float _lenPerPulse;     ///< Length traveled per pulse of wheel revolution
   float _diaWheelP;       ///< Wheel diameter in pulses (calculated)
   float _lenBaseP;        ///< Base Length in pulses (calculated)
 
@@ -823,14 +831,14 @@ private:
   // Configuration data that is saved to EEPROM
   struct
   {
-    uint8_t sig[2];       ///< config signature bytes
+    uint8_t sig[2];       ///< configuration signature bytes
 
     // PWM values
     uint8_t minPWM;       ///< the min PWM setting for DC motors
     uint8_t maxPWM;       ///< the max PWM setting for DC motors
     uint8_t movePWM;      ///< the creep PWM setting for DC motors
     uint8_t kickerPWM;    ///< kicker to overcome static friction from stop position
-    float spinAdjust;     ///< spin intertia adjustment
+    float spinAdjust;     ///< spin inertia adjustment
 
     // PID values
     float Kp[MAX_MOTOR];  ///< PID parameter per motor
